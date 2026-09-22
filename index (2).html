@@ -1,0 +1,1939 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Gaslight">
+<meta name="theme-color" content="#F4F4F0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="An interactive SQA Higher English revision app: Jekyll and Hyde, Hamlet, RUAE and the portfolio.">
+<style>
+:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;background:#F4F4F0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Gaslight — Higher English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Spectral:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F4F4F0; --card:#FFFFFF; --card-2:#FAFAF7;
+  --ink:#171C22; --ink-2:#4A5560; --ink-3:#7A848E;
+  --rule:#DDDDD5; --rule-2:#EAEAE3;
+  --brass:#8A6113; --brass-ink:#5E4209; --brass-soft:#F2E8D0;
+  --claret:#7E2B33; --claret-soft:#F6E3E2;
+  --sage:#3B6849; --sage-soft:#E2EFE5;
+  --indigo:#2C4A6E; --indigo-soft:#E2E9F2;
+  --shadow:0 1px 2px rgba(23,28,34,.06), 0 6px 18px rgba(23,28,34,.05);
+  --shadow-lift:0 2px 6px rgba(23,28,34,.10), 0 14px 34px rgba(23,28,34,.10);
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"Spectral",Georgia,"Times New Roman",serif;
+  --display:"Fraunces","Spectral",Georgia,serif;
+  --tab-h:60px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#10141A; --card:#191E26; --card-2:#1F252E;
+    --ink:#E9E7E1; --ink-2:#A8AFB8; --ink-3:#78828D;
+    --rule:#2A313B; --rule-2:#232A33;
+    --brass:#D9A441; --brass-ink:#EFC978; --brass-soft:#2B2418;
+    --claret:#E08E93; --claret-soft:#2E1C1E;
+    --sage:#7FB392; --sage-soft:#182620;
+    --indigo:#93B6DE; --indigo-soft:#172231;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.28);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.4), 0 14px 34px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10141A; --card:#191E26; --card-2:#1F252E;
+  --ink:#E9E7E1; --ink-2:#A8AFB8; --ink-3:#78828D;
+  --rule:#2A313B; --rule-2:#232A33;
+  --brass:#D9A441; --brass-ink:#EFC978; --brass-soft:#2B2418;
+  --claret:#E08E93; --claret-soft:#2E1C1E;
+  --sage:#7FB392; --sage-soft:#182620;
+  --indigo:#93B6DE; --indigo-soft:#172231;
+  --shadow:0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.28);
+  --shadow-lift:0 2px 6px rgba(0,0,0,.4), 0 14px 34px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  -webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,textarea,select{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;text-wrap:balance;font-family:var(--display);font-weight:700;letter-spacing:-.012em}
+p{margin:0}
+:focus-visible{outline:2.5px solid var(--brass);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ---------- shell ---------- */
+#shell{display:flex;flex-direction:column;min-height:100%}
+.topbar{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:40;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 16px; background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--rule);
+}
+.brand{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+.brand b{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.02em}
+.brand span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+.spacer{flex:1}
+.flamechip{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;
+  background:var(--brass-soft);color:var(--brass-ink);font-size:12.5px;font-weight:600;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.iconbtn{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--ink-2)}
+.iconbtn:hover{background:var(--rule-2)}
+main{flex:1;padding:16px 16px calc(var(--tab-h) + 60px + env(safe-area-inset-bottom,0px));max-width:760px;width:100%;margin:0 auto}
+
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter:blur(14px);border-top:1px solid var(--rule);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.tabbar button{
+  height:var(--tab-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  font-size:10.5px;font-weight:500;color:var(--ink-3);letter-spacing:.01em;
+}
+.tabbar button svg{width:21px;height:21px}
+.tabbar button[aria-current="true"]{color:var(--brass)}
+.tabbar button[aria-current="true"] .dot{opacity:1}
+.dot{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:0;margin-top:-1px}
+
+/* ---------- type ---------- */
+.eyebrow{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.h-page{font-size:26px;line-height:1.14;margin:2px 0 4px}
+.h-sec{font-size:19px;line-height:1.2}
+.sub{color:var(--ink-2);font-size:14px}
+.prose{font-family:var(--serif);font-size:16.5px;line-height:1.62;color:var(--ink)}
+.prose p+p{margin-top:.8em}
+.prose em{font-style:italic}
+.tiny{font-size:12px;color:var(--ink-3)}
+.mono-num{font-variant-numeric:tabular-nums}
+
+/* ---------- blocks ---------- */
+.stack{display:flex;flex-direction:column;gap:14px}
+.stack-s{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:10px}
+.wrap{display:flex;flex-wrap:wrap;gap:8px}
+
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.card.flat{box-shadow:none;background:var(--card-2)}
+.panel{border-top:1px solid var(--rule);padding-top:14px}
+
+.pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.pill.essay{background:var(--claret-soft);color:var(--claret)}
+.pill.ruae{background:var(--indigo-soft);color:var(--indigo)}
+.pill.scottish{background:var(--brass-soft);color:var(--brass-ink)}
+.pill.folio{background:var(--sage-soft);color:var(--sage)}
+.pill.ghost{background:var(--rule-2);color:var(--ink-2)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 18px;border-radius:11px;font-size:15px;font-weight:600;
+  background:var(--ink);color:var(--paper);min-height:46px;
+  transition:transform .12s ease, opacity .12s ease;
+}
+.btn:active{transform:scale(.985)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn.secondary{background:var(--card);color:var(--ink);border:1px solid var(--rule)}
+.btn.brass{background:var(--brass);color:#fff}
+:root[data-theme="dark"] .btn.brass, :root:not([data-theme="light"]) .btn.brass{color:#181207}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .btn.brass{color:#fff}}
+.btn.small{padding:8px 13px;min-height:38px;font-size:13.5px;border-radius:9px}
+.btn.full{width:100%}
+
+.link{color:var(--brass);font-weight:600;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1.5px}
+
+/* countdown strip */
+.countdown{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.countdown div{background:var(--card);padding:13px 14px}
+.countdown .n{font-family:var(--display);font-size:25px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.countdown .l{font-size:10.5px;color:var(--ink-3);margin-top:6px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;white-space:nowrap}
+.countdown .approx{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink-3);vertical-align:2px;margin-right:1px}
+
+/* list rows */
+.rows{border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card)}
+.rowitem{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;border-bottom:1px solid var(--rule-2)}
+.rowitem:last-child{border-bottom:none}
+.rowitem:active{background:var(--card-2)}
+.rowitem .grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.rowitem .t{display:block;font-weight:600;font-size:15px;line-height:1.3}
+.rowitem .d{display:block;font-size:12.5px;line-height:1.35;color:var(--ink-3)}
+.chev{color:var(--ink-3);flex:none}
+.tick{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);flex:none;display:grid;place-items:center;color:transparent}
+.tick.on{background:var(--sage);border-color:var(--sage);color:#fff}
+
+/* progress bar */
+.bar{height:6px;border-radius:999px;background:var(--rule-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brass);border-radius:999px;transition:width .4s ease}
+.bar.sage i{background:var(--sage)}
+
+/* extract / quotation */
+.extract{
+  font-family:var(--serif);font-size:15.5px;line-height:1.66;
+  background:var(--card-2);border:1px solid var(--rule);border-left:3px solid var(--brass);
+  border-radius:0 12px 12px 0;padding:14px 15px;color:var(--ink);
+  max-height:none;
+}
+.extract p+p{margin-top:.75em}
+.extract .ln{color:var(--ink-3);font-family:var(--sans);font-size:10.5px;font-variant-numeric:tabular-nums}
+.quote{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.5}
+
+/* question card */
+.qcard{background:var(--card);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow-lift);overflow:hidden}
+.qcard .qhead{padding:14px 16px;border-bottom:1px solid var(--rule-2);display:flex;align-items:center;gap:8px}
+.qcard .qbody{padding:16px}
+.marks{margin-left:auto;font-size:12px;font-weight:700;color:var(--ink-2);background:var(--rule-2);padding:3px 9px;border-radius:999px;white-space:nowrap}
+
+.opt{
+  display:block;width:100%;text-align:left;padding:13px 14px;border:1.5px solid var(--rule);
+  border-radius:11px;background:var(--card);font-size:14.5px;line-height:1.4;transition:all .15s ease
+}
+.opt:active{transform:scale(.99)}
+.opt.correct{border-color:var(--sage);background:var(--sage-soft)}
+.opt.wrong{border-color:var(--claret);background:var(--claret-soft)}
+.opt.dim{opacity:.5}
+
+textarea.answer{
+  width:100%;min-height:150px;padding:13px;border-radius:12px;border:1.5px solid var(--rule);
+  background:var(--card-2);font-family:var(--serif);font-size:16px;line-height:1.6;resize:vertical;
+}
+textarea.answer:focus{border-color:var(--brass);outline:none;background:var(--card)}
+.wordcount{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+/* feedback */
+.fb{border-radius:12px;padding:14px;border:1px solid var(--rule);background:var(--card-2)}
+.fb.good{border-color:color-mix(in srgb,var(--sage) 45%,var(--rule));background:var(--sage-soft)}
+.fb h4{font-family:var(--sans);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--ink-2);margin-bottom:6px}
+.fb ul{margin:0;padding-left:18px}
+.fb li{margin:4px 0;font-size:14.5px;line-height:1.45}
+.scoreline{display:flex;align-items:baseline;gap:9px;margin-bottom:8px}
+.scoreline b{font-family:var(--display);font-size:30px;line-height:1;font-weight:700}
+
+/* band table */
+.bands{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.band{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:11px 13px;border-bottom:1px solid var(--rule-2);font-size:13.5px;line-height:1.4}
+.band:last-child{border-bottom:none}
+.band b{font-family:var(--display);font-size:15px;font-variant-numeric:tabular-nums}
+.band.hi{background:var(--brass-soft)}
+
+/* flip card */
+.flip{border:1px solid var(--rule);border-radius:14px;background:var(--card);padding:20px 16px;min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:10px;text-align:center}
+
+/* chips scroller */
+.chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin:0 -16px;padding-inline:16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:7px 13px;border-radius:999px;border:1px solid var(--rule);background:var(--card);font-size:13px;font-weight:500;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* accordion */
+.acc{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--card)}
+.acc summary{padding:13px 14px;font-weight:600;font-size:14.5px;cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";margin-left:auto;color:var(--ink-3);font-size:18px;line-height:1}
+.acc[open] summary::after{content:"–"}
+.acc .accbody{padding:0 14px 14px;font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+.acc .accbody strong{color:var(--ink)}
+
+/* confidence dots */
+.conf{display:flex;gap:5px}
+.conf button{width:27px;height:27px;border-radius:8px;border:1.5px solid var(--rule);font-size:12px;font-weight:600;color:var(--ink-3);display:grid;place-items:center}
+.conf button[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:#fff}
+
+/* tutor sheet */
+.sheet{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;background:var(--paper)}
+.sheet .sheethead{display:flex;align-items:center;gap:10px;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--rule)}
+.sheet .sheetbody{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.sheet .sheetfoot{border-top:1px solid var(--rule);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:flex-end;background:var(--card)}
+.sheet .sheetfoot textarea{flex:1;min-height:44px;max-height:130px;padding:11px 12px;border-radius:12px;border:1px solid var(--rule);background:var(--card-2);resize:none;font-family:var(--sans);font-size:15px}
+.bubble{max-width:92%;padding:11px 14px;border-radius:15px;font-size:15px;line-height:1.5;white-space:pre-wrap}
+.bubble.me{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:5px}
+.bubble.ai{align-self:flex-start;background:var(--card);border:1px solid var(--rule);border-bottom-left-radius:5px}
+.fab{
+  position:fixed;right:16px;bottom:calc(var(--tab-h) + 14px + env(safe-area-inset-bottom,0px));z-index:45;
+  height:48px;padding:0 17px;border-radius:999px;background:var(--brass);color:#fff;
+  font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lift)
+}
+:root[data-theme="dark"] .fab,:root:not([data-theme="light"]) .fab{color:#181207}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .fab{color:#fff}}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--tab-h) + 22px + env(safe-area-inset-bottom,0px));z-index:95;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:13.5px;font-weight:500;box-shadow:var(--shadow-lift)}
+
+.backlink{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink-3);margin-bottom:10px}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+hr.rule{border:none;border-top:1px solid var(--rule);margin:2px 0}
+.mark-scale{display:flex;gap:4px;flex-wrap:wrap}
+.mark-scale button{flex:1;min-width:34px;padding:9px 0;border:1.5px solid var(--rule);border-radius:9px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.mark-scale button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.timer{font-family:var(--display);font-variant-numeric:tabular-nums;font-size:15px;font-weight:700}
+.timer.warn{color:var(--claret)}
+</style>
+
+</head>
+<body>
+<div id="shell">
+  <header class="topbar">
+    <div class="brand"><b>Gaslight</b><span>Higher English · SQA</span></div>
+    <div class="spacer"></div>
+    <div class="flamechip" id="streakChip">0 day streak</div>
+    <button class="iconbtn" id="themeBtn" aria-label="Switch theme">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+    </button>
+  </header>
+  <main id="view"></main>
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+<button class="fab" id="fab" hidden>
+  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 21l1.9-4.9A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>
+  Ask tutor
+</button>
+<script>
+/* ============================================================
+   GASLIGHT — Higher English tutor
+   Built around SQA Higher English (course spec v6.0):
+   RUAE 30 marks · Critical Reading 40 marks · Portfolio 30 marks
+   Texts: Jekyll & Hyde (Scottish text, prose) + Hamlet (essay, drama)
+   ============================================================ */
+
+const SKILLS = {
+  essay:   { name: 'Critical essay',  short:'Essay',   cls:'essay',    note:'20 marks · Section 2' },
+  ruae:    { name: 'RUAE',            short:'RUAE',    cls:'ruae',     note:'30 marks · own paper' },
+  scottish:{ name: 'Scottish text',   short:'Scottish',cls:'scottish', note:'20 marks · Section 1' },
+  folio:   { name: 'Portfolio',       short:'Folio',   cls:'folio',    note:'30 marks · coursework' }
+};
+
+const COURSE = [
+  { term:'Aug – Oct',  head:'Scottish set text', body:'The Strange Case of Dr Jekyll and Mr Hyde. Gothic and Urban Gothic background, then reading the novel. Weekly RUAE homework starts. Writing-journal pieces build a bank for the folio.' },
+  { term:'Oct – Dec',  head:'Critical essay text', body:'Hamlet. Folio completed this term. Weekly RUAE continues. Prelim revision, including the poem missed in June.' },
+  { term:'January',    head:'Prelim', body:'Full paper conditions. This is the mark that goes on record for appeals, so treat it as the real thing.' },
+  { term:'Jan – Apr',  head:'Second essay text', body:'Either a media text or further poetry. Folio finalised and sent away. Outstanding unit assessments completed. Exam preparation.' },
+  { term:'May',        head:'Exam diet', body:'RUAE (1 h 30) and Critical Reading (1 h 45), on separate days.' }
+];
+
+/* ---------- the rule that decides everything ---------- */
+const GENRE_RULE = 'Jekyll and Hyde is PROSE. If you answer on it in Section 1, Section 2 must not be prose. Hamlet is DRAMA — that pairing is legal and it is the one to rehearse.';
+
+/* ============================================================
+   LESSONS
+   ============================================================ */
+const LESSONS = [
+
+/* ---------------- CRITICAL ESSAY ---------------- */
+{
+  id:'e1', skill:'essay', mins:8,
+  title:'What the 20 marks actually reward',
+  blurb:'Four columns, one holistic judgement — and one gate that can cap you at 9.',
+  sections:[
+    { h:'The grid has four rows', p:'A marker is not counting points. They read the whole essay, then decide which band it sits in across four areas at once.',
+      list:[
+        '<strong>Knowledge and understanding</strong> — do you know the text, and is the evidence you pick the <em>right</em> evidence for this question?',
+        '<strong>Analysis</strong> — do you explain the effect of the writer\'s techniques?',
+        '<strong>Evaluation</strong> — do you show what you got out of the text? A stance.',
+        '<strong>Technical accuracy</strong> — spelling, grammar, sentence construction, punctuation, paragraphing.'
+      ]},
+    { h:'The words that separate the bands', bands:[
+        ['20–19','<b>perceptive</b> knowledge · <b>perceptive</b> selection of evidence · fluent · <b>committed</b> evaluative stance'],
+        ['18–16','<b>secure</b> knowledge · <b>detailed</b> evidence · coherent · <b>engaged</b> stance'],
+        ['15–13','<b>clear</b> knowledge · clear evidence · clearly structured · <b>clear</b> stance'],
+        ['12–10','<b>adequate</b> throughout'],
+        ['9–6','<b>limited</b> throughout'],
+        ['5–0','very little']
+      ], p:'An A is 19–20 out of 20 territory in this section, but the A grade overall is about 70% across the whole course. In practice: aim to live in the 16–20 band and the A takes care of itself.' },
+    { h:'The gate', p:'The marker reads first for two things only: is it technically accurate enough to be understood at first reading, and is it relevant to the question. Fail either and the essay is capped at <strong>9 marks</strong> no matter how much you know. Five minutes of proofreading is worth more than an extra paragraph.' },
+    { h:'Positive marking', p:'Marks are accumulated for what you do well, never deducted for what you get wrong. So a weak sentence does not cost you — but a weak sentence that replaces a strong one does. Every sentence should be earning.' }
+  ],
+  check:{ q:'An essay on Hamlet shows brilliant knowledge but has errors that make several sentences hard to follow on first reading. What is the maximum mark?', options:['20','16','9','13'], answer:2, why:'Failing the minimum technical-accuracy standard caps the essay at 9 marks. This is the single most expensive mistake in the paper.' }
+},
+{
+  id:'e2', skill:'essay', mins:7,
+  title:'Reading the question properly',
+  blurb:'Every question is two tasks joined by "and". Most candidates only do the first.',
+  sections:[
+    { h:'The shape never changes', p:'Every critical essay question in every year follows the same three-part build:',
+      list:[
+        '<strong>Choose a play in which…</strong> — the hook. This tells you which text and which aspect.',
+        '<strong>By referring to appropriate techniques, explain how…</strong> — task one. Analysis of the writer\'s craft.',
+        '<strong>…and discuss how this contributes to your appreciation of the play as a whole.</strong> — task two. Evaluation and the whole text.'
+      ]},
+    { h:'The second half is where the marks are lost', p:'"Contributes to your appreciation of the text as a whole" is not decoration. It is asking: <em>so what?</em> Why does this scene / character / theme matter to the play in its entirety, and what did it give <em>you</em> as a reader?',
+      example:{ bad:'This shows that Hamlet is indecisive.', good:'This hesitation is what makes the play a tragedy of thought rather than of action: Shakespeare makes us complicit in Hamlet\'s delay because we, too, find the Ghost\'s command more troubling the longer we consider it.' } },
+    { h:'"Appropriate techniques" is a warning', p:'It reminds you that a technique appropriate for drama is not appropriate for poetry. For a play, the marker expects: <strong>soliloquy, dramatic irony, key scene, structure, climax, conflict, characterisation, staging, setting, imagery, theme.</strong> Naming "word choice" four times in a drama essay looks like a poetry essay in the wrong room.' },
+    { h:'Two minutes you must spend', p:'Underline the abstract noun in the question (jealousy / loyalty / revelation / vulnerability). Write it at the top of your plan. Then write it, in your own hand, into the last sentence of every paragraph. That single habit is what turns "secure" into "perceptive focus on the demands of the question".' }
+  ],
+  check:{ q:'Which of these sentences is doing the "appreciation of the play as a whole" work?', options:['Shakespeare uses a soliloquy here to reveal Hamlet\'s thoughts.','The word "rank" suggests decay.','Because we hear this doubt before Hamlet ever acts, the whole revenge plot afterwards reads as something he is talking himself into rather than doing.','Hamlet is a tragedy written around 1600.'], answer:2, why:'It links a single moment to the shape and effect of the entire play — and it carries a judgement. That is evaluation, not summary.' }
+},
+{
+  id:'e3', skill:'essay', mins:9,
+  title:'The A-grade paragraph engine',
+  blurb:'Point, evidence, analysis, evaluation, link. Five moves, in order, every time.',
+  sections:[
+    { h:'The five moves', list:[
+        '<strong>Point</strong> — a claim that answers the question, not a plot statement.',
+        '<strong>Evidence</strong> — short, embedded, exactly chosen. Never more than a line.',
+        '<strong>Analysis</strong> — name the technique, then explain the <em>effect</em>. Two or three sentences minimum. This is where "detailed" becomes "perceptive".',
+        '<strong>Evaluation</strong> — what this achieves for the play, or for you as a reader.',
+        '<strong>Link</strong> — the question\'s own words, used as the final clause.'
+      ]},
+    { h:'Worked: Hamlet, "a play which explores loyalty"', p:'Watch the five moves land in order.',
+      worked:[
+        ['Point','Shakespeare uses Horatio to define the loyalty every other character fails to show.'],
+        ['Evidence','Hamlet calls him a man "that is not passion\'s slave".'],
+        ['Analysis','The metaphor of slavery is doing precise work. Everyone else in Elsinore is owned by something — Claudius by ambition, Gertrude by comfort, Laertes by rage, Hamlet himself by grief. Horatio alone is described in terms of what does not own him, so his loyalty is presented not as warmth but as a kind of freedom.'],
+        ['Evaluation','This is why his survival at the end feels necessary rather than accidental: Shakespeare needs one uncorrupted witness left standing to carry the story out of the play.'],
+        ['Link','Loyalty, then, is the one value the tragedy does not destroy, and that is what gives the closing scene its strange steadiness.']
+      ]},
+    { h:'The test for every paragraph', p:'Cover the quotation with your thumb. If the paragraph still makes an argument, you have analysed. If it collapses into "and then this happens", you have retold the plot.' },
+    { h:'How many paragraphs?', p:'Four is the working number for 45 minutes: three substantial ones plus one that complicates or deepens the argument rather than adding a fourth example. Depth outscores coverage every single time.' }
+  ],
+  check:{ q:'What is the fastest way to move a paragraph from "clear analysis" to "perceptive analysis"?', options:['Add a second quotation','Explain more precisely what the technique does to the reader, and why the writer chose it here rather than anywhere else','Use a longer quotation','Name more techniques'], answer:1, why:'Perceptive means precise and earned. Stacking quotations gives breadth; explaining one choice deeply gives depth — and depth is what the top band describes.' }
+},
+{
+  id:'e4', skill:'essay', mins:6,
+  title:'The same quotation at three bands',
+  blurb:'What "clear", "detailed" and "perceptive" look like on the page.',
+  sections:[
+    { h:'The line', p:'Hamlet, Act 1 Scene 2: <em>"How weary, stale, flat and unprofitable / Seem to me all the uses of this world."</em>' },
+    { h:'Around 13 — "clear analysis"', p:'The word choice "weary, stale, flat and unprofitable" shows that Hamlet is depressed and has lost interest in life. This makes the audience feel sorry for him.' },
+    { h:'Around 17 — "detailed analysis"', p:'The list of four adjectives — "weary, stale, flat and unprofitable" — piles one negative on another so that Hamlet\'s exhaustion feels total rather than passing. "Unprofitable" is a commercial word, which suggests he now measures existence itself and finds it worth nothing. The audience is placed inside a grief that has spread beyond his father to the world.' },
+    { h:'Around 19–20 — "perceptive analysis"', p:'The four adjectives descend in register from the human to the accountant\'s ledger: "weary" is felt in the body, "stale" in the senses, "flat" in the mind, and "unprofitable" in the books. Shakespeare lets Hamlet arrive at a balance-sheet verdict on being alive, and the flatness of the line — no metaphor, no music — enacts the deadness it describes. Crucially this comes <em>before</em> the Ghost appears: the audience meets a man already unwilling to live, so the revenge plot never reads as the cause of his despair, only its excuse. It is the reason the play can be a tragedy of thought.' },
+    { h:'What actually changed', list:[
+        'The top version explains the <em>order</em> of the words, not just the words.',
+        'It comments on form (the flatness of the line) as well as content.',
+        'It places the moment in the structure of the whole play.',
+        'It ends on a judgement — "the reason the play can be a tragedy of thought" — which is the evaluative stance the grid asks for.'
+      ]}
+  ],
+  check:{ q:'The 19–20 version does one thing the 17 version never does. What?', options:['Uses a longer quotation','Names more techniques','Connects the moment to the structure and meaning of the whole play, and commits to a judgement','Uses more formal vocabulary'], answer:2, why:'"Perceptive" in the grid pairs with "committed evaluative stance". The top band is not more words — it is a position, argued.' }
+},
+{
+  id:'e5', skill:'essay', mins:6,
+  title:'Openings and closings that score',
+  blurb:'Two paragraphs the marker reads with full attention. Make them count.',
+  sections:[
+    { h:'The introduction: four sentences, no more', list:[
+        '<strong>Title and author</strong>, plus a one-clause description of what kind of play it is.',
+        '<strong>A direct answer to the question</strong> — your line of thought, stated as a claim.',
+        '<strong>Signpost</strong> — the two or three areas you will use to prove it.',
+        '<strong>Stakes</strong> — one clause on why this matters to the play as a whole.'
+      ],
+      example:{ bad:'In this essay I will discuss the play Hamlet by William Shakespeare and how it explores the theme of loyalty. I will look at several characters and techniques.',
+                good:'Shakespeare\'s <em>Hamlet</em> is a revenge tragedy in which almost every relationship is a test of loyalty that somebody fails. Through the contrast between Horatio\'s constancy and the calculated service of Rosencrantz and Guildenstern, and through the soliloquies in which Hamlet interrogates his own loyalty to his father, Shakespeare presents loyalty as the only value in Elsinore that cannot be performed. It is what the play measures every character against.' } },
+    { h:'Never write these', list:['"In this essay I will…" — it spends a sentence announcing rather than arguing.','A biography of the author.','A retelling of the plot.','"There are many techniques used in this play."'] },
+    { h:'The conclusion: three sentences', list:[
+        'Answer the question again — differently worded, sharper than the intro.',
+        'Say what the play does <em>as a whole</em> because of this.',
+        'Your stance: what it gave you. One honest sentence, not "I really enjoyed this play".'
+      ],
+      example:{ bad:'In conclusion, Hamlet is a great play which explores loyalty in many ways, as I have shown above.',
+                good:'Loyalty in <em>Hamlet</em> is finally shown to be unperformable: the moment it is spoken about, it is already compromised. What stays with me is that Shakespeare gives the play\'s last words to the one man who never made a speech about being loyal, and simply was.' } }
+  ],
+  check:{ q:'Which sentence belongs in an A-grade introduction?', options:['I will be discussing three techniques in this essay.','Shakespeare presents loyalty as the only value in Elsinore that cannot be performed.','Hamlet was written by William Shakespeare in about 1600.','Hamlet is a very famous play that many people have studied.'], answer:1, why:'It is a claim — a line of thought the rest of the essay can prove. The others announce, date or flatter; none of them argue.' }
+},
+{
+  id:'e6', skill:'essay', mins:7,
+  title:'Hamlet: mapping the play onto the three questions',
+  blurb:'Whatever comes up, you are answering with the same prepared material.',
+  sections:[
+    { h:'Past questions come in three flavours', p:'Drama questions are always one of: a <strong>character</strong> question, a <strong>key scene</strong> question, or a <strong>theme</strong> question. Prepare four blocks of material and all three are covered.' },
+    { h:'Your four blocks', list:[
+        '<strong>Block A — the soliloquies.</strong> "O that this too too solid flesh", "To be or not to be", "How all occasions do inform against me". Covers: character, theme, structure.',
+        '<strong>Block B — The Mousetrap (III.ii).</strong> Play-within-a-play, dramatic irony, the turning point. Covers: key scene, revelation, appearance vs reality.',
+        '<strong>Block C — the closet scene (III.iv).</strong> Hamlet and Gertrude, the killing of Polonius. Covers: turning point, character, conflict, consequence.',
+        '<strong>Block D — the graveyard and the duel (V).</strong> Yorick, "the readiness is all", the ending. Covers: climax, resolution, theme of mortality, change in the central character.'
+      ]},
+    { h:'Worked mappings', worked:[
+        ['"A central character presented as vulnerable"','Blocks A + C. The soliloquies show vulnerability he chooses to voice; the closet scene shows it breaking out as violence.'],
+        ['"A scene involving a significant revelation or turning point"','Block B, then Block C as consequence. The Mousetrap reveals Claudius\'s guilt to Hamlet — and Hamlet\'s knowledge to Claudius. Both men are now armed.'],
+        ['"A play which explores jealousy or loyalty"','Horatio, Rosencrantz and Guildenstern, Laertes, the Ghost\'s claim on Hamlet. Blocks A + D.'],
+        ['"A scene important to the outcome of the play"','Block C. Polonius\'s death is the hinge: it gives Claudius his pretext, gives Laertes his motive, and drives Ophelia mad.']
+      ]},
+    { h:'Rehearse the pivot, not the essay', p:'Do not memorise an essay — a pre-written essay dropped onto a different question is exactly what "limited focus on the demands of the question" means. Memorise the blocks, and practise the first sentence that bends a block towards a question you have not seen.' }
+  ],
+  check:{ q:'Why is the closet scene (III.iv) the strongest answer to a "scene important to the outcome" question?', options:['It is the longest scene','Polonius\'s death sets off Claudius\'s pretext to remove Hamlet, Laertes\'s revenge and Ophelia\'s madness — three strands of the ending','It contains a famous quotation','It is in the middle of the play'], answer:1, why:'"Important to the outcome" means causally load-bearing. Show three consequences and the importance proves itself.' }
+},
+{
+  id:'e7', skill:'essay', mins:5,
+  title:'45 minutes, spent properly',
+  blurb:'Plan 5, write 35, check 5. The last five are worth the most.',
+  sections:[
+    { h:'Minutes 0–5: the plan', p:'Underline the key word in the question. Write four paragraph points — claims, not topics. Beside each, jot the quotation you will use. If a point has no quotation, drop it now rather than at minute 30.' },
+    { h:'Minutes 5–40: write', p:'Roughly 8 minutes per paragraph. If a paragraph is running long, close it with the link sentence and move. An unfinished essay loses more than a rushed paragraph.' },
+    { h:'Minutes 40–45: the proofread that saves your band', p:'You are hunting one thing only: sentences a stranger would have to read twice. Also check:',
+      list:['Every paragraph ends with the question\'s own words.','Play title underlined or in quotation marks, consistently.','Character names spelled right — Gertrude, Claudius, Rosencrantz, Ophelia, Horatio, Fortinbras.','No sentence longer than three lines without a full stop.'] },
+    { h:'If you run out of time', p:'Stop writing prose and bullet the remaining argument. A marker can award knowledge and analysis marks from clear notes; they can award nothing from a paragraph that stops mid-sentence.' }
+  ],
+  check:{ q:'You are at minute 40 with one paragraph still to write. Best move?', options:['Write it fast and skip proofreading','Bullet the final argument clearly, then proofread','Leave it out entirely','Write a long conclusion instead'], answer:1, why:'Bulleted argument still earns knowledge and analysis marks. Skipping the proofread risks the technical-accuracy cap, which costs far more.' }
+},
+
+/* ---------------- RUAE ---------------- */
+{
+  id:'r1', skill:'ruae', mins:7,
+  title:'How RUAE marks are actually awarded',
+  blurb:'One principle explains almost every mark you have ever lost.',
+  sections:[
+    { h:'The principle', p:'<strong>No marks are ever given for identifying an example on its own.</strong> Marks are given for the <em>analytical comment</em> that accompanies it. Generally: 1 mark for a basic comment, 2 marks for a detailed or insightful one.' },
+    { h:'So a 4-mark analysis question is', list:[
+        'Two references, each with a detailed comment (2 + 2), <strong>or</strong>',
+        'Four references each with a basic comment (1 + 1 + 1 + 1), <strong>or</strong>',
+        'Any mix that adds to 4.'
+      ], p:'Two strong comments are faster and safer than four thin ones. But if a question says "by referring to at least two examples", you must give at least two — one brilliant comment caps at 2.' },
+    { h:'The shape of a scoring comment', p:'<strong>Quote → name the technique → say what it suggests → tie it to the idea in the passage.</strong> The last step is the one most people skip, and it is what turns 1 mark into 2.',
+      example:{ bad:'The writer uses the word "ravenous", which shows they were hungry.', good:'"Ravenous" carries connotations of animal starvation rather than ordinary appetite, suggesting the crowd\'s desire for the artist\'s work had become predatory rather than appreciative — which supports the writer\'s argument that fame consumed him.' } },
+    { h:'Command words', list:[
+        '<strong>Identify</strong> — name it briefly. No analysis needed.',
+        '<strong>Explain / in what way</strong> — make the cause and effect clear. Own words.',
+        '<strong>Analyse</strong> — features of language and their relationship to the ideas.',
+        '<strong>Evaluate</strong> — make a judgement on the effect.'
+      ]}
+  ],
+  check:{ q:'A question is worth 4 marks and says "by referring to at least two examples". You write one outstanding, deeply detailed comment. Maximum mark?', options:['4','3','2','0'], answer:2, why:'One reference can earn at most 2 marks. The instruction "at least two examples" is a floor you must meet — count your references before you move on.' }
+},
+{
+  id:'r2', skill:'ruae', mins:6,
+  title:'"Use your own words" — the translation drill',
+  blurb:'One point per mark. Change every content word the marker is looking at.',
+  sections:[
+    { h:'The rule', p:'A 3-mark own-words question wants <strong>three separate ideas</strong>, each translated. Not three sentences about one idea. Count your marks on your fingers as you write.' },
+    { h:'What counts as "own words"', p:'You may keep names, dates, technical terms with no synonym, and very common words. You must change the words carrying the meaning.',
+      example:{ bad:'The writer says the scheme was implemented hastily and without adequate consultation.', good:'The plan was rushed through, and the people it affected were not properly asked first.' } },
+    { h:'A method that works under pressure', list:[
+        'Find the lines. Count the marks. That is how many ideas you need.',
+        'Put a slash in the margin at each separate idea in the passage.',
+        'Cover the passage with your hand.',
+        'Write each idea from memory. Memory forces translation automatically.'
+      ]},
+    { h:'The trap', p:'"Explain <em>fully</em>" means the examiner thinks there is more in there than you will see at first glance. When you see "fully", go back and look for the second half of the idea — usually a consequence, a contrast, or a reason.' }
+  ],
+  check:{ q:'A question asks you to "explain two reasons" and is worth 2 marks. What does a complete answer look like?', options:['One long, detailed paragraph about the main reason','Two distinct reasons, each in your own words','Two quotations from the passage','One reason plus a quotation'], answer:1, why:'Marks map to ideas. Two marks, two reasons, both translated — quotations earn nothing in an own-words question.' }
+},
+{
+  id:'r3', skill:'ruae', mins:8,
+  title:'Imagery: the transfer method',
+  blurb:'Literal root first, then the transfer. Miss the root, cap at 1 mark.',
+  sections:[
+    { h:'Three sentences, always in this order', list:[
+        '<strong>Name it.</strong> "The writer uses the metaphor of…"',
+        '<strong>Root it.</strong> Just as X literally means / does…',
+        '<strong>Transfer it.</strong> …so the writer suggests that Y is likewise…'
+      ]},
+    { h:'Worked', p:'<em>"The proposal was a Trojan horse, wheeled in past a grateful council."</em>',
+      example:{ bad:'The metaphor "Trojan horse" shows the proposal was sneaky.',
+                good:'The writer uses the metaphor of a "Trojan horse". Literally, a Trojan horse was a gift that concealed an invading army, accepted willingly by the people it destroyed. This suggests the proposal was similarly welcomed by the council precisely because its real purpose was hidden, and that the harm it carried would come from inside their own walls — reinforcing the writer\'s argument that the damage was self-inflicted.' } },
+    { h:'Why "wheeled in past a grateful council" matters', p:'"Grateful" is doing as much work as the metaphor. Top answers notice that the image is extended — the writer keeps the comparison running — and say so. Extended imagery is worth commenting on as a structural choice, not just a word.' },
+    { h:'Personification, simile, symbol', p:'Same three steps. The only change is the naming. For personification, say what human quality is given and what that implies about the thing — usually that it has agency or menace it should not have.' }
+  ],
+  check:{ q:'Why does "the metaphor shows the proposal was sneaky" only earn 1 mark at best?', options:['It is too short','It never explains the literal meaning of the image, so the transfer is asserted rather than shown','"Sneaky" is too informal','It does not include a quotation'], answer:1, why:'The root is the evidence for the transfer. Without it you have named a technique and guessed an effect — the definition of a basic comment.' }
+},
+{
+  id:'r4', skill:'ruae', mins:8,
+  title:'Sentence structure: name the feature, then the effect',
+  blurb:'The one question type where you must not talk about word meaning.',
+  sections:[
+    { h:'Features worth knowing cold', list:[
+        '<strong>Short/minor sentence</strong> — abruptness, emphasis, finality.',
+        '<strong>List</strong> — accumulation; the sheer number is the point.',
+        '<strong>Climax</strong> — a list building to its most important item last.',
+        '<strong>Anticlimax / bathos</strong> — a list collapsing into something trivial. Usually humour or contempt.',
+        '<strong>Parenthesis</strong> (dashes, brackets, commas) — an aside; adds information or a change of voice without breaking the sentence.',
+        '<strong>Repetition / parallel structure</strong> — insistence, or a pointed comparison between the two halves.',
+        '<strong>Colon</strong> — introduces an explanation, expansion or list. The second half delivers what the first half promised.',
+        '<strong>Semicolon</strong> — balances two equally weighted ideas; often used for contrast.',
+        '<strong>Rhetorical question</strong> — draws the reader into the argument.',
+        '<strong>Inversion</strong> — a word pushed out of its normal place is emphasised.'
+      ]},
+    { h:'The scoring sentence', p:'<strong>"The writer uses [feature] — [quote the structural evidence] — which [effect], emphasising that [idea from the passage]."</strong>' },
+    { h:'Worked', p:'<em>"There were no hearings, no impact study, no vote. Nothing."</em>',
+      example:{ bad:'The short sentence "Nothing." makes it stand out.',
+                good:'The writer uses a list of three negatives — "no hearings, no impact study, no vote" — whose repeated "no" accumulates the absences until the process sounds systematically empty. This is then closed by the minor sentence "Nothing.", whose abruptness delivers the verdict the list was building towards and leaves the reader with the writer\'s judgement rather than the evidence.' } },
+    { h:'The rule that trips everyone', p:'If the question says <em>sentence structure</em>, do not analyse connotation. "The word \'nothing\' suggests emptiness" is a word-choice answer and scores zero on a structure question. Talk about position, length, punctuation, repetition and pattern.' }
+  ],
+  check:{ q:'On a sentence-structure question, which comment scores?', options:['"Brutal" has connotations of violence.','The one-word sentence placed after a long, clause-heavy sentence makes the judgement land with sudden force.','The writer uses emotive language to persuade us.','The metaphor compares the policy to a storm.'], answer:1, why:'It talks about length and position — structure. The others are word choice, tone and imagery, none of which the question asked for.' }
+},
+{
+  id:'r5', skill:'ruae', mins:6,
+  title:'Link questions and paragraph function',
+  blurb:'Two halves, two jobs. Quote each half and say what it points to.',
+  sections:[
+    { h:'The formula', list:[
+        'Quote the part of the sentence that refers <strong>backwards</strong>, and summarise the idea it is closing off.',
+        'Quote the part that refers <strong>forwards</strong>, and summarise the idea it introduces.'
+      ], p:'Two marks, one for each half. Answer it mechanically — this is the most reliable mark in the paper.' },
+    { h:'Worked', p:'Link sentence: <em>"But if the costs are obvious, the benefits are harder to see."</em>',
+      example:{ good:'"If the costs are obvious" links back to the previous paragraph, which set out the clear financial damage of the scheme. "The benefits are harder to see" introduces the next paragraph, which examines the less visible advantages the writer goes on to argue for. "But" signals the contrast between the two.' } },
+    { h:'"Explain the function of the opening / final paragraph"', p:'Openings: do they set a scene, establish tone, pose a question, or state a position the rest will defend? Say which, with evidence. Closings: do they return to the opening image (circular structure), widen out, or deliver a verdict? Name the effect on the reader.' },
+    { h:'Words that are always doing linking work', p:'However · Yet · But · And so · Nevertheless · In contrast · Meanwhile · Of course · Even so. If one of these opens a paragraph, the question is probably about it.' }
+  ],
+  check:{ q:'What does a 2-mark link answer need?', options:['One long explanation of the sentence','A quotation from each half, with the idea each half connects to','A comment on the writer\'s tone','Three examples of linking words'], answer:1, why:'One mark per half, and each mark needs the quotation plus the idea it points to. Nothing else scores here.' }
+},
+{
+  id:'r6', skill:'ruae', mins:7,
+  title:'The final 5-mark question on both passages',
+  blurb:'Three key areas, evidence from both passages. The most predictable 5 marks in the paper.',
+  sections:[
+    { h:'How it is marked', bands:[
+        ['5','Three key areas, with <b>detailed or insightful</b> supporting evidence'],
+        ['4','Three key areas, with appropriate supporting evidence'],
+        ['3','Three key areas identified'],
+        ['2','Two key areas identified'],
+        ['1','One key area identified'],
+        ['0','No key area identified, or the task misunderstood']
+      ], p:'So identifying three areas alone already banks 3 marks. Evidence lifts you to 4 or 5. Bullet points are explicitly allowed.' },
+    { h:'The grid method', p:'Draw a three-row, two-column grid. Rows = your three areas. Columns = Passage 1 / Passage 2. Fill every box before you write a word of prose. If a box is empty, that area is not one of your three.' },
+    { h:'What counts as a "key area"', p:'A point of substance both writers address — not a technique, and not a detail. Ask: what is the <em>question</em> both writers are answering? Their answers may agree or disagree; the question is the key area.' },
+    { h:'Format that scores fast', p:'<strong>Both writers agree that [key area].</strong> Writer 1 says [own words, brief reference]. Writer 2 similarly argues [own words, brief reference]. Three of those and you are done in ten minutes.' },
+    { h:'Read the instruction', p:'It will say agreement <em>or</em> disagreement. Answering the wrong one is a misunderstanding of the task and scores 0. Circle the word before you start.' }
+  ],
+  check:{ q:'You identify three key areas of agreement but give no supporting evidence. Mark?', options:['0','1','3','5'], answer:2, why:'Three areas identified is worth 3. Every extra minute spent adding brief evidence from both passages is worth up to two more marks — the best rate of return in the paper.' }
+},
+{
+  id:'r7', skill:'ruae', mins:6,
+  title:'Tone, and the words you are allowed to use',
+  blurb:'Name the tone precisely, then prove it from the language.',
+  sections:[
+    { h:'Two moves', list:['Name the tone using a real tone word.','Show how the language creates it — usually word choice, but often sentence structure, punctuation or register clash.'] },
+    { h:'A usable vocabulary', p:'Admiring · scathing · wry · self-deprecating · nostalgic · indignant · detached · conversational · reverent · dismissive · sardonic · urgent · elegiac · playful · matter-of-fact · scornful · affectionate.',
+      note:'"Negative" and "positive" are not tones. They are temperatures.' },
+    { h:'How tone is built', list:[
+        '<strong>Register clash</strong> — formal subject, casual word (or the reverse). Usually humour or contempt.',
+        '<strong>Hyperbole / understatement</strong> — exaggeration for mockery; understatement for dry wit.',
+        '<strong>Direct address and questions</strong> — conversational, or accusatory.',
+        '<strong>Punctuation</strong> — exclamation, dashes, ellipsis. Urgency, interruption, hesitation.',
+        '<strong>Repetition</strong> — insistence, or incantation.'
+      ]},
+    { h:'Worked', p:'<em>"It was, the minister assured us, a world-class strategy. Forty-one pages. Three of them not blank."</em>',
+      example:{ good:'The tone is sardonic. The formal quotation "world-class strategy" is immediately undercut by the minor sentences "Forty-one pages. Three of them not blank.", and the anticlimactic slide from an impressive number to a humiliating one lets the writer mock the claim without ever contradicting it directly.' } }
+  ],
+  check:{ q:'Which is a tone word you can defend in an answer?', options:['Negative','Sardonic','Interesting','Descriptive'], answer:1, why:'Sardonic names a specific attitude you can then evidence. "Negative" is a temperature, and markers do not credit it as a tone.' }
+},
+{
+  id:'r8', skill:'ruae', mins:5,
+  title:'RUAE in 90 minutes: the running order',
+  blurb:'Two passages, 30 marks. Where the time goes.',
+  sections:[
+    { h:'The timing', list:[
+        '<strong>0–8</strong> Read Passage 1 once, fast, for argument. Do not annotate yet.',
+        '<strong>8–45</strong> Answer Passage 1 questions. Roughly 1 minute per mark plus reading time.',
+        '<strong>45–55</strong> Read Passage 2, hunting only for where it touches Passage 1.',
+        '<strong>55–75</strong> The 5-mark comparison, using the grid method.',
+        '<strong>75–90</strong> Return to any question you left. Check every own-words answer for copied phrases.'
+      ]},
+    { h:'Always do', list:[
+        'Write the mark allocation next to each answer as you go. It keeps your length honest.',
+        'If a question defeats you, leave three lines and move on. Come back at minute 75.',
+        'Use the line references. Answers outside them score nothing.'
+      ]},
+    { h:'The weekly homework is the training', p:'Your class does the same RUAE homework every week all year. That is roughly thirty practice papers by May. Treat each one as timed: set 25 minutes for a single passage and stop when it rings. Untimed practice trains the wrong skill.' }
+  ],
+  check:{ q:'A question says "Read lines 24–27" and your best example is on line 31. What do you do?', options:['Use it anyway — it is a strong example','Find an example inside lines 24–27','Use both','Quote it and explain the line reference'], answer:1, why:'Material outside the stated lines earns nothing. The line reference is a boundary, not a suggestion.' }
+},
+
+/* ---------------- SCOTTISH TEXT ---------------- */
+{
+  id:'s1', skill:'scottish', mins:7,
+  title:'Section 1: the 2 / 4 / 4 / 10 shape',
+  blurb:'Twenty marks, four questions, and one of them is worth half.',
+  sections:[
+    { h:'What you will face', p:'An extract from <em>Jekyll and Hyde</em> and four questions, every year in the same shape:',
+      list:[
+        '<strong>2 marks</strong> — analyse the writer\'s language in a short opening section. One detailed comment, or two basic ones.',
+        '<strong>4 marks</strong> — "by referring to at least two examples", analyse language conveying X.',
+        '<strong>4 marks</strong> — same again, on a later section.',
+        '<strong>10 marks</strong> — "by referring to this extract and to elsewhere in the novel, discuss how Stevenson explores…"'
+      ]},
+    { h:'Marking is the same as RUAE', p:'2 marks for a detailed or insightful comment plus quotation. 1 mark for a more basic comment plus quotation. <strong>0 marks for a quotation on its own.</strong> The analysis is the answer; the quotation is only the evidence.' },
+    { h:'Timing', p:'Section 1 and Section 2 are 20 marks each in a 1 hour 45 paper. Spend roughly 50 minutes on Section 1 and 45 on the essay, leaving ten to breathe. Inside Section 1: about 20 minutes on the three analysis questions, 25 on the 10-marker.' },
+    { h:'The rule that governs your whole paper', p:GENRE_RULE, warn:true }
+  ],
+  check:{ q:'You answer on Jekyll and Hyde in Section 1. Which Section 2 question is safe?', options:['Prose fiction','Prose non-fiction','Drama','Any of them'], answer:2, why:'Jekyll and Hyde is prose, and prose fiction and non-fiction are the same genre. Drama — Hamlet — is the pairing to rehearse all year.' }
+},
+{
+  id:'s2', skill:'scottish', mins:9,
+  title:'The 10-mark question, broken into three jobs',
+  blurb:'2 for commonality, 2 for the extract, 6 for elsewhere. Bullet points allowed.',
+  sections:[
+    { h:'How the 10 marks split', list:[
+        '<strong>2 marks — identify the commonality.</strong> A general statement of how Stevenson explores the named idea across the novel. One mark for the broad point, one for developing it.',
+        '<strong>2 marks — from the extract in front of you.</strong> One detailed comment plus reference.',
+        '<strong>6 marks — from elsewhere in the novel.</strong> Three detailed comments plus references, from at least one other part of the text.'
+      ]},
+    { h:'Worked opening: "discuss how Stevenson explores the impact of secrecy"',
+      worked:[
+        ['Commonality (2)','Throughout the novel, secrecy is shown to be corrosive rather than protective: every character who keeps a secret is damaged by the keeping of it. (1) This produces hypocrisy, the collapse of friendships, and finally Jekyll\'s moral and physical destruction. (1)'],
+        ['From the extract (2)','When Utterson raises the will, Jekyll deflects into an attack on Lanyon rather than answer — "an ignorant blatant pedant" — and the sudden aggression betrays how much the secret costs him to hold. The friendship survives the conversation only because Utterson agrees to let the matter "sleep", so secrecy has already begun to hollow out the relationship it is supposed to protect. (2)'],
+        ['Elsewhere ×3 (6)','Enfield and Utterson\'s shared rule — "the more it looks like Queer Street, the less I ask" — shows Victorian gentlemen treating silence as good manners, which is precisely what lets Hyde operate unchallenged. (2) · Lanyon\'s death after he is shown the truth demonstrates that a secret can kill the person who receives it as well as the person who keeps it. (2) · Jekyll\'s "Full Statement" is written rather than spoken, so the truth only emerges once he is beyond reach of the society whose judgement he feared — the confession is possible only when it can no longer cost him his reputation. (2)']
+      ]},
+    { h:'Prepare four themes before May', p:'Duality · secrecy and reputation · science and the limits of knowledge · the urban Gothic setting. For each, have four references ready from different parts of the novel. The question will name one of them, or something close enough that your material bends.' },
+    { h:'Write it in bullets', p:'The marking instructions explicitly allow linked statements or bullet points. Bullets force you to make one scoring comment per bullet and stop you writing an essay you do not have time for.' }
+  ],
+  check:{ q:'In a 10-mark commonality question, how many marks come from parts of the novel other than the printed extract?', options:['2','4','6','10'], answer:2, why:'Six of the ten. This is why pre-learned references from across the whole novel matter more than anything you can find on the page in front of you.' }
+},
+{
+  id:'s3', skill:'scottish', mins:8,
+  title:'Urban Gothic: the setting is doing argument',
+  blurb:'Why Stevenson put the story in fog, doors and back streets.',
+  sections:[
+    { h:'Gothic, moved into the city', p:'Traditional Gothic uses castles, crypts and wilderness. Urban Gothic relocates the same machinery into the modern city, so the threat is no longer foreign or ancient — it is a neighbour. In <em>Jekyll and Hyde</em> the monster lives on a respectable street and has a key.' },
+    { h:'The four settings to know cold', list:[
+        '<strong>The door.</strong> "Blistered and distained", with no bell or knocker, set into a building that "thrust forward its gable on the street". A sore on a clean face — the novel\'s central image of concealed corruption, presented in the very first chapter.',
+        '<strong>The two façades of one building.</strong> Jekyll\'s handsome front door and Hyde\'s squalid back entrance open into the same house. The architecture <em>is</em> the duality; Stevenson does not need to state it.',
+        '<strong>The fog.</strong> "A great chocolate-coloured pall lowered over heaven"; the fog is repeatedly described in terms that make London look like "a district of some city in a nightmare". It hides actions, and it makes moral vision literally impossible.',
+        '<strong>The dissecting room and the cabinet.</strong> Jekyll bought the house from a surgeon. Science is housed in a place associated with cutting bodies apart — Stevenson locating the horror inside the respectable profession, not outside it.'
+      ]},
+    { h:'What to say about it', p:'Do not describe the setting. Argue that it is doing work: concealment, respectability as a surface, the city as a body with a hidden interior. Every setting reference should end with an idea, not a picture.',
+      example:{ bad:'Stevenson describes the fog to create a scary atmosphere.',
+                good:'The fog that "would be here a glow of a rich, lurid brown" and there lift briefly into daylight makes Soho a place where visibility itself is unreliable, and Stevenson uses it to put Utterson — and the reader — in the position of never being able to see a whole scene at once. The moral confusion of the novel is staged as a problem of sight.' } },
+    { h:'Victorian repression', p:'Jekyll\'s own explanation is that he concealed his pleasures because of an "imperious desire to carry my head high". The novel argues that it is the demand for a spotless reputation, not the pleasures themselves, that manufactures Hyde. That claim is your strongest line on almost any theme question.' }
+  ],
+  check:{ q:'What is the strongest way to use the description of the door in an answer?', options:['Describe how frightening it sounds','Argue that a neglected door on a respectable street stages the novel\'s claim that corruption hides inside respectability','Note that it is in Chapter 1','Say Stevenson uses good adjectives'], answer:1, why:'Setting scores when you show it carrying an idea. Description alone is quotation without comment — zero marks.' }
+},
+{
+  id:'s4', skill:'scottish', mins:6,
+  title:'Narrative structure: who is telling you this, and why it matters',
+  blurb:'The novel withholds, then confesses. That shape is analysable.',
+  sections:[
+    { h:'Three narrators, in this order', list:[
+        '<strong>Chapters 1–8: third person, limited to Utterson.</strong> A cautious lawyer who does not want to know. We learn only what a reluctant investigator uncovers.',
+        '<strong>Chapter 9: Lanyon\'s narrative.</strong> An eyewitness who sees the transformation and is destroyed by it.',
+        '<strong>Chapter 10: Jekyll\'s full statement.</strong> The confession, delivered last and in writing.'
+      ]},
+    { h:'Why the order is the point', p:'Stevenson gives the reader the explanation only after the reader has already condemned Hyde. By the time Jekyll speaks, we have spent nine chapters inside Victorian respectability\'s own point of view — so the confession implicates us, not just him.' },
+    { h:'Things you can say that others will not', list:[
+        'The novel is structured as a <strong>detective story that turns into a confession</strong> — the genre changes under the reader.',
+        'Utterson is a deliberately incurious narrator; the plot advances only when he is forced. Stevenson uses him to show a society that prefers not to look.',
+        'Jekyll never says "I am Hyde" until the final chapter, and even then he slips between "I" and "he". Track the pronouns — that grammatical instability is his moral collapse, visible in the sentence structure.'
+      ]},
+    { h:'The pronoun evidence', p:'In the final chapter Jekyll writes of "the brute that slept within me", then "he", then "I". The drift between first and third person is Stevenson putting the duality into the grammar itself. Quote it short, and say what the pronoun does.' }
+  ],
+  check:{ q:'Why does Stevenson place Jekyll\'s confession last?', options:['To make the novel longer','So the reader judges Hyde by Victorian standards first, and only then receives the explanation that implicates those standards','Because Jekyll dies at the end','To create a happy ending'], answer:1, why:'Structure carries argument. Saying what the ordering does to the reader is an analysis of overall text structure — explicitly rewarded in Section 1.' }
+},
+
+/* ---------------- FOLIO ---------------- */
+{
+  id:'f1', skill:'folio', mins:6,
+  title:'The portfolio: 30 marks you control completely',
+  blurb:'Nearly a third of the course, written at home with feedback. Do not underweight it.',
+  sections:[
+    { h:'What it is', p:'Two pieces of writing, each 15 marks, submitted to SQA. One <strong>broadly creative</strong> and one <strong>broadly discursive</strong>. Together they are 30% of your final grade — the same weight as the whole RUAE paper, with none of the time pressure.' },
+    { h:'Why it decides the A', p:'You cannot revise your way to a guaranteed 27 in an exam hall. You can redraft your way to one at a kitchen table. Candidates who miss an A by a mark or two have almost always left folio marks on the table.' },
+    { h:'Discursive: the choice that does the work', p:'Pick a question, not a topic. "Social media" is a topic and produces an essay that says several things. "Should under-16s be banned from social media?" is a question and produces an essay that argues one thing. Markers reward a clear line of argument and genuine engagement with counter-argument.' },
+    { h:'Creative: write small', p:'The commonest failure is scale — a whole life, a war, a whole relationship in 1,000 words. Write one afternoon, one room, one conversation. Specific detail carries the marks; a plot does not.' },
+    { h:'Use the writing journal', p:'Your class does journal homework all term specifically to build a bank before folio work starts. Keep every piece. The folio pieces are usually a journal entry that turned out to have something in it, developed properly — not something invented from nothing in December.' }
+  ],
+  check:{ q:'Why does the portfolio matter disproportionately for an A?', options:['It is marked more generously','It is 30 marks that can be redrafted without time pressure, unlike anything in the exam hall','It is easier than RUAE','Teachers mark it'], answer:1, why:'Same weight as the entire RUAE paper, unlimited drafting time, and feedback allowed on a first draft. It is the most controllable third of the grade.' }
+},
+{
+  id:'f2', skill:'folio', mins:6,
+  title:'Redrafting: what actually moves a folio mark',
+  blurb:'Not tidying. Cutting, sharpening and restructuring.',
+  sections:[
+    { h:'Draft two is not draft one with better spelling', list:[
+        '<strong>Cut the first paragraph.</strong> It is almost always throat-clearing. Most pieces start better at what is currently sentence four.',
+        '<strong>Find the best sentence.</strong> Then make the piece deserve it — often by moving it later.',
+        '<strong>Delete every adverb you can survive without.</strong> "He said quietly" is weaker than a line of dialogue that is obviously quiet.',
+        '<strong>Vary sentence length deliberately.</strong> Read it aloud. If your breath runs out, so does the marker\'s attention.'
+      ]},
+    { h:'Discursive specifics', list:[
+        'Counter-argument must be given its strongest form, then answered. A straw man loses marks for both analysis and stance.',
+        'Evidence needs attribution — a named source and a date, in the sentence.',
+        'One idea per paragraph, and the first sentence says which idea.',
+        'The conclusion must conclude, not summarise.'
+      ]},
+    { h:'Creative specifics', list:[
+        'Start in the middle of something happening.',
+        'Concrete nouns over abstract ones. "Grief" is weak; the untouched second mug is strong.',
+        'Dialogue carries character faster than description. Use it and then trust it.',
+        'End on an image, not an explanation.'
+      ]},
+    { h:'The proofread that protects the mark', p:'Technical accuracy is assessed. Read the final draft backwards, sentence by sentence — it breaks the flow that makes your eye skip errors.' }
+  ],
+  check:{ q:'What is the most common structural fix for a creative folio piece?', options:['Adding more description','Cutting the opening paragraph and starting closer to the action','Adding more characters','Making it longer'], answer:1, why:'Almost every first draft warms up in public. Starting later is the single highest-return edit in creative writing.' }
+}
+];
+/* ============================================================
+   PRACTICE MATERIAL
+   Stevenson (1886) and Shakespeare (c.1600) are out of copyright.
+   Exam question wordings are referenced for study, from SQA papers.
+   All model answers and RUAE passages here are written for this app.
+   ============================================================ */
+
+const EXTRACTS = [
+{
+  id:'jh26', text:'Jekyll and Hyde', source:'SQA 2026, Section 1, Text 3 — Prose',
+  setup:'From Chapter 3, "Dr Jekyll Was Quite At Ease". Utterson attempts to discuss Jekyll’s will with him.',
+  blocks:[
+    { ref:'Lines 1–12', text:`A fortnight later, by excellent good fortune, the doctor gave one of his pleasant dinners to some five or six old cronies, all intelligent, reputable men and all judges of good wine; and Mr Utterson so contrived that he remained behind after the others had departed. This was no new arrangement, but a thing that had befallen many scores of times. Where Utterson was liked, he was liked well. Hosts loved to detain the dry lawyer, when the light-hearted and the loose-tongued had already their foot on the threshold; they liked to sit awhile in his unobtrusive company, practising for solitude, sobering their minds in the man’s rich silence after the expense and strain of gaiety. To this rule, Dr Jekyll was no exception; and as he now sat on the opposite side of the fire — a large, well-made, smooth-faced man of fifty, with something of a slyish cast perhaps, but every mark of capacity and kindness — you could see by his looks that he cherished for Mr Utterson a sincere and warm affection.
+
+‘I have been wanting to speak to you, Jekyll,’ began the latter. ‘You know that will of yours?’` },
+    { ref:'Lines 13–24', text:`A close observer might have gathered that the topic was distasteful; but the doctor carried it off gaily. ‘My poor Utterson,’ said he, ‘you are unfortunate in such a client. I never saw a man so distressed as you were by my will; unless it were that hide-bound pedant, Lanyon, at what he called my scientific heresies. O, I know he’s a good fellow — you needn’t frown — an excellent fellow, and I always mean to see more of him; but a hide-bound pedant for all that; an ignorant blatant pedant. I was never more disappointed in any man than Lanyon.’
+
+‘You know I never approved of it,’ pursued Utterson, ruthlessly disregarding the fresh topic.
+
+‘My will? Yes, certainly, I know that,’ said the doctor, a trifle sharply. ‘You have told me so.’
+
+‘Well, I tell you so again,’ continued the lawyer. ‘I have been learning something of young Hyde.’
+
+The large handsome face of Dr Jekyll grew pale to the very lips, and there came a blackness about his eyes. ‘I do not care to hear more,’ said he. ‘This is a matter I thought we had agreed to drop.’` },
+    { ref:'Lines 25–49', text:`‘What I heard was abominable,’ said Utterson.
+
+‘It can make no change. You do not understand my position,’ returned the doctor, with a certain incoherency of manner. ‘I am painfully situated, Utterson; my position is a very strange — a very strange one. It is one of those affairs that cannot be mended by talking.’
+
+‘Jekyll,’ said Utterson, ‘you know me: I am a man to be trusted. Make a clean breast of this in confidence; and I make no doubt I can get you out of it.’
+
+‘My good Utterson,’ said the doctor, ‘this is very good of you, this is downright good of you, and I cannot find words to thank you in. I believe you fully; I would trust you before any man alive, ay, before myself, if I could make the choice; but indeed it isn’t what you fancy; it is not so bad as that; and just to put your good heart at rest, I will tell you one thing: the moment I choose, I can be rid of Mr Hyde. I give you my hand upon that; and I thank you again and again; and I will just add one little word, Utterson, that I’m sure you’ll take in good part: this is a private matter, and I beg of you to let it sleep.’
+
+Utterson reflected a little, looking in the fire.
+
+‘I have no doubt you are perfectly right,’ he said at last, getting to his feet.
+
+‘Well, but since we have touched upon this business, and for the last time I hope,’ continued the doctor, ‘there is one point I should like you to understand. I have really a very great interest in poor Hyde. I know you have seen him; he told me so; and I fear he was rude. But I do sincerely take a great, a very great interest in that young man; and if I am taken away, Utterson, I wish you to promise me that you will bear with him and get his rights for him. I think you would, if you knew all; and it would be a weight off my mind if you would promise.’
+
+‘I can’t pretend that I shall ever like him,’ said the lawyer.
+
+‘I don’t ask that,’ pleaded Jekyll, laying his hand upon the other’s arm; ‘I only ask for justice; I only ask you to help him for my sake, when I am no longer here.’
+
+Utterson heaved an irrepressible sigh. ‘Well,’ said he ‘I promise.’` }
+  ],
+  questions:[
+    { n:21, marks:2, block:0, q:'Analyse how the writer’s use of language creates an impression of Utterson.',
+      model:[
+        '"the dry lawyer" — the adjective suggests a man without warmth or colour, yet the sentence around it makes this a quality his friends actively seek out, so Stevenson presents his dullness as a form of trustworthiness. (2)',
+        '"the man’s rich silence" — the oxymoron pairs emptiness with value, suggesting that what Utterson withholds is exactly what others find valuable in him. It also plants the novel’s central idea that not speaking is treated as a virtue. (2)',
+        '"unobtrusive company … practising for solitude" — he is presented as so undemanding that his presence is close to absence, preparing us for a narrator who will consistently decline to ask. (2)'
+      ],
+      hint:'Only 2 marks — one detailed comment is enough, but it must explain the effect, not just name the word.' },
+    { n:22, marks:4, block:1, q:'By referring to at least two examples, analyse how the writer’s use of language conveys tension between Jekyll and Utterson.',
+      model:[
+        '"carried it off gaily" set against "A close observer might have gathered that the topic was distasteful" — the contrast between what Jekyll performs and what the narrator reports creates tension the characters will not name aloud. (2)',
+        'The triple insult of Lanyon — "hide-bound pedant … an ignorant blatant pedant" — is an escalating repetition wildly out of proportion to the subject, so the aggression reads as displaced: Jekyll attacks a safe target to avoid the dangerous one. (2)',
+        '"pursued Utterson, ruthlessly disregarding the fresh topic" — "ruthlessly" is startling for a mild man, and the verb "pursued" turns the conversation into a hunt, so the friendship is momentarily restaged as an interrogation. (2)',
+        '"a trifle sharply" and then "grew pale to the very lips" — the escalation from tone to physical collapse in a few lines charts the tension rising past Jekyll’s control. (2)',
+        '"there came a blackness about his eyes" — the abstract noun "blackness" suggests something arriving from outside him, hinting at Hyde and making the tension feel dangerous rather than merely awkward. (2)'
+      ],
+      hint:'You need at least two references. Two detailed comments (2+2) is the efficient route.' },
+    { n:23, marks:4, block:2, q:'By referring to at least two examples, analyse how the writer’s use of language conveys Jekyll’s attitude to Hyde.',
+      model:[
+        '"the moment I choose, I can be rid of Mr Hyde" — the confident modal "can" and the emphasis on choice present Hyde as something Jekyll believes he owns and can dismiss, which the rest of the novel proves catastrophically wrong. (2)',
+        '"I beg of you to let it sleep" — the verb "sleep" personifies the secret as something living and only dormant, suggesting Jekyll knows it can wake. (2)',
+        '"I have really a very great interest in poor Hyde" — the pity in "poor", from a man describing a creature Utterson finds abominable, reveals an attachment Jekyll cannot explain, and the intensifiers "really … very great" betray how hard he is working to sound casual. (2)',
+        '"I only ask for justice; I only ask you to help him" — the parallel repetition of "I only ask" narrows the request each time it is repeated, an insistence which suggests desperation rather than the calm it pretends to. (2)',
+        '"if I am taken away … when I am no longer here" — the euphemisms for death show Jekyll already planning for an ending he cannot describe directly, so his attitude to Hyde is bound up with a fear he is concealing. (2)'
+      ],
+      hint:'Look for the gap between what Jekyll claims to feel and what the language betrays.' },
+    { n:24, marks:10, block:null, q:'By referring to this extract and to elsewhere in the novel, discuss how Stevenson explores the impact of secrecy.',
+      model:[
+        'COMMONALITY (2): Secrecy in the novel is corrosive rather than protective — every character who keeps or receives a secret is damaged by it (1), producing hypocrisy, the breakdown of friendship, and finally Jekyll’s destruction (1).',
+        'FROM THE EXTRACT (2): Jekyll deflects Utterson’s question into an attack on Lanyon and then begs him to "let it sleep"; the friendship survives only because Utterson agrees not to know, so secrecy has already hollowed out the relationship it was meant to protect. (2)',
+        'ELSEWHERE (2): Enfield’s rule — "the more it looks like Queer Street, the less I ask" — shows a whole class treating incuriosity as good manners, which is precisely what allows Hyde to operate unchallenged. (2)',
+        'ELSEWHERE (2): Lanyon dies within weeks of being shown the truth, demonstrating that a secret destroys the person who receives it as surely as the one who keeps it. (2)',
+        'ELSEWHERE (2): Jekyll’s confession exists only as a sealed written document, so the truth can be told only once it can no longer cost him his reputation — Stevenson’s sharpest point about what Victorian respectability makes impossible. (2)'
+      ],
+      hint:'Bullet points are allowed. Aim for: 2 commonality, 1 detailed extract comment, 3 detailed comments from elsewhere.' }
+  ]
+},
+{
+  id:'jh25', text:'Jekyll and Hyde', source:'SQA 2025, Section 1, Text 3 — Prose',
+  setup:'From Chapter 10, "Henry Jekyll’s Full Statement of the Case". Jekyll is remembering his changing relationship with Hyde.',
+  blocks:[
+    { ref:'Lines 1–11', text:`When I came to myself at Lanyon’s, the horror of my old friend perhaps affected me somewhat: I do not know; it was at least but a drop in the sea to the abhorrence with which I looked back upon these hours. A change had come over me. It was no longer the fear of the gallows, it was the horror of being Hyde that racked me. I received Lanyon’s condemnation partly in a dream; it was partly in a dream that I came home to my own house and got into bed. I slept after the prostration of the day, with a stringent and profound slumber which not even the nightmares that wrung me could avail to break. I awoke in the morning shaken, weakened, but refreshed. I still hated and feared the thought of the brute that slept within me, and I had not of course forgotten the appalling dangers of the day before; but I was once more at home, in my own house and close to my drugs; and gratitude for my escape shone so strong in my soul that it almost rivalled the brightness of hope.` },
+    { ref:'Lines 12–28', text:`I was stepping leisurely across the court after breakfast, drinking the chill of the air with pleasure, when I was seized again with those indescribable sensations that heralded the change; and I had but the time to gain the shelter of my cabinet, before I was once again raging and freezing with the passions of Hyde. It took on this occasion a double dose to recall me to myself; and alas, six hours after, as I sat looking sadly in the fire, the pangs returned, and the drug had to be re-administered.
+
+In short, from that day forth it seemed only by a great effort as of gymnastics, and only under the immediate stimulation of the drug, that I was able to wear the countenance of Jekyll. At all hours of the day and night, I would be taken with the premonitory shudder; above all, if I slept, or even dozed for a moment in my chair, it was always as Hyde that I awakened. Under the strain of this continually impending doom and by the sleeplessness to which I now condemned myself, ay, even beyond what I had thought possible to man, I became, in my own person, a creature eaten up and emptied by fever, languidly weak both in body and mind, and solely occupied by one thought: the horror of my other self. But when I slept, or when the virtue of the medicine wore off, I would leap almost without transition (for the pangs of transformation grew daily less marked) into the possession of a fancy brimming with images of terror, a soul boiling with causeless hatreds, and a body that seemed not strong enough to contain the raging energies of life.` },
+    { ref:'Lines 29–49', text:`The powers of Hyde seemed to have grown with the sickliness of Jekyll. And certainly the hate that now divided them was equal on each side. With Jekyll, it was a thing of vital instinct. He had now seen the full deformity of that creature that shared with him some of the phenomena of consciousness, and was co-heir with him to death: and beyond these links of community, which in themselves made the most poignant part of his distress, he thought of Hyde, for all his energy of life, as of something not only hellish but inorganic. This was the shocking thing; that the slime of the pit seemed to utter cries and voices; that the amorphous dust gesticulated and sinned; that what was dead, and had no shape, should usurp the offices of life. And this again, that that insurgent horror was knit to him closer than a wife, closer than an eye; lay caged in his flesh, where he heard it mutter and felt it struggle to be born; and at every hour of weakness, and in the confidence of slumber, prevailed against him, and deposed him out of life.
+
+The hatred of Hyde for Jekyll was of a different order. His terror of the gallows drove him continually to commit temporary suicide, and return to his subordinate station of a part instead of a person; but he loathed the necessity, he loathed the despondency into which Jekyll was now fallen, and he resented the dislike with which he was himself regarded. Hence the ape-like tricks that he would play me, scrawling in my own hand blasphemies on the pages of my books, burning the letters and destroying the portrait of my father; and indeed, had it not been for his fear of death, he would long ago have ruined himself in order to involve me in the ruin. But his love of life is wonderful; I go further: I, who sicken and freeze at the mere thought of him, when I recall the abjection and passion of this attachment, and when I know how he fears my power to cut him off by suicide, I find it in my heart to pity him.` }
+  ],
+  questions:[
+    { n:21, marks:2, block:0, q:'Analyse how the writer’s use of language conveys Jekyll’s state of mind after transforming back into himself.',
+      model:[
+        '"abhorrence" suggests a disgust far stronger than fear, and placing it against "but a drop in the sea" shows even Lanyon’s horror is dwarfed by Jekyll’s self-loathing. (2)',
+        '"It was no longer the fear of the gallows, it was the horror of being Hyde" — the parallel structure sets legal punishment against identity itself and lets the second outweigh the first, so the reader sees his terror has turned inward. (2)',
+        '"nightmares that wrung me" — the verb "wrung", used of cloth being twisted dry, suggests his mind is being physically deformed by his own sleep. (2)',
+        '"shaken, weakened, but refreshed" — the list ends on an incongruous positive, and that grotesque optimism shows how far his judgement has already been corrupted. (2)'
+      ],
+      hint:'Two marks. One detailed comment plus quotation will do it.' },
+    { n:22, marks:4, block:1, q:'By referring to at least two examples, analyse how the writer’s use of language conveys the horror of Jekyll’s experiences and/or situation.',
+      model:[
+        '"raging and freezing" — the oxymoron of opposite extremes suggests a body experiencing sensations it has no framework for, making the transformation genuinely unimaginable rather than merely unpleasant. (2)',
+        '"a great effort as of gymnastics" — the mundane simile is more disturbing than a violent one, reducing the maintenance of his own identity to a strenuous daily exercise. (2)',
+        '"wear the countenance of Jekyll" — "wear" makes his own face a costume, so by this point the respectable self is explicitly the disguise and Hyde the default. (2)',
+        '"eaten up and emptied by fever" — the pairing suggests consumption from inside and hollowing out, a body being used up by what it contains. (2)',
+        '"a fancy brimming with images of terror, a soul boiling with causeless hatreds" — the parallel triple of fancy, soul and body maps the corruption across mind, spirit and flesh in turn, so no part of him is left untouched. (2)'
+      ],
+      hint:'Watch for oxymoron and for verbs that turn Jekyll into a container for something else.' },
+    { n:23, marks:4, block:2, q:'By referring to at least two examples, analyse how the writer’s use of language conveys the feelings of both Jekyll and Hyde.',
+      model:[
+        '"the slime of the pit seemed to utter cries and voices" — the biblical, primordial imagery shows Jekyll’s disgust is not moral but metaphysical: Hyde offends him by existing at all. (2)',
+        '"knit to him closer than a wife, closer than an eye" — the escalating comparison moves from the most intimate human bond to a part of the body, so Hyde is shown as inseparable in a way that makes Jekyll’s horror inescapable. (2)',
+        '"commit temporary suicide" — the oxymoron captures Hyde’s feeling exactly: returning to Jekyll is a death he is forced to undergo repeatedly, and resents. (2)',
+        '"the ape-like tricks" and "scrawling in my own hand blasphemies" — the petty, spiteful vandalism reveals Hyde’s hatred as childish malice rather than grandeur, which makes it more contemptible and more frightening. (2)',
+        '"I find it in my heart to pity him" — the sudden turn to pity in the final clause shows Jekyll’s feelings are not stable even now, and the pronoun "him" for a self he shares keeps the division alive in the grammar. (2)'
+      ],
+      hint:'The question says "both" — make sure at least one comment is on Hyde’s feelings.' },
+    { n:24, marks:10, block:null, q:'By referring to this extract and to elsewhere in the novel, discuss how Stevenson uses the experiences of characters to explore central concerns.',
+      model:[
+        'COMMONALITY (2): Stevenson puts each character through an experience that tests Victorian assumptions about respectability and knowledge (1), and in every case the experience destroys or diminishes them, so the novel argues that the culture’s own values are the danger (1).',
+        'FROM THE EXTRACT (2): Jekyll’s experience of having to "wear the countenance of Jekyll" reverses which self is real; his lived experience proves that the respectable identity was always the performance. (2)',
+        'ELSEWHERE (2): Lanyon’s experience of witnessing the transformation kills him — a man whose whole identity rested on the sufficiency of conventional science cannot survive evidence that it is insufficient. (2)',
+        'ELSEWHERE (2): Utterson’s experience across the novel is of choosing not to know; his investigation only advances when events force it, and Stevenson uses him to show a society that protects itself by looking away. (2)',
+        'ELSEWHERE (2): Poole and Utterson breaking down the cabinet door is the moment respectability finally acts, and it arrives too late — the experience of the servants and the lawyer is of arriving after the harm is complete. (2)'
+      ],
+      hint:'Six of these ten marks come from outside the printed extract. Prepare your references in advance.' }
+  ]
+}
+];
+
+/* ============================================================
+   RUAE PRACTICE PASSAGE (written for this app, SQA house style)
+   ============================================================ */
+const RUAE_PASSAGES = [
+{
+  id:'p1', title:'In defence of being bored', byline:'A discursive passage in the style of a broadsheet comment column',
+  blocks:[
+    { ref:'Lines 1–9', text:`There is a particular quality of Sunday afternoon that anyone over thirty will remember and nobody under twenty has ever experienced. The light going amber across a carpet. A clock that seemed to have been switched to a slower setting. Two channels, both of them wrong. It was, by any reasonable measure, unbearable — and it was also, I have come to believe, the most productive condition of my childhood. In those long grey hours I learned to draw, badly; to read the backs of cereal packets as though they were literature; to lie on my back and construct enormous unfinished stories about nothing at all. Boredom was not the absence of activity. It was the pressure that manufactured it.` },
+    { ref:'Lines 10–19', text:`We have since abolished that pressure with a completeness that ought to astonish us. The queue, the waiting room, the bus stop, the four minutes between the kettle and the tea — every one of these small vacancies has been filled, colonised, monetised. The phone in your pocket is not primarily a telephone. It is a device engineered, by some of the most capable minds of a generation and at extraordinary expense, to ensure that you are never for one moment left alone with yourself. And it works. It works beautifully. That is precisely the problem.` },
+    { ref:'Lines 20–30', text:`Neuroscientists have a name for what happens when the mind is given nothing in particular to do: the default mode network, a set of brain regions that switches on the instant external demands switch off. It is associated with autobiographical memory, with imagining the future, with the slow assembly of a sense of who one is. It is, in other words, the machinery of self-understanding, and it runs only on idle time. A generation that never idles is a generation running a vital process less and less often. We are not merely distracted. We are quietly declining to do a kind of thinking that nothing else can do for us.` },
+    { ref:'Lines 31–40', text:`I am aware of how this sounds. Every generation has stood at the window watching the young enjoy themselves and diagnosed a civilisational emergency; the printing press, the novel, the waltz and the wireless were each, in their turn, going to ruin us. I am not arguing that the phone is uniquely wicked. I am arguing something narrower and, I think, harder to dismiss: that we have removed a specific raw material from the ordinary day, and that we did it without ever deciding to. Nobody voted for this. It simply arrived, one convenience at a time, and we thanked it.` },
+    { ref:'Lines 41–48', text:`What I want is not abstinence, which is a fantasy, but friction. A drawer by the front door. A walk with the thing left at home. An afternoon deliberately, stubbornly unfilled. Restore even a little of the old pressure and you will find that the strange, unproductive, slightly uncomfortable machinery starts up again almost at once — that the amber light comes back across the carpet, and with it, unbidden, the beginnings of a thought that is entirely your own.` }
+  ],
+  questions:[
+    { n:1, marks:3, q:'Read lines 1–9. Explain fully what the writer valued about the boredom of his childhood. Use your own words in your answer.', type:'own',
+      model:['It forced him to invent things for himself rather than be entertained (1).','It gave him time to develop skills and interests, even clumsily (1).','It allowed long, aimless imagining with no purpose or end product (1).','It acted as a pressure that generated activity rather than preventing it (1).'],
+      hint:'Three marks means three separate ideas, each translated out of the writer’s wording.' },
+    { n:2, marks:4, q:'Read lines 10–19. By referring to at least two examples, analyse how the writer’s use of language conveys the completeness with which boredom has been removed.', type:'analysis',
+      model:['The list "the queue, the waiting room, the bus stop, the four minutes between the kettle and the tea" accumulates increasingly trivial gaps, and ending on a four-minute interval suggests that even the smallest vacancy has been reached. (2)','The climactic verbs "filled, colonised, monetised" escalate from neutral to imperial to commercial, so the process is presented as an occupation carried out for profit rather than a neutral change. (2)','"engineered … by some of the most capable minds of a generation and at extraordinary expense" uses the language of industrial achievement to describe distraction, implying deliberate design rather than accident. (2)','The short sentences "And it works. It works beautifully." use repetition and brevity to deliver a verdict, and "beautifully" is an admiring word used against the thing it admires, which sharpens the writer’s disapproval. (2)'],
+      hint:'At least two examples. Look at the list, the verbs and the short sentences.' },
+    { n:3, marks:3, q:'Read lines 20–30. Explain what the writer means by "We are not merely distracted. We are quietly declining to do a kind of thinking that nothing else can do for us." Use your own words.', type:'own',
+      model:['The problem is worse than simple inattention (1).','We are choosing, without noticing, to stop doing something (1).','That something — understanding ourselves — cannot be achieved by any other means or delegated (1).'],
+      hint:'"Explain fully" and a 3-mark tariff: find the three separate ideas inside those two sentences.' },
+    { n:4, marks:4, q:'Read lines 31–40. By referring to at least two examples, analyse how the writer’s use of sentence structure conveys the reasonableness of his argument.', type:'analysis',
+      model:['The opening minor-length sentence "I am aware of how this sounds." concedes the objection before it can be made, which disarms the reader and establishes the writer as fair-minded. (2)','The parallel pair "I am not arguing … I am arguing" sets a rejected extreme against his actual, narrower claim, and the balanced structure makes the second position look moderate by comparison. (2)','The list "the printing press, the novel, the waltz and the wireless" places his own argument in a line of historical panics, and the descent into the trivial ("the waltz") mocks that tradition before he separates himself from it. (2)','The short declarative "Nobody voted for this." stands alone after a long sentence, and its abruptness delivers the moral point of the paragraph in five words. (2)'],
+      hint:'Sentence structure — talk about length, position, parallelism, lists. Not connotation.' },
+    { n:5, marks:2, q:'Read lines 41–48. Analyse how the final paragraph provides an effective conclusion to the passage.', type:'analysis',
+      model:['It returns to the image of "the amber light … across the carpet" from the opening paragraph, and the circular structure suggests the lost state is recoverable rather than gone. (2)','The shift from diagnosis to practical suggestions — "A drawer by the front door. A walk with the thing left at home." — turns the argument into something the reader can act on, ending on agency rather than complaint. (2)','"a thought that is entirely your own" places the personal pronoun at the very end, so the passage closes on the individual reader rather than the general argument. (2)'],
+      hint:'Conclusions score for: returning to an earlier image, widening out, or delivering a verdict. Say which and prove it.' }
+  ]
+}
+];
+
+/* ============================================================
+   ESSAY QUESTION BANK (drama)
+   ============================================================ */
+const ESSAY_QS = [
+  { id:'q1', yr:'SQA 2026', q:'Choose a play in which a central character is presented as emotional or calculating or vulnerable. By referring to appropriate techniques, explain how the central character is presented and discuss how this contributes to your appreciation of the play as a whole.', blocks:'Blocks A + C — the soliloquies, then the closet scene.' },
+  { id:'q2', yr:'SQA 2026', q:'Choose a play in which there is a scene involving a significant revelation or turning point. By referring to appropriate techniques, briefly explain the nature of the revelation or turning point and discuss how this scene contributes to your appreciation of the play as a whole.', blocks:'Block B — The Mousetrap (III.ii), with Block C as consequence.' },
+  { id:'q3', yr:'SQA 2026', q:'Choose a play which explores jealousy or loyalty. By referring to appropriate techniques, explain how this jealousy or loyalty is presented and discuss how this contributes to your appreciation of the play as a whole.', blocks:'Horatio vs Rosencrantz and Guildenstern; the Ghost’s claim; Laertes.' },
+  { id:'q4', yr:'SQA 2025', q:'Choose a play in which a central character is used to explore an important theme. By referring to appropriate techniques, explain how the character is used to explore the theme and discuss how this contributes to your appreciation of the play as a whole.', blocks:'Hamlet and the theme of action vs thought. Blocks A + D.' },
+  { id:'q5', yr:'SQA 2025', q:'Choose a play in which there is a scene which is important to the outcome of the play. By referring to appropriate techniques, briefly explain how the scene is important to the outcome and discuss how this contributes to your appreciation of the play as a whole.', blocks:'Block C — the closet scene. Three consequences: Claudius’s pretext, Laertes’s motive, Ophelia’s madness.' },
+  { id:'q6', yr:'SQA 2025', q:'Choose a play in which setting in time and/or place is important to your understanding of the play. By referring to appropriate techniques, explain why the setting is important and discuss how this contributes to your appreciation of the play as a whole.', blocks:'Elsinore as a surveilled court — arras, spies, "something is rotten".' },
+  { id:'q7', yr:'Common', q:'Choose a play in which conflict between two characters is central to the drama. By referring to appropriate techniques, explain the nature of the conflict and discuss how it contributes to your appreciation of the play as a whole.', blocks:'Hamlet and Claudius — a conflict fought almost entirely through surveillance and performance.' },
+  { id:'q8', yr:'Common', q:'Choose a play in which a character’s decision has significant consequences. By referring to appropriate techniques, explain the decision and discuss how the consequences contribute to your appreciation of the play as a whole.', blocks:'Sparing Claudius at prayer (III.iii) — the decision that costs eight lives.' }
+];
+
+/* ============================================================
+   QUOTATION BANKS
+   ============================================================ */
+const QUOTES = {
+jekyll:[
+ { q:'It was a man of the name of Hyde.', who:'Enfield', ch:'Ch 1', theme:'duality', note:'The first naming. Stevenson puts the pun in a stranger’s mouth before the reader can hear it — hide, hidden — so the novel’s method is announced as a joke nobody in it is in on.' },
+ { q:'the more it looks like Queer Street, the less I ask.', who:'Enfield', ch:'Ch 1', theme:'secrecy', note:'A gentleman’s code stated outright: incuriosity presented as courtesy. Stevenson’s sharpest line on how respectable society makes room for Hyde without ever endorsing him.' },
+ { q:'blistered and distained', who:'Narrator, of the door', ch:'Ch 1', theme:'gothic', note:'Disease vocabulary applied to architecture. The building is described like an infected body on an otherwise healthy street — the concealment-within-respectability image the whole novel runs on.' },
+ { q:'he is not easy to describe … he must be deformed somewhere.', who:'Enfield', ch:'Ch 1', theme:'duality', note:'Hyde resists description throughout. Stevenson refuses to give him features, so the horror is located in the observer’s reaction rather than in anything on the page.' },
+ { q:'I let my brother go to the devil in his own way.', who:'Utterson', ch:'Ch 1', theme:'secrecy', note:'Utterson’s tolerance is presented as a virtue and functions as a failure. Useful for any question about how a minor character embodies a theme.' },
+ { q:'If he be Mr Hyde … I shall be Mr Seek.', who:'Utterson', ch:'Ch 2', theme:'structure', note:'The detective-story register. Worth citing to show Stevenson deliberately sets up a genre he will abandon by Chapter 10.' },
+ { q:'a great chocolate-coloured pall lowered over heaven', who:'Narrator', ch:'Ch 4', theme:'gothic', note:'"Pall" is a funeral cloth over a coffin, so the city is pre-emptively in mourning. Urban Gothic: the weather does the work a castle used to do.' },
+ { q:'like a district of some city in a nightmare', who:'Narrator, of Soho', ch:'Ch 4', theme:'gothic', note:'The simile makes London unreal rather than merely unpleasant — the ordinary city becomes dreamscape, which is the essence of Urban Gothic.' },
+ { q:'with ape-like fury, he was trampling his victim under foot', who:'Narrator', ch:'Ch 4', theme:'science', note:'Post-Darwinian vocabulary. Hyde is repeatedly described as simian, making him evolutionary regression rather than supernatural evil — the science, not the devil.' },
+ { q:'I have had a shock … I shall never recover.', who:'Lanyon', ch:'Ch 6', theme:'science', note:'Lanyon dies of knowledge. The conventional scientist cannot survive evidence that his framework is incomplete.' },
+ { q:'a trifle sharply', who:'Narrator, of Jekyll', ch:'Ch 3', theme:'secrecy', note:'Tiny, and enormously useful. Stevenson tracks Jekyll’s control slipping through minute changes in manner long before anything physical happens.' },
+ { q:'I beg of you to let it sleep.', who:'Jekyll', ch:'Ch 3', theme:'secrecy', note:'The personification treats the secret as living and dormant. Jekyll knows it can wake; the verb admits what the sentence denies.' },
+ { q:'the moment I choose, I can be rid of Mr Hyde.', who:'Jekyll', ch:'Ch 3', theme:'duality', note:'Dramatic irony at novel scale. Every later chapter is the refutation of this sentence.' },
+ { q:'That masked thing like a monkey', who:'Poole', ch:'Ch 8', theme:'gothic', note:'A servant’s plain speech does what the gentlemen’s euphemisms cannot. Class is part of how the novel manages knowledge.' },
+ { q:'man is not truly one, but truly two.', who:'Jekyll', ch:'Ch 10', theme:'duality', note:'The thesis statement — and Jekyll immediately qualifies it, guessing man will "ultimately be known for a mere polity of multifarious … denizens". The novel is less tidy than the famous half of the quotation.' },
+ { q:'an imperious desire to carry my head high', who:'Jekyll', ch:'Ch 10', theme:'reputation', note:'Jekyll’s own diagnosis: it was not appetite that made Hyde, but the need to look faultless. The strongest single line for a theme question.' },
+ { q:'I concealed my pleasures … I stood already committed to a profound duplicity of life.', who:'Jekyll', ch:'Ch 10', theme:'reputation', note:'Duplicity precedes the drug. The potion only makes visible a division Victorian respectability had already created.' },
+ { q:'This, too, was myself.', who:'Jekyll', ch:'Ch 10', theme:'duality', note:'The sentence Jekyll spends the whole confession avoiding. Note the past tense and the distancing "this" — even here he will not say "I am Hyde".' },
+ { q:'the brute that slept within me', who:'Jekyll', ch:'Ch 10', theme:'duality', note:'Third person for himself. Track the pronoun drift across the final chapter — "it", "he", "I" — as grammar enacting the split.' },
+ { q:'I was once more at home … and close to my drugs', who:'Jekyll', ch:'Ch 10', theme:'science', note:'Home and the drug in one clause. Stevenson lets the addiction reading sit quietly inside the sentence without ever naming it.' },
+ { q:'commit temporary suicide', who:'Jekyll, of Hyde', ch:'Ch 10', theme:'duality', note:'Oxymoron that captures Hyde’s position exactly: every return to Jekyll is a death he is compelled to undergo and resents.' },
+ { q:'knit to him closer than a wife, closer than an eye', who:'Jekyll', ch:'Ch 10', theme:'duality', note:'The comparison escalates from the most intimate relationship to a body part, so inseparability becomes physical. Excellent for a 4-mark language question.' },
+ { q:'I find it in my heart to pity him.', who:'Jekyll', ch:'Ch 10', theme:'duality', note:'The last movement of feeling in the novel is pity, not hatred — and it is directed at himself. Strong closing reference for a 10-marker.' },
+ { q:'Here then, as I lay down the pen … I bring the life of that unhappy Henry Jekyll to an end.', who:'Jekyll', ch:'Ch 10', theme:'structure', note:'The novel ends mid-pen-stroke, in the third person, with the writer killing himself off grammatically before he dies. Structure and duality in one sentence.' }
+],
+hamlet:[
+ { q:'Something is rotten in the state of Denmark.', who:'Marcellus', ch:'I.iv', theme:'corruption', note:'Spoken by a minor character, which makes it diagnosis rather than opinion. Disease imagery recurs across the play — an "ulcerous place", "rank corruption" — tying private crime to public sickness.' },
+ { q:'How weary, stale, flat and unprofitable / Seem to me all the uses of this world.', who:'Hamlet', ch:'I.ii', theme:'character', note:'Before the Ghost. The despair predates the revenge plot, so the play can never be simply about revenge. The four adjectives descend from the body to the ledger.' },
+ { q:'But I have that within which passeth show.', who:'Hamlet', ch:'I.ii', theme:'appearance', note:'His first real statement of self, and it is about the gap between inner and outer — the play’s central problem, announced by its hero.' },
+ { q:'Frailty, thy name is woman!', who:'Hamlet', ch:'I.ii', theme:'character', note:'Note he generalises from one woman to all. Useful if you want to argue that Hamlet’s thinking is a weapon he also turns on himself.' },
+ { q:'The time is out of joint. O cursed spite, / That ever I was born to set it right!', who:'Hamlet', ch:'I.v', theme:'character', note:'Closes Act I with resentment, not resolve. The revenge is accepted as a burden — which is why the delay is characterisation rather than plot failure.' },
+ { q:'one may smile, and smile, and be a villain.', who:'Hamlet', ch:'I.v', theme:'appearance', note:'The repetition enacts the doubling it describes. Pair with "But I have that within which passeth show" for a full appearance-versus-reality paragraph.' },
+ { q:'Though this be madness, yet there is method in’t.', who:'Polonius', ch:'II.ii', theme:'appearance', note:'Dramatic irony: the court spy half-sees the truth and misreads it. Shakespeare uses Polonius to show how surveillance produces wrong answers confidently.' },
+ { q:'What a piece of work is a man … And yet, to me, what is this quintessence of dust?', who:'Hamlet', ch:'II.ii', theme:'character', note:'The great Renaissance praise of humanity collapses in one clause. The turn on "And yet" is the whole of Hamlet’s mind in miniature.' },
+ { q:'The play’s the thing / Wherein I’ll catch the conscience of the king.', who:'Hamlet', ch:'II.ii', theme:'structure', note:'A rhyming couplet closing the act — Shakespeare signalling a plan and a plot gear-change. Theatre used as an instrument of truth inside a play about performance.' },
+ { q:'To be, or not to be — that is the question.', who:'Hamlet', ch:'III.i', theme:'character', note:'Note he never says "I". The most personal speech in English is conducted entirely in the abstract, which is precisely the evasion the play is about.' },
+ { q:'conscience does make cowards of us all', who:'Hamlet', ch:'III.i', theme:'character', note:'"Conscience" here means consciousness as much as morality. He blames thinking itself for inaction — the thesis of any "tragedy of thought" argument.' },
+ { q:'Get thee to a nunnery.', who:'Hamlet', ch:'III.i', theme:'character', note:'"Nunnery" carried a slang second meaning of brothel. The cruelty is doubled and deliberate, and he knows he is being watched.' },
+ { q:'the purpose of playing … to hold, as ’twere, the mirror up to nature', who:'Hamlet', ch:'III.ii', theme:'appearance', note:'Hamlet directing actors on sincerity, in a play, about a man performing madness. Strong for any question on the play’s self-awareness.' },
+ { q:'Now might I do it pat, now he is a-praying.', who:'Hamlet', ch:'III.iii', theme:'structure', note:'The decision that costs eight lives. He declines the chance for a theological reason — thought defeating action at the exact moment of opportunity.' },
+ { q:'I must be cruel only to be kind.', who:'Hamlet', ch:'III.iv', theme:'character', note:'Said over Polonius’s body. The self-justification arrives immediately after the killing, showing how fast Hamlet converts action into argument.' },
+ { q:'How all occasions do inform against me, / And spur my dull revenge!', who:'Hamlet', ch:'IV.iv', theme:'character', note:'The last soliloquy, and he is still analysing the delay rather than ending it. Essential if you argue the character does not in fact change.' },
+ { q:'Alas, poor Yorick! I knew him, Horatio.', who:'Hamlet', ch:'V.i', theme:'mortality', note:'The abstract speeches about death give way to a skull he can hold. After this, Hamlet stops theorising about mortality — the graveyard is the turning point in his character, not the plot.' },
+ { q:'There’s a divinity that shapes our ends, / Rough-hew them how we will.', who:'Hamlet', ch:'V.ii', theme:'character', note:'The change. He hands the outcome over, and only then can he act. Pair with "the readiness is all".' },
+ { q:'If it be now, ’tis not to come … the readiness is all.', who:'Hamlet', ch:'V.ii', theme:'character', note:'Prose, not verse, and almost serene. Contrast the rhythm with "To be, or not to be" to show the change in him through form as well as content.' },
+ { q:'Report me and my cause aright / To the unsatisfied.', who:'Hamlet', ch:'V.ii', theme:'structure', note:'His dying concern is narrative — who will tell this properly. Horatio survives because the play needs a loyal witness, which is what makes loyalty the value the tragedy spares.' },
+ { q:'that is not passion’s slave', who:'Hamlet, of Horatio', ch:'III.ii', theme:'loyalty', note:'Loyalty defined negatively, by what does not own him. Every other character in Elsinore is owned by something.' },
+ { q:'The rest is silence.', who:'Hamlet', ch:'V.ii', theme:'mortality', note:'Four words from a man who has spoken more than any other character in Shakespeare. The play ends by taking away the one thing that defined him.' }
+]
+};
+
+/* ============================================================
+   DRILL BANK
+   ============================================================ */
+const DRILLS = [
+ // --- mcq: essay ---
+ { t:'mcq', s:'essay', q:'What caps a critical essay at 9 marks regardless of content?', o:['Being under 600 words','Failing minimum technical accuracy or relevance to the question','Using fewer than four quotations','Writing about a Scottish text'], a:1, why:'The marker checks technical accuracy and relevance first. Fail either and the supplementary grid never opens above 9.' },
+ { t:'mcq', s:'essay', q:'Which is a technique appropriate to a DRAMA essay?', o:['Enjambment','Mise-en-scene','Soliloquy','Stanza form'], a:2, why:'Soliloquy is drama. Mise-en-scene is film, enjambment and stanza are poetry — using them in a Hamlet essay signals you are reciting a memorised list.' },
+ { t:'mcq', s:'essay', q:'How long should you spend planning a 45-minute critical essay?', o:['None — start writing','About 5 minutes','About 15 minutes','About 20 minutes'], a:1, why:'Five minutes buys four claims and four quotations. More than that and you are writing the essay twice.' },
+ { t:'mcq', s:'essay', q:'Your Section 1 answer is on Jekyll and Hyde. Which Section 2 genre must you avoid?', o:['Drama','Poetry','Prose','Film and television drama'], a:2, why:'Jekyll and Hyde is prose. Prose fiction and prose non-fiction count as the same genre, so both are closed to you. Hamlet (drama) is your pairing.' },
+ { t:'mcq', s:'essay', q:'Which sentence shows a "committed evaluative stance"?', o:['Shakespeare uses many techniques in this play.','This scene is important to the play.','What makes the ending bearable is that Shakespeare spares the one man who never spoke about loyalty and simply practised it.','Hamlet says this in Act 5.'], a:2, why:'It carries a judgement about the effect of the play, in the writer’s own voice. That is evaluation; the rest is description.' },
+ { t:'mcq', s:'essay', q:'You have 5 minutes left and one paragraph unwritten. Best move?', o:['Write it in a rush and skip checking','Bullet the argument clearly, then proofread','Write a longer conclusion instead','Leave it blank'], a:1, why:'Clear notes still earn knowledge and analysis marks. An unchecked essay risks the accuracy cap, which costs far more than one paragraph.' },
+ { t:'mcq', s:'essay', q:'How many substantial paragraphs suit a 45-minute critical essay?', o:['Two','Around four','Seven or eight','As many as possible'], a:1, why:'Four lets each paragraph run deep enough to be called "detailed" or "perceptive". Seven thin paragraphs read as "clear" at best.' },
+
+ // --- mcq: ruae ---
+ { t:'mcq', s:'ruae', q:'How many marks does a quotation on its own earn in RUAE?', o:['Zero','One','Two','It depends on length'], a:0, why:'No marks are given for identifying an example. Marks come only from the analytical comment that accompanies it.' },
+ { t:'mcq', s:'ruae', q:'A 4-mark analysis question says "by referring to at least two examples". Which answer can reach 4?', o:['One superb comment on one reference','Two detailed comments on two references','A long paraphrase of the lines','Four quotations with no comment'], a:1, why:'Two references, each with a detailed comment, is 2+2. One reference caps at 2 however good it is.' },
+ { t:'mcq', s:'ruae', q:'Which belongs in a SENTENCE STRUCTURE answer?', o:['The connotations of "brutal"','The minor sentence placed after a long clause-heavy sentence makes the verdict land abruptly','The metaphor compares the policy to a storm','The tone is scathing'], a:1, why:'Structure means length, position, punctuation, repetition and pattern. Connotation is word choice and scores nothing here.' },
+ { t:'mcq', s:'ruae', q:'In the final 5-mark question, identifying three key areas with NO evidence earns:', o:['0','1','3','5'], a:2, why:'Three areas identified is worth 3. Adding brief evidence from both passages lifts it to 4, and detailed evidence to 5.' },
+ { t:'mcq', s:'ruae', q:'What must an imagery answer include to get beyond 1 mark?', o:['A longer quotation','The literal meaning of the image before the transfer to the subject','The name of the writer','Two images instead of one'], a:1, why:'Root, then transfer. Without the literal root, the effect is asserted rather than shown — the definition of a basic comment.' },
+ { t:'mcq', s:'ruae', q:'A question says "Read lines 24–27". Your best example is at line 31. What happens if you use it?', o:['Full marks if the comment is good','It scores nothing','Half marks','It depends on the marker'], a:1, why:'Material outside the stated lines earns nothing. Check the line reference before you start writing.' },
+ { t:'mcq', s:'ruae', q:'Which is a defensible tone word?', o:['Negative','Descriptive','Elegiac','Interesting'], a:2, why:'Elegiac names a specific attitude you can evidence. "Negative" is a temperature, not a tone, and markers do not credit it.' },
+ { t:'mcq', s:'ruae', q:'A link question is worth 2 marks. What earns each mark?', o:['One quotation and one technique','A quotation from each half of the sentence, with the idea it connects to','Two techniques named','The tone of the sentence'], a:1, why:'Backward-referring half plus the idea it closes; forward-referring half plus the idea it opens. One mark each, mechanically.' },
+ { t:'mcq', s:'ruae', q:'An own-words question is worth 3 marks. What does that tell you?', o:['Write three sentences','Find three separate ideas and translate each','Use three quotations','Write for three minutes'], a:1, why:'Marks map to ideas. Three marks, three distinct points, all in your own words.' },
+
+ // --- mcq: scottish ---
+ { t:'mcq', s:'scottish', q:'In the 10-mark Scottish text question, how many marks come from elsewhere in the novel?', o:['2','4','6','8'], a:2, why:'2 for commonality, 2 for the extract, 6 for at least one other part of the text. Pre-learned references are where the marks are.' },
+ { t:'mcq', s:'scottish', q:'Are bullet points allowed in the 10-mark question?', o:['Never','Only for the commonality','Yes — linked statements or bullet points','Only if you run out of time'], a:2, why:'The marking instructions explicitly permit bullet points, and they force one scoring comment per bullet.' },
+ { t:'mcq', s:'scottish', q:'What is Urban Gothic?', o:['Gothic writing set in a cathedral','Gothic machinery relocated into the modern city, so the threat is a neighbour rather than something foreign','Any Victorian novel','Gothic writing with a happy ending'], a:1, why:'The monster lives on a respectable street and has a key. That relocation is the whole point of Stevenson’s setting.' },
+ { t:'mcq', s:'scottish', q:'Why does Stevenson place Jekyll’s confession in the final chapter?', o:['It was written last','So the reader judges Hyde by Victorian standards for nine chapters before receiving the explanation that implicates those standards','To make the novel longer','Because Jekyll dies'], a:1, why:'The ordering makes the reader complicit. Saying what a structural choice does to the reader is analysis of text structure — explicitly rewarded.' },
+ { t:'mcq', s:'scottish', q:'What does Jekyll say caused his duplicity, before any drug is involved?', o:['His scientific ambition','An "imperious desire to carry my head high" — the need for a flawless reputation','Lanyon’s rivalry','Utterson’s suspicion'], a:1, why:'He concealed his pleasures because of the demand to appear faultless. Respectability manufactures Hyde; the potion only makes him visible.' },
+ { t:'mcq', s:'scottish', q:'A Section 1 question worth 2 marks. What is the efficient answer?', o:['Four quotations','One quotation with a detailed analytical comment','A summary of the extract','Two quotations with no comment'], a:1, why:'2 marks for a detailed comment plus reference, or 1+1 for two basic ones. Quotation alone is always zero.' },
+
+ // --- mcq: folio ---
+ { t:'mcq', s:'folio', q:'How much of the Higher English course is the portfolio worth?', o:['15 marks','20 marks','30 marks','40 marks'], a:2, why:'Two pieces at 15 marks each — the same weight as the entire RUAE paper, but written at home with time to redraft.' },
+ { t:'mcq', s:'folio', q:'What are the two required portfolio pieces?', o:['Two essays','One broadly creative and one broadly discursive','A poem and a story','Two discursive essays'], a:1, why:'One from each category. Submitting two of the same kind does not meet the requirement.' },
+ { t:'mcq', s:'folio', q:'Most common structural fix for a creative folio piece?', o:['Add more description','Cut the opening paragraph and start closer to the action','Add another character','Make it longer'], a:1, why:'Almost every first draft warms up in public. Starting later is the highest-return edit in creative writing.' },
+
+ // --- flip: technique cards ---
+ { t:'flip', s:'ruae', f:'Climax (sentence structure)', b:'A list that builds to its most important item last. Effect: the final item is emphasised by everything that led to it. Say what the build achieves, not just that it exists.' },
+ { t:'flip', s:'ruae', f:'Anticlimax / bathos', b:'A list or build that collapses into something trivial. Effect: almost always humour, deflation or contempt. Very common in opinion journalism — look for it in RUAE passages.' },
+ { t:'flip', s:'ruae', f:'Parenthesis', b:'An aside marked off by dashes, brackets or paired commas. Effect: adds information, qualification or a change of voice without interrupting the main sentence. Say WHAT the aside adds.' },
+ { t:'flip', s:'ruae', f:'Colon vs semicolon', b:'Colon: the second half delivers what the first half promised — explanation, expansion, list. Semicolon: two ideas of equal weight held in balance, often a contrast.' },
+ { t:'flip', s:'ruae', f:'The imagery formula', b:'1. Name it. 2. Root it — what the image literally is or does. 3. Transfer it — "just as X… so the writer suggests Y is likewise…" Skip step 2 and you cap at 1 mark.' },
+ { t:'flip', s:'ruae', f:'Register clash', b:'A formal subject described in casual language, or the reverse. Effect: usually mockery, contempt or humour. One of the fastest routes to a defensible comment on tone.' },
+ { t:'flip', s:'ruae', f:'The link formula', b:'Quote the backward-referring half + the idea it closes. Quote the forward-referring half + the idea it opens. Two marks, one per half. The most reliable marks in the paper.' },
+ { t:'flip', s:'ruae', f:'Mark economy', b:'1 mark = basic analytical comment + reference. 2 marks = detailed or insightful comment + reference. 0 marks = reference alone. Every answer you write should aim at the 2-mark shape.' },
+ { t:'flip', s:'essay', f:'The five paragraph moves', b:'Point (a claim, not plot) → Evidence (short, embedded) → Analysis (technique + effect, 2–3 sentences) → Evaluation (what it does for the play) → Link (the question’s own words).' },
+ { t:'flip', s:'essay', f:'Band language: 20–19', b:'PERCEPTIVE knowledge and selection of evidence; FLUENTLY structured; COMMITTED evaluative stance; perceptive focus on the demands of the question.' },
+ { t:'flip', s:'essay', f:'Band language: 18–16', b:'SECURE knowledge; DETAILED evidence; COHERENTLY structured; ENGAGED evaluative stance; secure focus on the question.' },
+ { t:'flip', s:'essay', f:'Hamlet Block A', b:'The soliloquies — "too too solid flesh" (I.ii), "To be or not to be" (III.i), "How all occasions" (IV.iv). Covers character, theme, structure, the tragedy of thought.' },
+ { t:'flip', s:'essay', f:'Hamlet Block B', b:'The Mousetrap, III.ii. Play-within-a-play, dramatic irony, the turning point. Covers key scene, revelation, appearance vs reality. Both men leave it armed.' },
+ { t:'flip', s:'essay', f:'Hamlet Block C', b:'The closet scene, III.iv. Polonius killed behind the arras. The hinge of the plot: Claudius gets his pretext, Laertes his motive, Ophelia her madness.' },
+ { t:'flip', s:'essay', f:'Hamlet Block D', b:'Act V — Yorick’s skull, "a divinity that shapes our ends", "the readiness is all", the duel. Covers climax, resolution, mortality, and change in the central character.' },
+ { t:'flip', s:'scottish', f:'The 10-marker split', b:'2 marks identify the commonality (broad point + development). 2 marks from the printed extract. 6 marks from elsewhere — three detailed comments plus references.' },
+ { t:'flip', s:'scottish', f:'Four themes to pre-load', b:'Duality · secrecy and reputation · science and the limits of knowledge · the urban Gothic setting. Four references each, from different parts of the novel.' },
+ { t:'flip', s:'scottish', f:'The three narrators', b:'Ch 1–8 third person limited to Utterson (a man who prefers not to know) → Ch 9 Lanyon’s eyewitness account → Ch 10 Jekyll’s written confession. Detective story becoming confession.' },
+ { t:'flip', s:'folio', f:'Discursive: the choice', b:'Pick a QUESTION, not a topic. "Social media" produces an essay that says several things. "Should under-16s be banned from social media?" produces an essay that argues one thing.' },
+ { t:'flip', s:'folio', f:'Creative: write small', b:'One afternoon, one room, one conversation. The commonest failure is scale. Concrete detail carries the marks; plot does not. End on an image, not an explanation.' },
+
+ // --- micro: short written answers ---
+ { t:'micro', s:'ruae', marks:2, q:'Analyse the sentence structure: "There were no hearings, no impact study, no vote. Nothing."',
+   model:'The list of three negatives — "no hearings, no impact study, no vote" — uses repeated "no" to accumulate absences until the process sounds systematically empty (1). The minor sentence "Nothing." then closes it with an abruptness that delivers the writer’s verdict rather than more evidence (1).' },
+ { t:'micro', s:'ruae', marks:2, q:'Analyse the imagery: "The proposal was a Trojan horse, wheeled in past a grateful council."',
+   model:'A Trojan horse was literally a gift concealing an invading army, welcomed by the people it destroyed (1). This suggests the proposal was accepted precisely because its real purpose was hidden, and that the harm would come from inside the council’s own walls (1). "Grateful" extends the image, making the victims complicit in their own defeat.' },
+ { t:'micro', s:'ruae', marks:2, q:'Analyse word choice: "the crowd’s appetite for his work had become ravenous."',
+   model:'"Ravenous" carries connotations of animal starvation rather than ordinary appetite (1), suggesting the public’s interest had stopped being appreciation and become a predatory hunger that would consume the artist himself (1).' },
+ { t:'micro', s:'scottish', marks:2, q:'Analyse how the writer’s use of language creates an impression of Utterson: "the man’s rich silence".',
+   model:'The oxymoron pairs emptiness with value (1), suggesting that what Utterson withholds is exactly what his friends find valuable in him — and planting the novel’s idea that not speaking is treated as a virtue (1).' },
+ { t:'micro', s:'scottish', marks:2, q:'Analyse: "there came a blackness about his eyes."',
+   model:'The abstract noun "blackness" suggests something arriving from outside rather than an expression Jekyll chooses (1), hinting at Hyde’s presence within him and making the moment feel dangerous rather than merely awkward (1).' },
+ { t:'micro', s:'scottish', marks:2, q:'Analyse: "commit temporary suicide."',
+   model:'The oxymoron joins the absolute finality of suicide to the impermanence of "temporary" (1), capturing Hyde’s position exactly: every return to Jekyll is a death he is compelled to undergo again and again, and resents (1).' },
+ { t:'micro', s:'essay', marks:4, q:'Write one full essay paragraph: how does Shakespeare present Hamlet as vulnerable in "To be, or not to be"? Use Point, Evidence, Analysis, Evaluation, Link.',
+   model:'POINT: Shakespeare makes Hamlet most vulnerable at the moment he sounds most philosophical. EVIDENCE: the soliloquy is conducted entirely in the abstract — "To be, or not to be — that is the question" — and never once uses "I". ANALYSIS: the grammatical retreat into the impersonal is the vulnerability: a man contemplating his own death who cannot bring himself to be its subject. The infinitives hold the choice at arm’s length, and the famous balance of the line is achieved by removing the person from it. EVALUATION: this is why the speech disturbs rather than moves — Shakespeare shows us a mind protecting itself from its own thought in the very act of thinking it. LINK: Hamlet’s vulnerability is not weakness of feeling but an inability to own what he feels, and that is what makes the tragedy his rather than the Ghost’s.' },
+ { t:'micro', s:'essay', marks:3, q:'Write an introduction (4 sentences max) for: "Choose a play which explores jealousy or loyalty."',
+   model:'Shakespeare’s Hamlet is a revenge tragedy in which almost every relationship is a test of loyalty that somebody fails. Through the contrast between Horatio’s constancy and the bought service of Rosencrantz and Guildenstern, and through the soliloquies in which Hamlet interrogates his own loyalty to his father, Shakespeare presents loyalty as the one value in Elsinore that cannot be performed. Even the Ghost’s command is a claim of loyalty that corrupts the son who accepts it. It is the standard against which the play measures every character, and the only one it does not destroy.' },
+ { t:'micro', s:'folio', marks:3, q:'Rewrite this opening so it starts closer to the action: "It was a cold Tuesday in November and I was walking home from school thinking about what had happened earlier that day with my friend Callum, who I had known since primary."',
+   model:'Callum had not looked at me since the bell. I walked home the long way. — Cut the weather, the day, the explanation and the backstory. Start where something is already wrong, and let the reader ask the questions the original paragraph was answering pre-emptively.' }
+];
+
+/* ============================================================
+   THEME MAPS
+   ============================================================ */
+const THEMES = {
+ jekyll:[
+  { name:'Duality', line:'Not good versus evil, but a self divided by the demand to appear whole.', refs:['"man is not truly one, but truly two" — and Jekyll immediately doubts it','The two entrances to one building','Pronoun drift in Ch 10: "it", "he", "I"','"knit to him closer than a wife, closer than an eye"'] },
+  { name:'Secrecy and reputation', line:'The novel’s strongest argument: respectability, not appetite, manufactures Hyde.', refs:['"the more it looks like Queer Street, the less I ask"','"an imperious desire to carry my head high"','"I beg of you to let it sleep"','The confession exists only as a sealed document'] },
+  { name:'Science and its limits', line:'Post-Darwinian anxiety: the horror is evolutionary, not supernatural.', refs:['"ape-like fury"','Lanyon dies of what he witnesses','The cabinet was bought from a surgeon','"close to my drugs" — the addiction reading'] },
+  { name:'Urban Gothic', line:'The monster is a neighbour with a key. Setting carries the argument.', refs:['The door, "blistered and distained"','"a great chocolate-coloured pall lowered over heaven"','"like a district of some city in a nightmare"','Fog as a failure of moral vision'] }
+ ],
+ hamlet:[
+  { name:'Thought versus action', line:'The tragedy is not of revenge but of a mind that examines revenge to death.', refs:['"conscience does make cowards of us all"','Sparing Claudius at prayer (III.iii)','"How all occasions do inform against me" — still analysing in Act IV','"the readiness is all" — acting only once he stops deciding'] },
+  { name:'Appearance and reality', line:'Everyone performs; the play itself is the instrument that exposes performance.', refs:['"But I have that within which passeth show"','"one may smile, and smile, and be a villain"','The Mousetrap — theatre used to catch truth','"the mirror up to nature"'] },
+  { name:'Corruption and disease', line:'Private crime expressed as public sickness throughout the imagery.', refs:['"Something is rotten in the state of Denmark"','"an ulcerous place" (III.iv)','"rank corruption, mining all within"','The poison in the ear — murder as infection'] },
+  { name:'Loyalty', line:'The only value the tragedy does not destroy.', refs:['Horatio: "not passion’s slave"','Rosencrantz and Guildenstern bought by Claudius','Laertes’s loyalty converted into a weapon','"Report me and my cause aright"'] },
+  { name:'Mortality', line:'Abstract speeches about death give way to a skull he can hold.', refs:['"To be, or not to be"','"Alas, poor Yorick!"','"we fat all creatures else to fat us"','"The rest is silence"'] }
+ ]
+};
+/* ============================================================
+   APP
+   ============================================================ */
+const LS = 'gaslight_v1';
+const fresh = () => ({ streak:0, last:null, lessons:{}, conf:{}, marks:[], drills:{done:0,right:0},
+              day:null, queue:[], qi:0, dates:{}, tab:'today' });
+let S;
+try { S = Object.assign(fresh(), JSON.parse(localStorage.getItem(LS) || '{}')); }
+catch(e){ S = fresh(); }
+S.conf = S.conf || {}; S.lessons = S.lessons || {}; S.dates = S.dates || {};
+S.drills = S.drills || {done:0,right:0};
+if(!Array.isArray(S.marks)) S.marks = [];
+if(!Array.isArray(S.queue)) S.queue = [];
+
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+const $ = s => document.querySelector(s);
+const view = $('#view');
+const esc = t => String(t==null?'':t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today = () => new Date().toISOString().slice(0,10);
+
+/* ---------- streak ---------- */
+function touchStreak(){
+  const t = today();
+  if (S.last === t) return;
+  const y = new Date(Date.now()-864e5).toISOString().slice(0,10);
+  S.streak = (S.last === y) ? S.streak+1 : 1;
+  S.last = t; save();
+}
+function paintStreak(){
+  $('#streakChip').textContent = S.streak === 0 ? 'Start today' : (S.streak === 1 ? '1 day streak' : S.streak + ' day streak');
+}
+
+/* ---------- theme ---------- */
+$('#themeBtn').addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+});
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){
+  document.querySelectorAll('.toast').forEach(n=>n.remove());
+  const el = document.createElement('div'); el.className='toast'; el.textContent = msg;
+  document.body.appendChild(el); clearTimeout(toastT);
+  toastT = setTimeout(()=>el.remove(), 2200);
+}
+
+/* ---------- daily queue (deterministic per date) ---------- */
+function seeded(str){ let h=2166136261; for(let i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619);} return ()=>{ h=Math.imul(h^h>>>15,2246822507); h=Math.imul(h^h>>>13,3266489909); return ((h^h>>>16)>>>0)/4294967296; }; }
+function buildQueue(){
+  const r = seeded(today());
+  const weak = Object.keys(SKILLS).sort((a,b)=>(S.conf[a]||0)-(S.conf[b]||0));
+  const want = ['essay','essay', weak[0], 'ruae', weak[1]==='essay'?'scottish':weak[1]];
+  const out = [];
+  want.forEach(sk => {
+    const pool = DRILLS.map((d,i)=>({d,i})).filter(x=>x.d.s===sk && !out.includes(x.i));
+    if(!pool.length) return;
+    out.push(pool[Math.floor(r()*pool.length)].i);
+  });
+  while(out.length < 5){
+    const i = Math.floor(r()*DRILLS.length);
+    if(!out.includes(i)) out.push(i);
+  }
+  return out;
+}
+function ensureDay(){
+  if(S.day !== today()){ S.day = today(); S.queue = buildQueue(); S.qi = 0; save(); }
+}
+
+/* ---------- dates ---------- */
+const DEFAULT_DATES = { prelim:'2027-01-11', exam:'2027-05-03' };
+function dateFor(k){ return S.dates[k] || DEFAULT_DATES[k]; }
+function daysTo(k){
+  const d = new Date(dateFor(k)+'T09:00:00');
+  return Math.max(0, Math.ceil((d - new Date())/864e5));
+}
+function setDate(k, label){
+  const cur = dateFor(k);
+  const v = prompt(label + '\nEnter the date as YYYY-MM-DD:', cur);
+  if(!v) return;
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){ toast('Use the format 2027-01-11'); return; }
+  S.dates[k] = v; save(); render();
+}
+
+/* ---------- AI (sample capability) ---------- */
+let SAMPLE = undefined; // undefined = still resolving, null = unavailable
+(async () => {
+  try { SAMPLE = await window.claude?.use?.('sample') ?? null; }
+  catch(e){ SAMPLE = null; }
+  document.querySelectorAll('[data-ai-gate]').forEach(n => { n.hidden = !SAMPLE; });
+  document.querySelectorAll('[data-ai-fallback]').forEach(n => { n.hidden = !!SAMPLE; });
+  const fab = $('#fab'); if(fab) fab.hidden = !SAMPLE;
+})();
+
+const MARKER_RULES = `You are an experienced SQA Higher English marker in Scotland. Apply these real marking principles exactly:
+- Positive marking: award marks for what is done well; never deduct.
+- For analysis questions: no marks for a quotation or example on its own. 1 mark for a basic analytical comment plus reference; 2 marks for a detailed or insightful comment plus reference.
+- For "use your own words" questions: one mark per distinct idea, correctly recast. Copied phrasing earns nothing.
+- For the critical essay (20 marks): judge holistically across knowledge and understanding, analysis, evaluation, and technical accuracy. Bands: 20-19 perceptive/committed; 18-16 secure/detailed/engaged; 15-13 clear; 12-10 adequate; 9-6 limited; 5-0 very little. If the writing has errors that impede understanding at first reading, or is not relevant to the question, cap at 9.
+- For the 10-mark Scottish text question: 2 marks for identifying commonality, 2 for a detailed comment on the printed extract, 6 for three detailed comments on other parts of the text.
+Be exact and generous only where the evidence supports it. Never inflate. Speak directly to the student as "you". Be specific about the actual words they wrote.`;
+
+async function mark(opts, onStream){
+  const prompt = [
+    MARKER_RULES,
+    '',
+    'TASK TYPE: ' + opts.kind,
+    'QUESTION: ' + opts.question,
+    'MARKS AVAILABLE: ' + opts.marks,
+    opts.context ? 'RELEVANT TEXT THE STUDENT IS ANALYSING:\n' + opts.context : '',
+    opts.model ? 'POINTS A GOOD ANSWER MIGHT MAKE (not exhaustive; credit anything valid):\n' + opts.model : '',
+    '',
+    "STUDENT'S ANSWER:\n" + opts.answer,
+    '',
+    'Reply with only a JSON object of this exact shape:',
+    '{"mark": <integer 0-' + opts.marks + '>, "band": "<short band label>", "strengths": ["<what earned marks, quoting their words>"], "fixes": ["<the single most valuable change, then the next>"], "upgrade": "<rewrite ONE of their sentences at a higher band, so they can see the difference>"}',
+    'Give at most 3 strengths and 3 fixes. Keep each under 40 words. Be concrete.'
+  ].filter(Boolean).join('\n');
+  return SAMPLE.json(prompt, { modelTier:'complex', cache:false, onText:onStream });
+}
+
+function aiErrCopy(code){
+  switch(code){
+    case 'not_granted': case 'sampling_disabled': case 'not_declared': return 'Marking by Claude is not available on this device. Use the model answer below to mark yourself.';
+    case 'rate_limited': return 'Too many requests just now. Wait a minute and try again, or mark yourself against the model answer.';
+    case 'session_expired': return 'Sign in to Claude again to use marking.';
+    case 'invalid_json': return 'The marker got confused. Tap Mark again.';
+    case 'cancelled': return '';
+    default: return 'Something went wrong reaching the marker. Try again, or mark yourself against the model answer.';
+  }
+}
+
+/* ---------- small builders ---------- */
+function pill(sk){ return `<span class="pill ${SKILLS[sk].cls}">${SKILLS[sk].short}</span>`; }
+function back(label, fn){
+  const b = document.createElement('button');
+  b.className = 'backlink';
+  b.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> ${esc(label)}`;
+  b.onclick = fn; return b;
+}
+function el(html){ const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstElementChild; }
+
+/* ---------- tabs ---------- */
+const TABS = [
+  ['today','Today','M12 2v2m0 16v2M2 12h2m16 0h2M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10'],
+  ['learn','Learn','M4 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H4Zm16 0h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H20Z'],
+  ['practice','Practice','M4 5h16M4 12h16M4 19h10'],
+  ['texts','Texts','M6 3h9l4 4v14H6Zm9 0v4h4'],
+  ['progress','Progress','M4 20V10m5 10V4m5 16v-7m5 7V8']
+];
+function paintTabs(){
+  $('#tabbar').innerHTML = TABS.map(([id,label,d]) => `
+    <button data-tab="${id}" aria-current="${S.tab===id}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>
+      ${label}<i class="dot"></i>
+    </button>`).join('');
+  $('#tabbar').querySelectorAll('button').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; save(); render(); scrollTo(0,0); });
+}
+
+/* ============================================================
+   TODAY
+   ============================================================ */
+function viewToday(){
+  ensureDay();
+  const done = S.qi >= S.queue.length;
+  const pct = Math.round(100 * Math.min(S.qi, S.queue.length) / Math.max(1,S.queue.length));
+  const wrap = document.createElement('div'); wrap.className = 'stack';
+
+  wrap.appendChild(el(`<div>
+    <div class="eyebrow">${new Date().toLocaleDateString('en-GB',{weekday:'long', day:'numeric', month:'long'})}</div>
+    <h1 class="h-page">Ten minutes, well spent</h1>
+    <p class="sub">Five items, chosen from where you are weakest. Critical essay is weighted heaviest because that is what you said needs work.</p>
+  </div>`));
+
+  const cd = el(`<div class="countdown">
+    <div><button id="dPre" style="text-align:left;width:100%"><div class="n">${S.dates.prelim?'':'<span class="approx">≈</span>'}${daysTo('prelim')}</div><div class="l">days to prelim</div></button></div>
+    <div><button id="dExam" style="text-align:left;width:100%"><div class="n">${S.dates.exam?'':'<span class="approx">≈</span>'}${daysTo('exam')}</div><div class="l">days to exams</div></button></div>
+  </div>`);
+  wrap.appendChild(cd);
+  cd.querySelector('#dPre').onclick = () => setDate('prelim','When is your English prelim?');
+  cd.querySelector('#dExam').onclick = () => setDate('exam','When is your first Higher English exam?');
+  if(!S.dates.prelim || !S.dates.exam) wrap.appendChild(el(`<p class="tiny">≈ estimated. Tap either figure to set the real date once you have it.</p>`));
+
+  // drill card
+  const dc = el(`<div class="card">
+    <div class="row" style="margin-bottom:10px">
+      <div><div class="eyebrow">Today's drill</div><h2 class="h-sec">${done?'Finished':'Item ' + (S.qi+1) + ' of ' + S.queue.length}</h2></div>
+      <div class="spacer" style="flex:1"></div>
+    </div>
+    <div class="bar" style="margin-bottom:14px"><i style="width:${pct}%"></i></div>
+  </div>`);
+  if(done){
+    dc.appendChild(el(`<p class="sub" style="margin-bottom:12px">Done for today. Streak is safe. If you have more time, go to Practice and write one timed paragraph — that is worth more than another quiz.</p>`));
+    const b = el(`<button class="btn secondary full">Run it again</button>`);
+    b.onclick = () => { S.qi = 0; save(); render(); }; dc.appendChild(b);
+  } else {
+    const b = el(`<button class="btn brass full">${S.qi===0?'Start':'Continue'}</button>`);
+    b.onclick = () => openDrill(); dc.appendChild(b);
+  }
+  wrap.appendChild(dc);
+
+  // priority card
+  wrap.appendChild(el(`<div class="card flat">
+    <div class="eyebrow" style="margin-bottom:6px">The rule that shapes your paper</div>
+    <p style="font-size:14.5px;line-height:1.5">${GENRE_RULE}</p>
+  </div>`));
+
+  // course plan
+  const plan = el(`<div><div class="eyebrow" style="margin-bottom:8px">Your year</div><div class="rows"></div></div>`);
+  const rows = plan.querySelector('.rows');
+  COURSE.forEach(c => {
+    const d = el(`<details class="acc" style="border:none;border-bottom:1px solid var(--rule-2);border-radius:0">
+      <summary><span class="pill ghost">${esc(c.term)}</span> ${esc(c.head)}</summary>
+      <div class="accbody">${esc(c.body)}</div></details>`);
+    rows.appendChild(d);
+  });
+  wrap.appendChild(plan);
+
+  view.appendChild(wrap);
+}
+
+/* ---------- drill runner ---------- */
+function openDrill(){
+  ensureDay();
+  view.innerHTML = '';
+  const d = DRILLS[S.queue[S.qi]];
+  const wrap = document.createElement('div'); wrap.className = 'stack';
+  wrap.appendChild(back('Today', () => { render(); }));
+  wrap.appendChild(el(`<div class="bar"><i style="width:${Math.round(100*S.qi/S.queue.length)}%"></i></div>`));
+
+  const next = () => { S.qi++; save(); touchStreak(); paintStreak(); if(S.qi >= S.queue.length){ render(); toast('Drill complete'); } else openDrill(); };
+
+  if(d.t === 'mcq') wrap.appendChild(cardMCQ(d, next));
+  else if(d.t === 'flip') wrap.appendChild(cardFlip(d, next));
+  else wrap.appendChild(cardMicro(d, next));
+
+  view.appendChild(wrap); scrollTo(0,0);
+}
+
+function cardMCQ(d, next){
+  const c = el(`<div class="qcard">
+    <div class="qhead">${pill(d.s)}<span class="tiny">Quick check</span></div>
+    <div class="qbody stack">
+      <p style="font-size:16.5px;line-height:1.45;font-weight:500">${esc(d.q)}</p>
+      <div class="stack-s opts"></div>
+      <div class="fbslot"></div>
+    </div></div>`);
+  const opts = c.querySelector('.opts');
+  let answered = false;
+  d.o.forEach((o,i) => {
+    const b = el(`<button class="opt">${esc(o)}</button>`);
+    b.onclick = () => {
+      if(answered) return; answered = true;
+      S.drills.done++; if(i===d.a) S.drills.right++;
+      S.conf[d.s] = Math.max(0, Math.min(5, (S.conf[d.s]||0) + (i===d.a ? 0.5 : -0.5)));
+      save();
+      opts.querySelectorAll('.opt').forEach((n,j) => {
+        if(j===d.a) n.classList.add('correct');
+        else if(j===i) n.classList.add('wrong');
+        else n.classList.add('dim');
+      });
+      const fb = el(`<div class="fb ${i===d.a?'good':''}"><h4>${i===d.a?'Right':'Not quite'}</h4><p style="font-size:14.5px;line-height:1.5">${esc(d.why)}</p></div>`);
+      c.querySelector('.fbslot').appendChild(fb);
+      const n = el(`<button class="btn full" style="margin-top:12px">Next</button>`); n.onclick = next;
+      c.querySelector('.fbslot').appendChild(n);
+      n.scrollIntoView({behavior:'smooth', block:'nearest'});
+    };
+    opts.appendChild(b);
+  });
+  return c;
+}
+
+function cardFlip(d, next){
+  const c = el(`<div class="qcard">
+    <div class="qhead">${pill(d.s)}<span class="tiny">Recall card</span></div>
+    <div class="qbody stack">
+      <div class="flip"><div class="eyebrow">Technique</div><h2 class="h-sec">${esc(d.f)}</h2><p class="tiny back-hint">Say the effect out loud, then reveal.</p></div>
+      <div class="slot"></div>
+    </div></div>`);
+  const slot = c.querySelector('.slot');
+  const rev = el(`<button class="btn secondary full">Reveal</button>`);
+  rev.onclick = () => {
+    rev.remove();
+    slot.appendChild(el(`<div class="fb"><h4>What to say</h4><p style="font-size:14.5px;line-height:1.55">${esc(d.b)}</p></div>`));
+    const row = el(`<div class="row" style="margin-top:12px;gap:8px"></div>`);
+    const a = el(`<button class="btn secondary" style="flex:1">Shaky</button>`);
+    const b = el(`<button class="btn" style="flex:1">Knew it</button>`);
+    a.onclick = () => { S.conf[d.s] = Math.max(0,(S.conf[d.s]||0)-0.5); S.drills.done++; save(); next(); };
+    b.onclick = () => { S.conf[d.s] = Math.min(5,(S.conf[d.s]||0)+0.5); S.drills.done++; S.drills.right++; save(); next(); };
+    row.appendChild(a); row.appendChild(b); slot.appendChild(row);
+  };
+  slot.appendChild(rev);
+  return c;
+}
+
+function cardMicro(d, next){
+  const c = el(`<div class="qcard">
+    <div class="qhead">${pill(d.s)}<span class="tiny">Write it out</span><span class="marks">${d.marks} mark${d.marks>1?'s':''}</span></div>
+    <div class="qbody stack">
+      <p style="font-size:16px;line-height:1.5;font-weight:500">${esc(d.q)}</p>
+      <textarea class="answer" id="micro-ans" placeholder="Write your answer. Quote, name the technique, then explain the effect."></textarea>
+      <div class="row"><span class="wordcount">0 words</span><div style="flex:1"></div></div>
+      <div class="slot stack"></div>
+    </div></div>`);
+  const ta = c.querySelector('textarea'), wc = c.querySelector('.wordcount'), slot = c.querySelector('.slot');
+  ta.addEventListener('input', () => { const n = ta.value.trim().split(/\s+/).filter(Boolean).length; wc.textContent = n + (n===1?' word':' words'); });
+
+  const btnRow = el(`<div class="row" style="gap:8px"></div>`);
+  const aiBtn = el(`<button class="btn brass" style="flex:1" data-ai-gate hidden>Mark my answer</button>`);
+  const showBtn = el(`<button class="btn secondary" style="flex:1">Show model answer</button>`);
+  btnRow.appendChild(aiBtn); btnRow.appendChild(showBtn);
+  slot.appendChild(btnRow);
+  if(SAMPLE) aiBtn.hidden = false;
+
+  showBtn.onclick = () => {
+    showBtn.remove();
+    slot.appendChild(el(`<div class="fb"><h4>Model answer</h4><p style="font-family:var(--serif);font-size:15.5px;line-height:1.6">${esc(d.model)}</p></div>`));
+    slot.appendChild(selfMark(d.marks, d.s, next));
+  };
+  aiBtn.onclick = async () => {
+    if(!ta.value.trim()){ toast('Write something first'); return; }
+    aiBtn.disabled = true; showBtn.disabled = true;
+    const out = el(`<div class="fb"><h4>Marking</h4><p class="sub">Reading your answer…</p></div>`);
+    slot.appendChild(out);
+    try{
+      const r = await mark({ kind:'Short analysis question', question:d.q, marks:d.marks, model:d.model, answer:ta.value });
+      out.remove(); slot.appendChild(feedbackCard(r, d.marks, d.s, d.q));
+      S.marks.push({ d:today(), s:d.s, m:r.mark, of:d.marks, q:d.q.slice(0,80) }); save();
+      const n = el(`<button class="btn full">Next</button>`); n.onclick = next; slot.appendChild(n);
+    }catch(e){
+      out.remove(); const msg = aiErrCopy(e.code);
+      if(msg) slot.appendChild(el(`<div class="fb"><h4>Marking unavailable</h4><p style="font-size:14.5px">${esc(msg)}</p></div>`));
+      showBtn.disabled = false; aiBtn.disabled = false;
+      if(e.code === 'not_granted' || e.code === 'sampling_disabled') aiBtn.remove();
+    }
+  };
+  const skip = el(`<button class="btn secondary full" style="margin-top:4px">Skip</button>`); skip.onclick = next;
+  slot.appendChild(skip);
+  return c;
+}
+
+function selfMark(outOf, skill, next){
+  const box = el(`<div class="card flat stack-s"><div class="eyebrow">Mark yourself honestly</div><div class="mark-scale"></div></div>`);
+  const sc = box.querySelector('.mark-scale');
+  for(let i=0;i<=outOf;i++){
+    const b = el(`<button aria-pressed="false">${i}</button>`);
+    b.onclick = () => {
+      sc.querySelectorAll('button').forEach(n=>n.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true');
+      S.conf[skill] = Math.max(0, Math.min(5, (S.conf[skill]||0) + (i/outOf >= .7 ? 0.5 : -0.5)));
+      S.marks.push({ d:today(), s:skill, m:i, of:outOf, q:'self-marked' });
+      S.drills.done++; save();
+      if(next){ const n = el(`<button class="btn full" style="margin-top:10px">Next</button>`); n.onclick = next; box.appendChild(n); }
+    };
+    sc.appendChild(b);
+  }
+  return box;
+}
+
+function feedbackCard(r, outOf, skill, q){
+  const m = Math.max(0, Math.min(outOf, Number(r.mark)||0));
+  const good = m/outOf >= 0.75;
+  S.conf[skill] = Math.max(0, Math.min(5, (S.conf[skill]||0) + (good ? 0.75 : (m/outOf>=0.5? 0.25 : -0.5))));
+  const c = el(`<div class="fb ${good?'good':''}">
+    <div class="scoreline"><b>${m}</b><span class="sub">out of ${outOf}${r.band?' · '+esc(r.band):''}</span></div>
+  </div>`);
+  if(Array.isArray(r.strengths) && r.strengths.length){
+    c.appendChild(el(`<h4 style="margin-top:8px">What earned marks</h4>`));
+    c.appendChild(el(`<ul>${r.strengths.slice(0,3).map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`));
+  }
+  if(Array.isArray(r.fixes) && r.fixes.length){
+    c.appendChild(el(`<h4 style="margin-top:12px">Do this next time</h4>`));
+    c.appendChild(el(`<ul>${r.fixes.slice(0,3).map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`));
+  }
+  if(r.upgrade){
+    c.appendChild(el(`<h4 style="margin-top:12px">One of your sentences, lifted</h4>`));
+    c.appendChild(el(`<p style="font-family:var(--serif);font-size:15.5px;line-height:1.6">${esc(r.upgrade)}</p>`));
+  }
+  return c;
+}
+
+/* ============================================================
+   LEARN
+   ============================================================ */
+let learnFilter = 'all';
+function viewLearn(){
+  const wrap = document.createElement('div'); wrap.className = 'stack';
+  wrap.appendChild(el(`<div><div class="eyebrow">Lessons</div><h1 class="h-page">Learn the thing, then drill it</h1>
+    <p class="sub">Each lesson is 5–9 minutes and ends with one check question. Start with the critical essay set.</p></div>`));
+
+  const chips = el(`<div class="chips"></div>`);
+  [['all','Everything'],['essay','Critical essay'],['ruae','RUAE'],['scottish','Scottish text'],['folio','Portfolio']].forEach(([k,l])=>{
+    const b = el(`<button class="chip" aria-pressed="${learnFilter===k}">${l}</button>`);
+    b.onclick = () => { learnFilter = k; render(); };
+    chips.appendChild(b);
+  });
+  wrap.appendChild(chips);
+
+  const list = LESSONS.filter(l => learnFilter==='all' || l.skill===learnFilter);
+  const groups = {};
+  list.forEach(l => { (groups[l.skill] = groups[l.skill] || []).push(l); });
+  Object.keys(groups).forEach(sk => {
+    const doneN = groups[sk].filter(l=>S.lessons[l.id]).length;
+    const g = el(`<div><div class="row" style="margin-bottom:8px">
+        <div class="eyebrow">${esc(SKILLS[sk].name)}</div><div style="flex:1"></div>
+        <span class="tiny mono-num">${doneN}/${groups[sk].length}</span></div>
+      <div class="rows"></div></div>`);
+    const rows = g.querySelector('.rows');
+    groups[sk].forEach(l => {
+      const r = el(`<button class="rowitem">
+        <span class="tick ${S.lessons[l.id]?'on':''}"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+        <span class="grow"><span class="t">${esc(l.title)}</span><span class="d">${esc(l.blurb)}</span></span>
+        <span class="tiny mono-num">${l.mins}m</span>
+        <svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>`);
+      r.onclick = () => openLesson(l.id);
+      rows.appendChild(r);
+    });
+    wrap.appendChild(g);
+  });
+  view.appendChild(wrap);
+}
+
+function openLesson(id){
+  const l = LESSONS.find(x=>x.id===id);
+  view.innerHTML = '';
+  const wrap = document.createElement('div'); wrap.className = 'stack';
+  wrap.appendChild(back('Lessons', () => { render(); }));
+  wrap.appendChild(el(`<div>${pill(l.skill)}<h1 class="h-page" style="margin-top:8px">${esc(l.title)}</h1><p class="sub">${esc(l.blurb)}</p></div>`));
+
+  l.sections.forEach(s => {
+    const sec = el(`<div class="card ${s.warn?'':'flat'}" ${s.warn?'style="border-color:var(--brass);background:var(--brass-soft)"':''}><h3 class="h-sec" style="font-size:16.5px;margin-bottom:8px">${esc(s.h)}</h3></div>`);
+    if(s.p) sec.appendChild(el(`<p style="font-size:15px;line-height:1.6">${s.p}</p>`));
+    if(s.list) sec.appendChild(el(`<ul style="margin:10px 0 0;padding-left:20px;font-size:15px;line-height:1.55">${s.list.map(i=>`<li style="margin:6px 0">${i}</li>`).join('')}</ul>`));
+    if(s.note) sec.appendChild(el(`<p class="tiny" style="margin-top:8px">${esc(s.note)}</p>`));
+    if(s.bands){
+      const b = el(`<div class="bands" style="margin-top:12px"></div>`);
+      s.bands.forEach(([m,t],i) => b.appendChild(el(`<div class="band ${i===0?'hi':''}"><b>${m}</b><span>${t}</span></div>`)));
+      sec.appendChild(b);
+    }
+    if(s.worked){
+      const w = el(`<div class="stack-s" style="margin-top:12px"></div>`);
+      s.worked.forEach(([k,v]) => w.appendChild(el(`<div class="card flat" style="padding:12px"><div class="eyebrow" style="margin-bottom:4px">${esc(k)}</div><p style="font-family:var(--serif);font-size:15.5px;line-height:1.58">${v}</p></div>`)));
+      sec.appendChild(w);
+    }
+    if(s.example){
+      const ex = el(`<div class="stack-s" style="margin-top:12px"></div>`);
+      if(s.example.bad) ex.appendChild(el(`<div class="card flat" style="padding:12px;border-left:3px solid var(--claret)"><div class="eyebrow" style="color:var(--claret);margin-bottom:4px">Loses marks</div><p style="font-family:var(--serif);font-size:15px;line-height:1.55">${s.example.bad}</p></div>`));
+      if(s.example.good) ex.appendChild(el(`<div class="card flat" style="padding:12px;border-left:3px solid var(--sage)"><div class="eyebrow" style="color:var(--sage);margin-bottom:4px">Scores</div><p style="font-family:var(--serif);font-size:15px;line-height:1.55">${s.example.good}</p></div>`));
+      sec.appendChild(ex);
+    }
+    wrap.appendChild(sec);
+  });
+
+  // check question
+  const ck = el(`<div class="qcard"><div class="qhead"><span class="eyebrow">Check</span></div><div class="qbody stack">
+    <p style="font-size:16px;line-height:1.45;font-weight:500">${esc(l.check.q)}</p>
+    <div class="stack-s opts"></div><div class="fbslot"></div></div></div>`);
+  const opts = ck.querySelector('.opts'); let answered = false;
+  l.check.options.forEach((o,i) => {
+    const b = el(`<button class="opt">${esc(o)}</button>`);
+    b.onclick = () => {
+      if(answered) return; answered = true;
+      opts.querySelectorAll('.opt').forEach((n,j) => n.classList.add(j===l.check.answer?'correct':(j===i?'wrong':'dim')));
+      ck.querySelector('.fbslot').appendChild(el(`<div class="fb ${i===l.check.answer?'good':''}"><h4>${i===l.check.answer?'Right':'Not quite'}</h4><p style="font-size:14.5px;line-height:1.5">${esc(l.check.why)}</p></div>`));
+      S.lessons[l.id] = true;
+      S.conf[l.skill] = Math.max(0, Math.min(5, (S.conf[l.skill]||0) + (i===l.check.answer?0.5:0.25)));
+      touchStreak(); paintStreak(); save();
+      const n = el(`<button class="btn full" style="margin-top:12px">Back to lessons</button>`);
+      n.onclick = () => { S.tab='learn'; render(); };
+      ck.querySelector('.fbslot').appendChild(n);
+    };
+    opts.appendChild(b);
+  });
+  wrap.appendChild(ck);
+  view.appendChild(wrap); scrollTo(0,0);
+}
+
+/* ============================================================
+   PRACTICE
+   ============================================================ */
+function viewPractice(){
+  const wrap = document.createElement('div'); wrap.className = 'stack';
+  wrap.appendChild(el(`<div><div class="eyebrow">Practice</div><h1 class="h-page">Write under the conditions</h1>
+    <p class="sub">Real past-paper questions and passages. Write your answer, then have it marked against the actual SQA criteria.</p></div>`));
+
+  const mk = (title, sub, items) => {
+    const g = el(`<div><div class="eyebrow" style="margin-bottom:8px">${esc(title)}</div><div class="rows"></div><p class="tiny" style="margin-top:6px">${esc(sub)}</p></div>`);
+    const rows = g.querySelector('.rows');
+    items.forEach(([t,d,fn]) => {
+      const r = el(`<button class="rowitem"><span class="grow"><span class="t">${esc(t)}</span><span class="d">${esc(d)}</span></span>
+        <svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>`);
+      r.onclick = fn; rows.appendChild(r);
+    });
+    return g;
+  };
+
+  wrap.appendChild(mk('Critical essay — 20 marks', 'Pick a question, plan in five minutes, write for thirty-five. The timer runs whether you use it or not.',
+    ESSAY_QS.map(q => [q.yr + ' · ' + q.q.split('.')[0].replace(/^Choose a play /,'A play '), q.blocks, () => openEssay(q.id)])));
+
+  wrap.appendChild(mk('Scottish text — Jekyll and Hyde', 'Both extracts are from real Higher papers. Answer the whole set, or a single question.',
+    EXTRACTS.map(x => [x.source.split(',')[0] + ' — ' + x.setup.split('.')[0], x.questions.length + ' questions · 20 marks', () => openExtract(x.id)])));
+
+  wrap.appendChild(mk('RUAE', 'A full discursive passage with five questions, in the style of the exam.',
+    RUAE_PASSAGES.map(p => [p.title, p.questions.length + ' questions · ' + p.questions.reduce((a,q)=>a+q.marks,0) + ' marks', () => openRuae(p.id)])));
+
+  view.appendChild(wrap);
+}
+
+/* ---------- essay practice ---------- */
+function openEssay(id){
+  const q = ESSAY_QS.find(x=>x.id===id);
+  view.innerHTML = '';
+  const wrap = document.createElement('div'); wrap.className = 'stack';
+  wrap.appendChild(back('Practice', () => { S.tab='practice'; render(); }));
+  wrap.appendChild(el(`<div>${pill('essay')} <span class="pill ghost">${esc(q.yr)}</span>
+    <h1 class="h-page" style="margin-top:8px;font-size:21px">Critical essay</h1></div>`));
+  wrap.appendChild(el(`<div class="card"><p style="font-family:var(--serif);font-size:16.5px;line-height:1.58">${esc(q.q)}</p></div>`));
+  wrap.appendChild(el(`<div class="card flat"><div class="eyebrow" style="margin-bottom:5px">Your prepared material</div><p style="font-size:14.5px;line-height:1.5">${esc(q.blocks)}</p></div>`));
+
+  // timer
+  const tbox = el(`<div class="card flat row"><div><div class="eyebrow">Exam timing</div><div class="timer" id="tmr">45:00</div></div><div style="flex:1"></div><button class="btn small secondary" id="tbtn">Start</button></div>`);
+  wrap.appendChild(tbox);
+  let left = 45*60, iv = null;
+  const tmr = tbox.querySelector('#tmr'), tbtn = tbox.querySelector('#tbtn');
+  const paint = () => { tmr.textContent = String(Math.floor(left/60)).padStart(2,'0') + ':' + String(left%60).padStart(2,'0'); tmr.classList.toggle('warn', left <= 300); };
+  tbtn.onclick = () => {
+    if(iv){ clearInterval(iv); iv=null; tbtn.textContent='Resume'; return; }
+    tbtn.textContent = 'Pause';
+    iv = setInterval(() => { left--; paint(); if(left<=0){ clearInterval(iv); iv=null; tbtn.textContent='Time'; toast('Time. Stop writing and bullet the rest.'); } }, 1000);
+  };
+
+  const plan = el(`<div class="card"><div class="eyebrow" style="margin-bottom:8px">Five-minute plan</div>
+    <textarea class="answer" id="essay-plan" style="min-height:110px;font-family:var(--sans);font-size:15px" placeholder="Four claims, each with the quotation you will use.&#10;1.&#10;2.&#10;3.&#10;4."></textarea></div>`);
+  wrap.appendChild(plan);
+
+  const box = el(`<div class="card"><div class="row" style="margin-bottom:8px"><div class="eyebrow">Your essay</div><div style="flex:1"></div><span class="wordcount">0 words</span></div>
+    <textarea class="answer" id="essay-body" style="min-height:280px" placeholder="Introduction: title, author, a claim that answers the question, signpost."></textarea></div>`);
+  wrap.appendChild(box);
+  const ta = box.querySelector('textarea'), wc = box.querySelector('.wordcount');
+  ta.addEventListener('input', () => { const n = ta.value.trim().split(/\s+/).filter(Boolean).length; wc.textContent = n + ' words'; });
+
+  const slot = el(`<div class="stack"></div>`); wrap.appendChild(slot);
+  const btn = el(`<button class="btn brass full" data-ai-gate>Mark against the 20-mark grid</button>`);
+  const fb = el(`<div class="card flat" data-ai-fallback hidden><div class="eyebrow" style="margin-bottom:6px">Marking by Claude unavailable here</div>
+    <p style="font-size:14.5px;line-height:1.5">Mark yourself against the grid in the lesson “What the 20 marks actually reward”. Check in order: is every paragraph relevant to the question, is the analysis explaining effect rather than naming techniques, is there a judgement anywhere, and would a stranger understand every sentence first time?</p></div>`);
+  btn.hidden = !SAMPLE;
+  fb.hidden = SAMPLE !== null;
+  slot.appendChild(btn); slot.appendChild(fb);
+
+  btn.onclick = async () => {
+    const txt = ta.value.trim();
+    if(txt.split(/\s+/).filter(Boolean).length < 120){ toast('Write at least a couple of paragraphs first'); return; }
+    btn.disabled = true;
+    const out = el(`<div class="fb"><h4>Marking</h4><p class="sub" id="stream">Reading your essay against the grid…</p></div>`);
+    slot.insertBefore(out, fb);
+    try{
+      const r = await mark({ kind:'Higher English critical essay (Section 2), drama — Hamlet', question:q.q, marks:20,
+        model:'Reward: a line of thought sustained throughout; precise selection of evidence; analysis that explains the effect of dramatic techniques (soliloquy, dramatic irony, key scene, structure, conflict, characterisation); an evaluative stance; and explicit engagement with "contributes to your appreciation of the play as a whole". Penalise: plot retelling, technique-spotting without effect, and irrelevance to the question.',
+        answer: txt });
+      out.remove();
+      slot.insertBefore(feedbackCard(r, 20, 'essay', q.q), fb);
+      S.marks.push({ d:today(), s:'essay', m:Math.min(20,Number(r.mark)||0), of:20, q:'Critical essay · ' + q.yr }); save();
+      btn.textContent = 'Mark again'; btn.disabled = false;
+    }catch(e){
+      out.remove(); const msg = aiErrCopy(e.code);
+      if(msg) slot.insertBefore(el(`<div class="fb"><h4>Could not mark</h4><p style="font-size:14.5px">${esc(msg)}</p></div>`), fb);
+      btn.disabled = false;
+      if(e.code==='not_granted'||e.code==='sampling_disabled'){ btn.hidden = true; fb.hidden = false; }
+    }
+  };
+  view.appendChild(wrap); scrollTo(0,0);
+}
+
+/* ---------- extract practice ---------- */
+function openExtract(id){
+  const x = EXTRACTS.find(e=>e.id===id);
+  view.innerHTML = '';
+  const wrap = document.createElement('div'); wrap.className='stack';
+  wrap.appendChild(back('Practice', () => { S.tab='practice'; render(); }));
+  wrap.appendChild(el(`<div>${pill('scottish')} <span class="pill ghost">${esc(x.source)}</span>
+    <h1 class="h-page" style="margin-top:8px;font-size:21px">${esc(x.text)}</h1><p class="sub">${esc(x.setup)}</p></div>`));
+
+  x.blocks.forEach(b => {
+    wrap.appendChild(el(`<details class="acc" open><summary>${esc(b.ref)}</summary>
+      <div class="accbody" style="padding-bottom:0"><div class="extract">${b.text.split('\n\n').map(p=>`<p>${esc(p)}</p>`).join('')}</div><div style="height:14px"></div></div></details>`));
+  });
+
+  x.questions.forEach(q => wrap.appendChild(questionCard(q, 'scottish', x.blocks[q.block]? x.blocks[q.block].text : x.blocks.map(b=>b.text).join('\n\n'), x.text)));
+  view.appendChild(wrap); scrollTo(0,0);
+}
+
+/* ---------- RUAE practice ---------- */
+function openRuae(id){
+  const p = RUAE_PASSAGES.find(e=>e.id===id);
+  view.innerHTML = '';
+  const wrap = document.createElement('div'); wrap.className='stack';
+  wrap.appendChild(back('Practice', () => { S.tab='practice'; render(); }));
+  wrap.appendChild(el(`<div>${pill('ruae')}<h1 class="h-page" style="margin-top:8px;font-size:22px">${esc(p.title)}</h1><p class="sub">${esc(p.byline)}</p></div>`));
+  p.blocks.forEach(b => {
+    wrap.appendChild(el(`<details class="acc" open><summary>${esc(b.ref)}</summary>
+      <div class="accbody" style="padding-bottom:0"><div class="extract">${b.text.split('\n\n').map(t=>`<p>${esc(t)}</p>`).join('')}</div><div style="height:14px"></div></div></details>`));
+  });
+  p.questions.forEach((q,i) => wrap.appendChild(questionCard(q, 'ruae', p.blocks[i] ? p.blocks[i].text : '', p.title)));
+  view.appendChild(wrap); scrollTo(0,0);
+}
+
+/* ---------- shared question card ---------- */
+function questionCard(q, skill, context, textName){
+  const c = el(`<div class="qcard">
+    <div class="qhead">${pill(skill)}<span class="tiny">Question ${q.n}</span><span class="marks">${q.marks} mark${q.marks>1?'s':''}</span></div>
+    <div class="qbody stack">
+      <p style="font-size:16px;line-height:1.5;font-weight:500">${esc(q.q)}</p>
+      ${q.hint?`<p class="tiny">${esc(q.hint)}</p>`:''}
+      <textarea class="answer" placeholder="${q.marks>=10?'Bullet points are allowed here. One scoring comment per bullet.':'Quote, name the technique, then explain the effect.'}"></textarea>
+      <div class="row"><span class="wordcount">0 words</span></div>
+      <div class="slot stack-s"></div>
+    </div></div>`);
+  const ta = c.querySelector('textarea'), wc = c.querySelector('.wordcount'), slot = c.querySelector('.slot');
+  ta.addEventListener('input', () => { const n = ta.value.trim().split(/\s+/).filter(Boolean).length; wc.textContent = n + ' words'; });
+
+  const row = el(`<div class="row" style="gap:8px"></div>`);
+  const aiBtn = el(`<button class="btn brass" style="flex:1" data-ai-gate>Mark my answer</button>`);
+  const showBtn = el(`<button class="btn secondary" style="flex:1">Model answer</button>`);
+  aiBtn.hidden = !SAMPLE;
+  row.appendChild(aiBtn); row.appendChild(showBtn); slot.appendChild(row);
+
+  showBtn.onclick = () => {
+    showBtn.disabled = true;
+    slot.appendChild(el(`<div class="fb"><h4>Answers that would score</h4><ul>${q.model.map(m=>`<li>${esc(m)}</li>`).join('')}</ul>
+      <p class="tiny" style="margin-top:8px">You do not need all of these — only enough comments to reach ${q.marks} mark${q.marks>1?'s':''}.</p></div>`));
+    slot.appendChild(selfMark(q.marks, skill, null));
+  };
+  aiBtn.onclick = async () => {
+    if(!ta.value.trim()){ toast('Write something first'); return; }
+    aiBtn.disabled = true;
+    const out = el(`<div class="fb"><h4>Marking</h4><p class="sub">Reading your answer…</p></div>`);
+    slot.appendChild(out);
+    try{
+      const r = await mark({
+        kind: q.marks>=10 ? 'Higher English Scottish text 10-mark commonality question on ' + textName
+                          : 'Higher English ' + (skill==='ruae'?'RUAE':'Scottish text') + ' question on ' + textName,
+        question:q.q, marks:q.marks, context:(context||'').slice(0,4000),
+        model:q.model.join(' | '), answer:ta.value });
+      out.remove(); slot.appendChild(feedbackCard(r, q.marks, skill, q.q));
+      S.marks.push({ d:today(), s:skill, m:Math.min(q.marks,Number(r.mark)||0), of:q.marks, q:textName + ' Q' + q.n }); save();
+      touchStreak(); paintStreak();
+      aiBtn.textContent='Mark again'; aiBtn.disabled=false;
+    }catch(e){
+      out.remove(); const msg = aiErrCopy(e.code);
+      if(msg) slot.appendChild(el(`<div class="fb"><h4>Could not mark</h4><p style="font-size:14.5px">${esc(msg)}</p></div>`));
+      aiBtn.disabled=false;
+      if(e.code==='not_granted'||e.code==='sampling_disabled') aiBtn.hidden = true;
+    }
+  };
+  return c;
+}
+
+/* ============================================================
+   TEXTS
+   ============================================================ */
+let textTab = 'jekyll', themeFilter = 'all';
+function viewTexts(){
+  const wrap = document.createElement('div'); wrap.className='stack';
+  wrap.appendChild(el(`<div><div class="eyebrow">Your two texts</div><h1 class="h-page">Quotations, with something to say about them</h1>
+    <p class="sub">A quotation alone is worth nothing. Each of these comes with the comment that turns it into marks.</p></div>`));
+
+  const tabs = el(`<div class="chips"></div>`);
+  [['jekyll','Jekyll and Hyde — Section 1'],['hamlet','Hamlet — Section 2']].forEach(([k,l])=>{
+    const b = el(`<button class="chip" aria-pressed="${textTab===k}">${l}</button>`);
+    b.onclick = () => { textTab=k; themeFilter='all'; render(); }; tabs.appendChild(b);
+  });
+  wrap.appendChild(tabs);
+
+  // themes
+  const th = THEMES[textTab];
+  const tg = el(`<div><div class="eyebrow" style="margin-bottom:8px">Themes, with references ready to go</div><div class="stack-s"></div></div>`);
+  const ts = tg.querySelector('.stack-s');
+  th.forEach(t => ts.appendChild(el(`<details class="acc"><summary>${esc(t.name)}</summary>
+    <div class="accbody"><p style="margin-bottom:8px"><strong>${esc(t.line)}</strong></p>
+    <ul style="margin:0;padding-left:18px">${t.refs.map(r=>`<li style="margin:5px 0">${esc(r)}</li>`).join('')}</ul></div></details>`)));
+  wrap.appendChild(tg);
+
+  // quotes
+  const qs = QUOTES[textTab];
+  const themes = ['all', ...Array.from(new Set(qs.map(q=>q.theme)))];
+  const fc = el(`<div class="chips"></div>`);
+  themes.forEach(t => {
+    const b = el(`<button class="chip" aria-pressed="${themeFilter===t}">${t==='all'?'All quotations':t}</button>`);
+    b.onclick = () => { themeFilter = t; render(); }; fc.appendChild(b);
+  });
+  wrap.appendChild(el(`<div class="eyebrow">Quotation bank</div>`));
+  wrap.appendChild(fc);
+
+  const list = qs.filter(q => themeFilter==='all' || q.theme===themeFilter);
+  const box = el(`<div class="stack-s"></div>`);
+  list.forEach(q => {
+    const card = el(`<div class="card">
+      <p class="quote">“${esc(q.q)}”</p>
+      <p class="tiny" style="margin-top:6px">${esc(q.who)} · ${esc(q.ch)} · ${esc(q.theme)}</p>
+      <div class="noteslot"></div></div>`);
+    const ns = card.querySelector('.noteslot');
+    const b = el(`<button class="btn small secondary" style="margin-top:10px">What to say about it</button>`);
+    b.onclick = () => { b.remove(); ns.appendChild(el(`<div class="fb" style="margin-top:10px"><p style="font-size:14.5px;line-height:1.55">${esc(q.note)}</p></div>`)); };
+    ns.appendChild(b);
+    box.appendChild(card);
+  });
+  wrap.appendChild(box);
+  view.appendChild(wrap);
+}
+
+/* ============================================================
+   PROGRESS
+   ============================================================ */
+function viewProgress(){
+  const wrap = document.createElement('div'); wrap.className='stack';
+  wrap.appendChild(el(`<div><div class="eyebrow">Progress</div><h1 class="h-page">Where the marks are</h1>
+    <p class="sub">Confidence moves when you get things right, and moves back when you do not. Work on whatever is lowest.</p></div>`));
+
+  wrap.appendChild(el(`<div class="countdown">
+    <div><div class="n">${S.streak}</div><div class="l">day streak</div></div>
+    <div><div class="n">${S.drills.done ? Math.round(100*S.drills.right/S.drills.done) + '%' : '—'}</div><div class="l">drill accuracy</div></div>
+  </div>`));
+
+  const sk = el(`<div class="card stack-s"><div class="eyebrow">Confidence by skill</div></div>`);
+  Object.keys(SKILLS).forEach(k => {
+    const v = Math.round(100*(S.conf[k]||0)/5);
+    const lessonsDone = LESSONS.filter(l=>l.skill===k && S.lessons[l.id]).length;
+    const lessonsAll = LESSONS.filter(l=>l.skill===k).length;
+    sk.appendChild(el(`<div style="margin-top:10px">
+      <div class="row" style="margin-bottom:5px"><span style="font-weight:600;font-size:14.5px">${esc(SKILLS[k].name)}</span>
+        <span style="flex:1"></span><span class="tiny mono-num">${lessonsDone}/${lessonsAll} lessons</span></div>
+      <div class="bar ${v>=60?'sage':''}"><i style="width:${Math.max(3,v)}%"></i></div></div>`));
+  });
+  wrap.appendChild(sk);
+
+  // marks log
+  const recent = S.marks.slice(-14).reverse();
+  const log = el(`<div><div class="eyebrow" style="margin-bottom:8px">Marks logged</div></div>`);
+  if(!recent.length){
+    log.appendChild(el(`<div class="card flat"><p class="sub">Nothing yet. Every answer you get marked in Practice lands here, so you can see the shape of the term rather than one bad afternoon.</p></div>`));
+  } else {
+    const rows = el(`<div class="rows"></div>`);
+    recent.forEach(m => rows.appendChild(el(`<div class="rowitem">
+      <span class="pill ${SKILLS[m.s]?SKILLS[m.s].cls:'ghost'}">${SKILLS[m.s]?SKILLS[m.s].short:'—'}</span>
+      <span class="grow"><span class="t" style="font-size:14px;font-weight:500">${esc(m.q)}</span><span class="d">${esc(m.d)}</span></span>
+      <span class="mono-num" style="font-weight:700">${m.m}/${m.of}</span></div>`)));
+    log.appendChild(rows);
+  }
+  wrap.appendChild(log);
+
+  const reset = el(`<button class="btn secondary full">Reset all progress</button>`);
+  reset.onclick = () => { if(confirm('Clear streak, lessons and marks on this device?')){ S = fresh(); S.tab='progress'; save(); render(); paintStreak(); } };
+  wrap.appendChild(el(`<hr class="rule">`));
+  wrap.appendChild(reset);
+  wrap.appendChild(el(`<p class="tiny">Progress is stored in this browser only. Opening the app on a different device starts a fresh record.</p>`));
+  view.appendChild(wrap);
+}
+
+/* ============================================================
+   TUTOR SHEET
+   ============================================================ */
+const TUTOR_RULES = `You are a Higher English tutor in Scotland, working one-to-one with an S5 pupil in Scotland aiming for an A.
+His texts: The Strange Case of Dr Jekyll and Mr Hyde (Scottish set text, Section 1, prose) and Hamlet (critical essay, Section 2, drama). He also has weekly RUAE homework and a 30-mark portfolio to write.
+Because Jekyll and Hyde is prose, his critical essay must not be prose.
+Teach the way a good teacher does: answer the actual question, be concrete, quote the text, and connect everything back to how it earns marks under SQA criteria. Where he asks you to mark something, use real SQA principles - no marks for quotation alone, 1 mark for a basic analytical comment, 2 for a detailed or insightful one, and the 20-mark grid for essays.
+Keep replies short enough to read on a phone. Use plain paragraphs and short lists. Never invent quotations - if you are not certain of the wording, describe the moment instead. If he asks about something outside Higher English, answer briefly and steer back.`;
+
+let turns = [];
+function openTutor(){
+  if(document.querySelector('.sheet')) return;
+  const sheet = el(`<div class="sheet">
+    <div class="sheethead"><b style="font-family:var(--display);font-size:17px">Ask the tutor</b><div style="flex:1"></div>
+      <button class="iconbtn" id="closeSheet" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="sheetbody" id="sb"></div>
+    <div class="sheetfoot"><textarea id="ti" rows="1" placeholder="Ask anything about your texts or the exam"></textarea>
+      <button class="btn brass small" id="tsend" style="min-height:44px">Send</button></div>
+  </div>`);
+  document.body.appendChild(sheet);
+  const sb = sheet.querySelector('#sb'), ti = sheet.querySelector('#ti'), send = sheet.querySelector('#tsend');
+  sheet.querySelector('#closeSheet').onclick = () => sheet.remove();
+
+  const add = (cls, text) => { const b = el(`<div class="bubble ${cls}"></div>`); b.textContent = text; sb.appendChild(b); sb.scrollTop = sb.scrollHeight; return b; };
+
+  if(SAMPLE === null){
+    add('ai', 'The tutor chat needs Claude, and it is not available in this view. Everything else in the app works offline — the lessons, the drills, the model answers and the quotation bank.');
+    ti.disabled = true; send.disabled = true;
+  } else if(!turns.length){
+    add('ai', 'Ask me anything — a quotation you cannot analyse, a paragraph you want torn apart, what to revise tonight. If you paste an answer, I will mark it against the real criteria.');
+    const sugg = el(`<div class="wrap"></div>`);
+    ['Mark this paragraph for me','Explain the 10-mark question again','Give me three Hamlet quotations for loyalty','What should I revise tonight?'].forEach(s => {
+      const b = el(`<button class="chip">${esc(s)}</button>`);
+      b.onclick = () => { ti.value = s; sugg.remove(); ask(); };
+      sugg.appendChild(b);
+    });
+    sb.appendChild(sugg);
+  } else {
+    turns.forEach(t => add(t.role==='user'?'me':'ai', t.content));
+  }
+
+  ti.addEventListener('input', () => { ti.style.height='auto'; ti.style.height = Math.min(130, ti.scrollHeight) + 'px'; });
+  ti.addEventListener('keydown', e => { if(e.key==='Enter' && !e.shiftKey && !matchMedia('(pointer:coarse)').matches){ e.preventDefault(); ask(); } });
+  send.onclick = ask;
+
+  async function ask(){
+    const q = ti.value.trim(); if(!q || !SAMPLE) return;
+    ti.value=''; ti.style.height='auto'; send.disabled = true;
+    add('me', q); turns.push({role:'user', content:q});
+    const b = add('ai', 'Thinking…');
+    try{
+      const input = [{role:'user', content:TUTOR_RULES}, ...turns.slice(-10)];
+      const { text } = await SAMPLE(input, { cache:false, modelTier:'default', onText:({text}) => { b.textContent = text; sb.scrollTop = sb.scrollHeight; } });
+      turns.push({role:'assistant', content:text});
+      touchStreak(); paintStreak();
+    }catch(e){
+      b.textContent = e.text || aiErrCopy(e.code) || 'Something went wrong. Try again.';
+      if(e.code==='not_granted'||e.code==='sampling_disabled'){ ti.disabled=true; }
+    }finally{ send.disabled = false; }
+  }
+}
+$('#fab').onclick = openTutor;
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+function render(){
+  view.innerHTML = '';
+  paintTabs();
+  if(S.tab==='today') viewToday();
+  else if(S.tab==='learn') viewLearn();
+  else if(S.tab==='practice') viewPractice();
+  else if(S.tab==='texts') viewTexts();
+  else viewProgress();
+}
+paintStreak();
+render();
+</script>
+</body>
+</html>
