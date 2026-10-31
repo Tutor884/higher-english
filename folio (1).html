@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Folio Builder · Higher English</title>
+<meta name="theme-color" content="#14213d">
+<style>
+:root{
+  --ink:#14213d; --ink2:#3b4660; --muted:#6b7385; --line:#dfe3ea; --bg:#f6f7f9; --card:#fff;
+  --accent:#e0a526; --accent2:#fff4d9; --good:#1f8a5b; --goodbg:#e4f5ec; --bad:#b93a32; --badbg:#fbe9e7;
+  --blue:#2a5bd7; --bluebg:#e8eefc; --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+header{background:var(--ink);color:#fff;padding:14px 18px 12px;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:18px;letter-spacing:.2px}
+header p{margin:2px 0 0;font-size:13px;color:#c9cfdb}
+main{max-width:760px;margin:0 auto;padding:16px 14px 110px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;z-index:10;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;background:none;padding:9px 2px 8px;font-size:11px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+nav button .ic{font-size:19px;line-height:1}
+nav button.on{color:var(--ink);font-weight:700}
+nav button.on .ic{transform:scale(1.1)}
+h2{font-size:21px;margin:6px 0 4px}
+h3{font-size:16px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 14px;font-size:14.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:0 0 12px}
+.rule{background:var(--accent2);border:1px solid #f0d58f;border-radius:var(--r);padding:12px 14px;margin:0 0 14px;font-size:14.5px}
+.rule b{color:#7a5300}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--bluebg);color:var(--blue);margin:0 4px 4px 0}
+.tag.gold{background:var(--accent2);color:#7a5300}
+.tag.grey{background:#eef0f4;color:var(--ink2)}
+label{display:block;font-weight:600;font-size:14.5px;margin:0 0 6px}
+textarea,input[type=text],select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 11px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:76px;resize:vertical}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--blue);outline-offset:0;border-color:transparent}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:10px;padding:10px 14px;font:600 14.5px/1 inherit;font-family:inherit;cursor:pointer;background:var(--ink);color:#fff}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.gold{background:var(--accent);color:var(--ink)}
+.btn.small{padding:7px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.spacer{flex:1}
+.seg{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin:0 0 12px;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font:600 13.5px inherit;font-family:inherit;color:var(--ink2);cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.q{font-weight:650;margin:0 0 4px}
+.hint{color:var(--muted);font-size:13.5px;margin:0 0 8px}
+.saved{font-size:12px;color:var(--good);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.fact{display:flex;gap:10px;align-items:flex-start}
+.fact .star{border:0;background:none;font-size:22px;line-height:1;cursor:pointer;padding:0 2px;color:#c5cad4}
+.fact .star.on{color:var(--accent)}
+.fact .txt{flex:1}
+.fact .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+.flag{font-size:12.5px;color:#7a5300;background:var(--accent2);border-radius:6px;padding:2px 6px;display:inline-block;margin-top:4px}
+.pt{border-left:4px solid var(--accent)}
+.pt .num{font-weight:800;color:var(--accent);font-size:13px;letter-spacing:.5px}
+.linkbox{margin:-4px 0 12px 18px;border-left:2px dashed #c5cad4;padding:6px 0 6px 14px}
+.linkbox textarea{min-height:52px;font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 10px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink2)}
+.chip.on{background:var(--bluebg);border-color:#b9c9f3;color:var(--blue);font-weight:600}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 12px;margin:0 0 8px;font:inherit;cursor:pointer;color:var(--ink)}
+.opt.right{background:var(--goodbg);border-color:#9fd6b9}
+.opt.wrong{background:var(--badbg);border-color:#efb3ad}
+.fb{border-radius:10px;padding:10px 12px;font-size:14.5px;margin:6px 0 0}
+.fb.good{background:var(--goodbg)}
+.fb.bad{background:var(--badbg)}
+.big{font-size:17px;font-weight:600;line-height:1.45}
+.example{background:#f3f5f9;border-radius:10px;padding:10px 12px;font-style:italic;margin:6px 0}
+.timer{font-variant-numeric:tabular-nums;font-weight:800;font-size:20px}
+.meter{height:8px;background:#eef0f4;border-radius:99px;overflow:hidden;margin:6px 0 2px}
+.meter i{display:block;height:100%;background:var(--good);width:0}
+details{border:1px solid var(--line);border-radius:12px;background:#fff;margin:0 0 10px}
+summary{padding:12px 14px;font-weight:650;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";float:right;color:var(--muted)}
+details[open] summary::after{content:"－"}
+details .in{padding:0 14px 12px}
+ul.tight{margin:6px 0;padding-left:20px}
+ul.tight li{margin:3px 0}
+.empty{text-align:center;color:var(--muted);padding:22px 10px;border:1px dashed var(--line);border-radius:var(--r);background:#fff}
+.score{font-weight:700}
+.print-only{display:none}
+@media print{
+  header,nav,.no-print{display:none!important}
+  .print-only{display:block}
+  body{background:#fff}
+  main{padding:0;max-width:none}
+  .card{border:1px solid #bbb;break-inside:avoid}
+  .screen{display:none!important}
+  #view-pack{display:block!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Folio Builder</h1>
+  <p>Persuasive essay · plan it, practise it, then write it in class</p>
+</header>
+<main id="app"></main>
+<nav id="nav"></nav>
+
+<script>
+/* ============ DATA ============ */
+
+const SOURCES = {
+  sfa25:{t:"Scottish FA (20 August 2025) Scottish FA confirms Club Academy Scotland (CAS) 2025 awards following auditing process.",u:"https://www.scottishfa.co.uk/news/scottish-fa-confirms-club-academy-scotland-cas-2025-awards-following-auditing-process/"},
+  sfampo:{t:"Scottish FA. Scottish FA announce latest MPO payments to Club Academy Scotland clubs.",u:"https://www.scottishfa.co.uk/news/scottish-fa-announce-latest-mpo-payments-to-club-academy-scotland-clubs/"},
+  dutd:{t:"Dundee United FC. Academy – CAS Elite Status Confirmed.",u:"https://www.dundeeunitedfc.co.uk/news/8427/Academy--CAS-Elite-Status-Confirmed.html"},
+  mfc:{t:"Motherwell FC. Recruitment & scouting.",u:"https://www.motherwellfc.co.uk/?p=72896"},
+  edscot:{t:"Education Scotland. Grow our own: Staff and volunteer pathway – Dumfries and Galloway Council CLD.",u:"https://educationinspectorate.gov.scot/effective-practice/community-learning-and-development/grow-our-own-staff-and-volunteer-pathway-dumfries-and-galloway-council-cld/"},
+  nufc:{t:"Newcastle United FC. Factfile: Grant Hanley.",u:"https://www.newcastleunited.com/news/archive/factfile-grant-hanley/"},
+  scotsman:{t:"The Scotsman (2025) Hibs in talks with 62-cap internationalist as David Gray eyes reinforcements.",u:"https://www.scotsman.com/sport/football/hibs/latest-hibs-news/hibs-in-talks-with-62-cap-internationalist-as-david-gray-eyes-reinforcements-5252196"},
+  pschools:{t:"Scottish FA. Applications open for tenth JD Performance Schools intake.",u:"https://www.scottishfa.co.uk/news/applications-open-for-tenth-jd-performance-schools-intake"},
+  bbcreview:{t:"BBC Sport (via AOL). SFA to make 'substantial change' to youth football. [undated – find the BBC original]",u:"https://www.aol.com/articles/scottish-fa-substantial-change-youth-151409721.html"},
+  bath:{t:"University of Bath / Team Bath (5 August 2025) University of Bath leads world's largest growth and maturation study in elite football to support early and late developers.",u:"https://www.teambath.com/2025/08/05/growth-maturation-scottish-football-association/"},
+  agetech:{t:"Agetech World (August 2025) Study reveals six-year biological age gap in young football players.",u:"https://agetechworld.co.uk/research/study-reveals-six-year-biological-age-gap/"},
+  dugdale:{t:"Dugdale, J.H., McRobert, A.P. and Unnithan, V.B. (2021) 'He's Just a Wee Laddie': The Relative Age Effect in Male Scottish Soccer. Frontiers in Psychology, 12, 633469.",u:"https://doi.org/10.3389/fpsyg.2021.633469"},
+  manu:{t:"SoccerWire (February 2017) Case for bio-banding? Man United academy research finds late bloomers overlooked.",u:"https://soccerwire.com/resources/the-case-for-bio-banding-man-united-youth-academy-research-finds-late-bloomers-overlooked"},
+  essex:{t:"University of Essex (27 June 2024) Just 4% of teen academy prospects play elite football.",u:"https://www.essex.ac.uk/news/2024/06/27/just-four-per-cent-of-teenage-academy-players-make-it-to-top-tier-football"},
+  parl:{t:"Scottish Parliament Public Petitions Committee (2020) PE1319: Improving youth football in Scotland.",u:"https://www.parliament.scot/chamber-and-committees/committees/committee-reports/ppc/2020/6/22/ppcs052020r2/external-regulation"},
+  cufc:{t:"Carlisle United FC (June 2014) Academy: Category 3 status secured.",u:"https://www.carlisleunited.co.uk/news/2014/june/academy-category-3-status-secured"},
+  sfa2020:{t:"Scottish FA. 2020 development centre impresses SPL manager. [undated]",u:"https://www.scottishfa.co.uk/news/2020-development-centre-impresses-spl-manager"},
+  trio:{t:"Scottish FA. Trio in Scotland call up. [undated]",u:"https://www.scottishfa.co.uk/news/trio-in-scotland-call-up"}
+};
+
+const FACT_GROUPS = [
+  {id:"region",name:"The region"},
+  {id:"academy",name:"Where the academies are"},
+  {id:"scout",name:"How scouting works"},
+  {id:"late",name:"Late developers"},
+  {id:"release",name:"Being dropped"},
+  {id:"player",name:"A player from the region"},
+  {id:"border",name:"Across the border"},
+  {id:"other",name:"The other side"}
+];
+
+const FACTS = [
+  {id:"f1",g:"region",t:"Dumfries and Galloway covers over 3,900 square miles. Its population is 148,800 and is predicted to decline. It is the third largest council area in Scotland.",s:"edscot"},
+  {id:"f2",g:"academy",t:"The Scottish FA's top academy tier (Elite) for 2025: Aberdeen, Celtic, Dundee United, Hearts, Hibernian, Kilmarnock, Motherwell, Rangers, St Mirren.",s:"sfa25"},
+  {id:"f3",g:"academy",t:"Queen of the South is the only Dumfries and Galloway club on the 2025 Club Academy Scotland list, and it is in the lowest tier (Advanced Youth Level). Annan Athletic and Stranraer are not on the list.",s:"sfa25"},
+  {id:"f4",g:"academy",t:"Academy status can be removed: in 2025 the Scottish FA refused Hamilton Academical a Club Academy Scotland award.",s:"sfa25"},
+  {id:"f5",g:"academy",t:"Club Academy Scotland is the Scottish FA structure that runs and partly funds academies. It covers players aged 11 to 18.",s:"dutd"},
+  {id:"f6",g:"academy",t:"The Scottish FA shared £800,000 across all 25 Club Academy Scotland clubs in one grant. Funding is linked to results such as academy players reaching the first team and Scotland.",s:"sfampo"},
+  {id:"f7",g:"academy",t:"The Scottish FA's seven Performance Schools were in Aberdeen, Dundee, Edinburgh, Falkirk, Glasgow, Kilmarnock and Motherwell. None was in Dumfries and Galloway.",s:"pschools"},
+  {id:"f8",g:"academy",t:"The Scottish FA's youth review decided to close the Performance Schools (running since 2012) and overhaul Club Academy Scotland.",s:"bbcreview",flag:"Undated – find the original BBC article before relying on it."},
+  {id:"f9",g:"scout",t:"Motherwell says it has a network of scouts covering Lanarkshire and bordering regions, recruiting from local boys' clubs, school football and recommendations.",s:"mfc"},
+  {id:"f10",g:"late",t:"A Scottish FA-commissioned study (University of Bath and University of Edinburgh, January–April 2024) looked at over 1,000 Club Academy Scotland players – the largest study of its kind – and found a strong bias towards early-developing players.",s:"bath"},
+  {id:"f11",g:"late",t:"Late developers make up around 15% of the population but were 'vastly underrepresented' in Scottish academies.",s:"agetech"},
+  {id:"f12",g:"late",t:"Only around 80% of boys were developmentally in line with their calendar age. Players in the same age group differed biologically by up to six years.",s:"agetech"},
+  {id:"f13",g:"late",t:"After the study, the Scottish FA started a pilot that lets clubs group players by biological age rather than birth date.",s:"bath"},
+  {id:"f14",g:"late",t:"The study pointed to Scotland players who were late developers, including Andy Robertson, Scott McTominay and John McGinn.",s:"bath",flag:"Seen in a summary of the Bath research – open the full University of Bath story (link on the Team Bath page) to confirm."},
+  {id:"f15",g:"late",t:"A 2021 study of 1,230 Scottish youth players (U10–U17) found academies favour boys born early in the selection year (the 'relative age effect'). The bias showed in academy teams but not in amateur football, and not among senior professionals.",s:"dugdale"},
+  {id:"f16",g:"late",t:"Research on Manchester United's academy (293 players aged 9–16) found early developers were about 20 times more likely to be selected and kept on to 16.",s:"manu"},
+  {id:"f17",g:"release",t:"A University of Essex study that tracked academy players for 10 years found just 4% of talented teenage prospects reached top-tier professional football.",s:"essex"},
+  {id:"f18",g:"release",t:"A Scottish Parliament committee said changes to youth football had been 'unacceptably slow' and that systemic issues in the professional youth system remain.",s:"parl"},
+  {id:"f19",g:"player",t:"Grant Hanley was born in Dumfries in 1991. He was in the youth set-ups at Queen of the South, Crewe Alexandra and Rangers, then moved to Blackburn Rovers in 2008, aged 16.",s:"nufc"},
+  {id:"f20",g:"player",t:"In 2025 The Scotsman described Hanley as a 62-cap internationalist who had never played club football in Scotland. He has since joined Hibernian.",s:"scotsman"},
+  {id:"f21",g:"border",t:"Carlisle United's academy reached Category 3 status under England's academy system (EPPP) in 2014.",s:"cufc",flag:"Old – check Carlisle's current category before using."},
+  {id:"f22",g:"other",t:"The Scottish FA has run talent centres in the region: over 100 South West players were selected for centres in Ayr, Dumfries, Kilmarnock, Kilwinning and Stranraer.",s:"sfa2020",flag:"Undated, older programme – say so if you use it."},
+  {id:"f23",g:"other",t:"Three Dumfries and Galloway girls, from the Dumfries Girls FC system, were called up for Scotland Under-15s against Germany.",s:"trio",flag:"Undated."}
+];
+
+const BRAINSTORM = [
+  {id:"b1",q:"Who exactly are you trying to persuade?",h:"Picture one real reader. What do they already think about this?"},
+  {id:"b2",q:"By the last line, what do you want them to think or do?",h:"One sentence. If you can't say it in one, keep thinking."},
+  {id:"b3",q:"Why do you care about this?",h:"A moment you saw, something that happened to you or someone you know. Specific beats general."},
+  {id:"b4",q:"What is the single strongest piece of evidence you have?",h:"Why that one? What makes it hard to argue with?"},
+  {id:"b5",q:"What would someone who disagrees with you say?",h:"Give them their best argument, not a weak one."},
+  {id:"b6",q:"And what is your answer to them?",h:"Do you accept part of what they say? Where does their argument fall down?"},
+  {id:"b7",q:"What surprised you most in your research or your own notes?",h:"If it surprised you, it may surprise your reader."},
+  {id:"b8",q:"What do you want the reader to feel at the end?",h:"Angry? Hopeful? Uncomfortable? Ready to act?"},
+  {id:"b9",q:"Is there a picture or phrase that sums up the problem for you?",h:"Something you could come back to more than once."}
+];
+
+const TECHNIQUES = [
+  {id:"rq",n:"Rhetorical question",d:"A question asked for effect, not for an answer. It makes the reader think and sides them with you.",ex:"How can a child learn to swim when the nearest pool is forty miles away?"},
+  {id:"r3",n:"Rule of three",d:"Three items in a row. It sounds complete and is easy to remember.",ex:"Indoor courts mean longer seasons, more coaches and better players."},
+  {id:"stat",n:"Statistic / fact",d:"Hard evidence makes your view look reasonable, not just your opinion. Always name the source.",ex:"In 2016, the whole of Scotland had just 112 indoor tennis courts, according to the Lawn Tennis Association."},
+  {id:"expert",n:"Expert view",d:"What a researcher, official or well-known figure says. It borrows their authority.",ex:"Judy Murray has said there are very few tennis coaches in the Highlands because they cannot work all year round."},
+  {id:"anec",n:"Anecdote",d:"A short real story. It gives the reader a person to care about, not just a number.",ex:"Last winter my cousin's swimming club lost its pool for six months, and half the squad never came back."},
+  {id:"emotive",n:"Emotive language",d:"Word choice that triggers feeling. Use it with control – too much sounds like ranting.",ex:"Island athletes are being quietly priced out of their own sport."},
+  {id:"direct",n:"Direct address",d:"Speaking to the reader as 'you'. It pulls them into the argument.",ex:"You would not accept your child's swimming lessons being cancelled for good."},
+  {id:"incl",n:"Inclusive pronouns",d:"'We', 'us', 'our'. It makes the reader feel they are on your side already.",ex:"We cannot keep asking rural families to drive two hours for a single training session."},
+  {id:"contrast",n:"Contrast",d:"Setting two things side by side so the gap is obvious.",ex:"In Edinburgh, a choice of indoor courts. In much of the Highlands, a choice between rain and nothing."},
+  {id:"counter",n:"Counter-argument and rebuttal",d:"State the other side fairly, then show where it falls down. This is what lifts an essay into the top bands.",ex:"Some argue rural areas lack the demand for indoor tennis. Yet the Scottish Borders has more than 1,500 club members – and is only now getting its first covered courts."},
+  {id:"rep",n:"Repetition",d:"Repeating a word or phrase to hammer a point home.",ex:"Not next season. Not when the budget allows. Now."},
+  {id:"call",n:"Call to action",d:"Telling the reader what to do. Usually belongs near the end.",ex:"Write to your council. Ask where the next indoor centre will be. Demand an answer."},
+  {id:"short",n:"Short sentence for impact",d:"After longer sentences, a very short one lands hard.",ex:"The pool closed. Nobody replaced it."}
+];
+
+const OPENERS = [
+  {id:"o1",n:"Anecdote / mini-story",d:"Drop the reader into a moment. Then pull back to the big issue.",ex:"It is 6.15pm in Thurso, and the last bus home leaves in ten minutes. Training has only just started.",topic:"Rural buses should run late enough for evening sports training"},
+  {id:"o2",n:"Rhetorical question",d:"Open with a question the reader can't easily dismiss.",ex:"How many young swimmers has the Highlands lost simply because the nearest pool was an hour away?",topic:"Every Highland town should keep its swimming pool"},
+  {id:"o3",n:"Bold statement",d:"A short, confident claim that makes your position clear at once.",ex:"A town without a pool is a town where children never learn to swim.",topic:"Every Highland town should keep its swimming pool"},
+  {id:"o4",n:"Striking fact",d:"Lead with your most surprising piece of evidence, with its source.",ex:"In 2016, the whole of Scotland had just 112 indoor tennis courts. In a country with around 200 days of rain a year, that is not a gap. It is a locked door.",topic:"Rural Scotland needs more indoor tennis courts"},
+  {id:"o5",n:"'Imagine…' / scenario",d:"Ask the reader to picture something. Good for building sympathy.",ex:"Imagine two thirteen-year-old swimmers with the same talent. One trains in a fifty-metre pool every morning. The other's nearest pool closed last year.",topic:"Every Highland town should keep its swimming pool"},
+  {id:"o6",n:"Scene-setting description",d:"Paint a picture with sensory detail before revealing the argument.",ex:"The ferry leaves Stornoway before dawn. On board, a fifteen-year-old runner stretches her legs between the seats. Her race in Glasgow is most of a day away.",topic:"Island athletes are held back by travel costs"},
+  {id:"o7",n:"Contrast",d:"Two things side by side so the unfairness is obvious from the first line.",ex:"In Edinburgh, a young tennis player can choose between indoor courts. In much of the Highlands, she can choose between the rain and no tennis at all.",topic:"Rural Scotland needs more indoor tennis courts"}
+];
+
+const OPENER_CHECK = [
+  "Does it make the reader want to read on?",
+  "Is the topic clear by the end of the first paragraph?",
+  "Is your side of the argument clear early on?",
+  "Does it set the tone you want for the whole piece?",
+  "Did you avoid 'In this essay I will…'?"
+];
+
+const PRACTICE_TOPICS = [
+  "Rural Scotland needs more indoor tennis courts",
+  "Every Highland town should keep its swimming pool",
+  "Island athletes are held back by travel costs",
+  "Rural buses should run late enough for evening sports training",
+  "Young rugby players in the Borders deserve a pathway closer to home",
+  "Scotland's national sports centres should be spread across the country, not just the Central Belt",
+  "Shinty deserves the same funding as other national sports",
+  "Sports clubs should be free for under-16s in rural areas",
+  "Every secondary school should have a full-size games hall",
+  "Coaches should be paid to work in remote communities"
+];
+
+const LINKS = [
+  {f:"Adding a stronger point",p:["What is more,","Worse still,","Beyond this,","More troubling still,","Not only…but also…"]},
+  {f:"Turning to the other side",p:["Of course, some will argue that…","Critics claim that…","It is true that…","Admittedly,","To be fair,"]},
+  {f:"Knocking down the other side",p:["However,","Yet this ignores…","But this misses the point:","Even so,","This argument collapses when…"]},
+  {f:"Cause and effect",p:["As a result,","Consequently,","This means that…","The knock-on effect is…","Because of this,"]},
+  {f:"Giving an example",p:["Take, for example,","Consider…","This is clearest in…","A case in point is…"]},
+  {f:"Contrasting",p:["In contrast,","Meanwhile,","On the other hand,","Compare this with…","Whereas…"]},
+  {f:"Bringing it home",p:["Ultimately,","In the end,","The question is simple:","So what must change?","It is time to…"]},
+  {f:"Linking back (the 'echo')",p:["Remember [image from your opening]?","Which brings us back to…","This is why [earlier point] matters."]}
+];
+
+const LINK_DRILL = [
+  {a:"Some say rural areas don't have enough players to justify an indoor tennis centre.",b:"The Scottish Borders has more than 1,500 tennis club members.",opts:["As a result,","Yet","Take, for example,","What is more,"],c:1,why:"The second sentence knocks down the first, so you need a contrast word: 'Yet'."},
+  {a:"There are very few indoor tennis courts in the Highlands.",b:"Coaches struggle to find year-round work there.",opts:["In contrast,","Admittedly,","As a result,","Critics claim that"],c:2,why:"The first fact causes the second, so a cause-and-effect link fits: 'As a result'."},
+  {a:"Island athletes face long ferry journeys to every competition.",b:"Each trip can cost a family a night in a hotel as well as the fare.",opts:["Worse still,","On the other hand,","To be fair,","Consider"],c:0,why:"The second point makes the problem more serious, so 'Worse still' builds the argument up."},
+  {a:"Supporters of central training hubs say the best young players should all train together.",b:"Many talented young people simply cannot get to a central hub every week.",opts:["Consequently,","Yet this ignores the fact that","Not only","Meanwhile,"],c:1,why:"You are rebutting the other side, so 'Yet this ignores the fact that' turns their point against them."},
+  {a:"A teenager in Edinburgh can reach an indoor pool in twenty minutes.",b:"A teenager in rural Sutherland may face a round trip of several hours.",opts:["A case in point is","Admittedly,","Compare this with","Because of this,"],c:2,why:"You are setting one situation beside a very different one, so 'Compare this with' shows the contrast."},
+  {a:"Indoor courts let young players train through the winter.",b:"They give coaches a reason to stay in the area.",opts:["However,","What is more,","Critics claim that","In contrast,"],c:1,why:"Both sentences support the same side, and the second adds a further benefit: 'What is more'."},
+  {a:"Some point out that new indoor tennis centres have already opened in Elgin and Edinburgh.",b:"This is real progress.",opts:["Ultimately,","Consequently,","Admittedly,","Take, for example,"],c:2,why:"You are conceding part of the other side's argument before answering it, which is what 'Admittedly' signals."},
+  {a:"We have seen the cost to young players, their families and their coaches.",b:"The answer is not to wait another ten years.",opts:["Ultimately,","Take, for example,","On the other hand,","Not only"],c:0,why:"This draws the argument together near the end, so 'Ultimately' fits."}
+];
+
+const SPOT = [
+  {s:"Should a child in Shetland really have to travel south just to find a decent coach?",c:"rq"},
+  {s:"An indoor court means longer seasons, better coaching and stronger players.",c:"r3"},
+  {s:"You deserve the same chance to train as anyone in the city.",c:"direct"},
+  {s:"We cannot keep telling rural children to make do.",c:"incl"},
+  {s:"Last winter my cousin's swimming club lost its pool, and half the squad never came back.",c:"anec"},
+  {s:"Some say small towns can't fill a sports centre. Yet the Borders has over 1,500 tennis club members still waiting for covered courts.",c:"counter"},
+  {s:"In the city, a floodlit court every few miles. Here, one outdoor court and a broken net.",c:"contrast"},
+  {s:"Write to your council. Ask where the next centre will go. Do it today.",c:"call"},
+  {s:"Gifted young athletes are being quietly abandoned at the end of a single-track road.",c:"emotive"},
+  {s:"Not next season. Not when the budget allows. Now.",c:"rep"},
+  {s:"The pool closed in March. Nobody noticed.",c:"short"},
+  {s:"Judy Murray has said there are very few tennis coaches in the Highlands because they cannot work all year round.",c:"expert"}
+];
+
+const TITLE_QS = [
+  {id:"t1",q:"If a stranger read only your title, would they know which side you're on?",h:"A label tells the reader the topic. A persuasive title tells them the argument."},
+  {id:"t2",q:"What one word sums up the problem for you?",h:"Overlooked? Invisible? Forgotten? Something else? Could that word go in the title?"},
+  {id:"t3",q:"Is there an image in your notes that keeps coming back?",h:"A place, a moment, a sound, something said on the touchline. Images stick better than ideas."},
+  {id:"t4",q:"Who is your reader, and what would make them stop and read?",h:"A parent, a coach, someone at the Scottish FA, a council member? What would they care about?"},
+  {id:"t5",q:"Could your title be a question the reader feels they have to answer?",h:"The best ones only have one sensible answer, and it's yours."},
+  {id:"t6",q:"Is there a phrase from football that could carry a double meaning?",h:"Something players, coaches or commentators say that also describes your argument."},
+  {id:"t7",q:"Does your title make a promise your essay keeps?",h:"Could your last line echo it, so the essay comes full circle?"},
+  {id:"t8",q:"Read it aloud. Is it short enough to remember? Can any word go?",h:"Cut every word that isn't working."},
+  {id:"t9",q:"Does it sound like you, or like a textbook?",h:"'An Investigation into…' is a report. You're writing to persuade."},
+  {id:"t10",q:"Try a two-part title: a hook, a colon, then the plain point. Which half does the work?",h:"If the hook can stand alone, you may not need the second half."}
+];
+const TITLE_TYPES = [
+  {n:"Play on words",ex:"Rained Off · Time to Wake Up"},
+  {n:"Provocative claim",ex:"The Alarm Clock Is Not a Teaching Tool"},
+  {n:"Question that implies the answer",ex:"Who Decided Teenagers Should Learn in the Dark?"},
+  {n:"Hook + subtitle",ex:"Rained Off: Why Rural Scotland Is Missing Its Next Murray"},
+  {n:"Echo phrase",ex:"A phrase from the opening that returns in the last line"}
+];
+
+/* ============ A-GRADE EXAMPLE (practice topic – NOT his folio topic) ============ */
+
+const GRID = [
+  {k:"Content",a:["Strong attention to purpose and audience","Strong understanding and engagement","Evidence of skilful research and selection","Strong and sustained line of thought / convincing stance"],b:["Clear attention to purpose and audience","Clear understanding and engagement","Evidence of careful research and selection","Clear line of thought / engaged stance"],c:["Adequate attention to purpose and audience","Adequate understanding","Adequate evidence of research and selection","Adequate line of thought / stance"]},
+  {k:"Style",a:["Features of persuasive writing used skilfully to convey depth, insight and persuasive force","Confident and varied expression","Effective structure which skilfully enhances the purpose"],b:["Features used clearly to convey thought and persuasive force","Clear expression","Clear structure which enhances the purpose"],c:["Features used adequately","Adequate expression","Adequate structure"]}
+];
+
+const EXAMPLE = {
+  title:"Rained Off: Why Rural Scotland Is Missing Its Next Murray",
+  topic:"Practice topic: rural Scotland lacks the indoor courts and coaches young tennis players need",
+  paras:[
+    {t:"It is a Tuesday in February in a small Borders town, and Ellie, who is twelve, is standing on an outdoor tennis court in the rain. The lines have disappeared under puddles. The net sags like a washing line. Her coach – a volunteer, because there is no one else – calls it off after ten minutes, the third time this month. Somewhere in Edinburgh, a girl the same age is hitting balls under bright lights on a dry indoor court. Ellie is not less talented. She simply lives in the wrong postcode.",
+     n:"Opener: anecdote plus contrast. One specific scene (puddles, sagging net, volunteer coach) is set against a city child, so the unfairness is clear before any argument starts. The last two short sentences give the thesis in miniature. (Ellie is invented to show the technique. In your own piece a real experience is stronger, and the SQA warns against being too anecdotal.)",tags:["Anecdote","Contrast","Short sentences"]},
+    {t:"Scotland has produced two of the greatest tennis players of the modern era. Yet for young people outside the cities, the sport is still a summer hobby rather than a real pathway. If we are serious about finding the next Andy or Jamie Murray, rural Scotland needs indoor courts and the year-round coaches that come with them – and it needs them now.",
+     n:"The stance comes straight after the hook. The 'Yet' sets national success against local neglect. The writer says exactly what should change (courts and coaches) and adds urgency ('now'). That's a convincing stance with clear purpose.",tags:["Clear stance","Contrast","Purpose"]},
+    {t:"The case begins with the weather. The Lawn Tennis Association has pointed out that Scotland averages around 200 days of rain a year. In 2016, when a plan to improve facilities was announced, the whole of Scotland had just 112 indoor courts – fewer, according to reports at the time, than the rest of the UK, and fewer than countries such as Germany, France, the Netherlands and Switzerland. For a sport played on a dry surface, that is not a small inconvenience. It means that for much of the year, outdoor tennis in Scotland barely exists.",
+     n:"'The case begins with…' tells the reader the argument is going to build in steps. Two pieces of evidence are named and dated. Then the writer explains what the numbers mean, instead of leaving them to speak for themselves. That's skilful selection plus commentary.",tags:["Statistics","Sourced","Explains the evidence"]},
+    {t:"The shortage of courts creates a second, less obvious problem: a shortage of coaches. Judy Murray, who coached both her sons, has said there are very few tennis coaches in the Highlands, partly because it is impossible to work at it all year round. This is the vicious circle at the heart of the problem. No indoor courts means no winter work; no winter work means coaches cannot make a living; no coaches means no one to spot and develop the talented child standing in the rain.",
+     n:"The top-band move: the writer works out a hidden effect of the evidence (no courts → no coaches → no one spotting talent). The chain sentence, with its repeated 'no… means no…', makes the logic feel unavoidable, and the last words echo the opening image.",tags:["Expert view","Cause and effect","Insight"]},
+    {t:"Her verdict on the country as a whole was blunter still: there are ‘far too many pockets of the country that don’t have indoor courts’. The word ‘pockets’ matters. The cities have begun to catch up. It is the scattered places far from the central belt that are left with the least.",
+     n:"One short quotation, and the writer then analyses a single word in it ('pockets'). That turns the quotation into part of the argument, not decoration. The short paragraph moves the focus firmly onto rural areas.",tags:["Quotation","Word-level comment","Focus"]},
+    {t:"To be fair, this is beginning to change. In 2016, sportscotland and the LTA committed £15 million – the biggest capital investment in the history of Scottish tennis – with the aim of doubling indoor courts from 112 to 225. New centres have since opened in Elgin and Edinburgh, and the Scottish Borders is only now getting its first covered courts, at Galashiels Academy. This is genuine progress, and the people behind it deserve credit. But look at the timescale. The doubling was meant to take five to ten years; by 2022, reports said the governing body was struggling to meet it. And a region with twelve registered clubs and more than 1,500 playing members has had to wait until now for a single roof over a tennis court. Progress that slow does not help the twelve-year-old who will be twenty by the time it arrives.",
+     n:"Counter-argument 1, handled the A-grade way. The writer gives the other side real, specific credit ('genuine progress… deserve credit'), then turns with 'But look at the timescale.' The rebuttal uses the other side's own figures against them, and the last line brings it back to a human cost.",tags:["Counter-argument","Fair concession","Rebuttal with evidence"]},
+    {t:"Others might argue that tennis is a minority sport, and that rural children can simply play something else in winter. Many do. But that argument quietly accepts that where you are born should decide which sports you are allowed to be good at. Nobody would tell a city child that a sport is not for them because the nearest facility is an hour away. Why should a Highland child accept it? And with Tennis Scotland reporting record club membership of almost 85,000 in 2025, demand is clearly not the problem. Supply is.",
+     n:"Counter-argument 2. 'Many do' concedes in two words. 'Quietly accepts' shows the hidden assumption behind the objection. The rhetorical question appeals to fairness, a statistic proves there is demand, and the two-word ending ('Supply is.') lands the point.",tags:["Counter-argument","Rhetorical question","Statistic"]},
+    {t:"Perhaps the most damning comment came from Judy Murray in 2019, when she said that if Andy and Jamie were teenagers now, they would still have to go abroad for coaching. If that is true for a family in Dunblane, in the heart of the central belt, imagine what it means for a family in Wick, or Kelso, or Stornoway.",
+     n:"'Perhaps the most damning' tells the reader the strongest evidence has been saved until late in the essay. The 'If that is true for…, imagine…' sentence lets the reader draw the conclusion, and the three place names make the rural point concrete.",tags:["Climax","Expert view","Rule of three"]},
+    {t:"Go back to Ellie, standing in the rain with her racket under her arm, watching another session washed away. She does not need a miracle. She needs a roof, a court and a coach who can afford to stay. The money has been promised and some of the buildings are going up. Now the people who make these decisions need to move faster, and look further than the cities. Write to your council. Ask Tennis Scotland where the next centre will be. Because the next great Scottish player might already be out there – and right now, she is getting wet.",
+     n:"The ending goes back to the opening scene, so the structure supports the purpose. There's a rule of three ('a roof, a court and a coach'), a call to action, and a final line that is concrete and a little witty, which gives a memorable finish.",tags:["Echo of opening","Rule of three","Call to action"]}
+  ],
+  refs:[
+    "sportscotland (2016) Advantage Scotland as £15million fund opens. https://sportfirst.sportscotland.org.uk/articles/advantage-scotland-as-15million-fund-opens",
+    "LTA (December 2016) LTA and sportscotland commit £15m to covered courts in Scotland [press release]. https://www.lta.org.uk/4ac1f2/siteassets/about-lta/file/2016-lta-and-sportscotland-commit-15m-to-covered-courts-in-scotland-.pdf",
+    "Hello Rayo / PA (20 December 2016) More indoor tennis courts in Scotland in £15m bid to build on Murray success. https://www.hellorayo.co.uk/tay/local/news/indoor-tennis-courts-scotland-15m-bid-build-murray-success",
+    "Inverness Courier. Indoor tennis courts would grow Inverness workforce – Judy Murray. https://inverness-courier.co.uk/sport/indoor-tennis-courts-would-grow-inverness-workforce-judy-murray-142798",
+    "Sunday Post (2017) It’s the rain that’s stopping play! Judy Murray says terrible weather puts kids off tennis. https://www.sundaypost.com/fp/its-the-rain-thats-stopping-play/",
+    "Leicester Mercury (13 May 2022) National Tennis Centre’s operations moving to county. https://www.pressreader.com/uk/leicester-mercury/20220513/282295323795979",
+    "LTA (2024) Major milestone as new indoor tennis centre opens in Moray. https://www.lta.org.uk/about-us/in-your-area/tennis-scotland/news/2024/july/new-indoor-tennis-centre-opens-in-moray/",
+    "LTA (March 2025) One year of Oriam indoor tennis centre in Edinburgh. https://www.lta.org.uk/news/2025/march/one-year-of-oriam-indoor-tennis-centre-in-edinburgh/",
+    "LTA. New tennis & padel centre to open in Scottish Borders under Transforming Scottish Indoor Tennis project. https://www.lta.org.uk/about-us/in-your-area/tennis-scotland/news/new-tennis-centre-to-open-in-scottish-borders-under-transforming-scottish-indoor-tennis-project/",
+    "Tennis Scotland (2025) Annual Report 2025. https://www.lta.org.uk/4986d1/siteassets/in-your-area/tennis-scotland/annual-report-2025/tennis-scotland_annual-report-2025.pdf",
+    "Express & Star (5 June 2019) Judy Murray criticises lack of tennis opportunities in Scotland. https://expressandstar.com/news/uk-news/2019/06/05/judy-murray-criticises-lack-of-tennis-opportunities-in-scotland"
+  ]
+};
+
+const LEVELS = [
+  {band:"7–9 (C)",cls:"bad",t:"Another problem is that there are not enough tennis coaches in rural areas. This is because there are not enough indoor courts. Judy Murray said there are very few coaches. This is bad because children can't get coached.",
+   n:["'Another problem' just adds a point without linking it to the last one.","The quotation is there, but there's no comment on why it matters.","Every sentence is the same flat length.","'This is bad because…' tells the reader instead of showing them."]},
+  {band:"10–12 (B)",cls:"",t:"The lack of courts also leads to a lack of coaches. Judy Murray has said there are very few tennis coaches in the Highlands, partly because they cannot work all year round. Without coaches, talented children will never be noticed.",
+   n:["The cause and effect is clear, and the evidence is specific and attributed.","The last sentence draws a sensible conclusion.","But 'also' is a weak link, and the idea isn't developed beyond one step.","It's correct but plain. There's no memorable phrasing or control of rhythm."]},
+  {band:"13–15 (A)",cls:"good",t:"The shortage of courts creates a second, less obvious problem: a shortage of coaches. Judy Murray, who coached both her sons, has said there are very few tennis coaches in the Highlands, partly because it is impossible to work at it all year round. This is the vicious circle at the heart of the problem. No indoor courts means no winter work; no winter work means coaches cannot make a living; no coaches means no one to spot and develop the talented child standing in the rain.",
+   n:["'A second, less obvious problem' builds on the last paragraph and promises something new.","The source is given authority ('who coached both her sons').","The 'vicious circle' sentence develops the idea three steps deep, which is where the insight is.","It ends by echoing the opening image, so the essay feels joined up."]}
+];
+
+function viewExample(){
+  const words = EXAMPLE.paras.map(p=>p.t).join(" ").split(/\s+/).length;
+  return `
+  <h2>What an A-grade reads like</h2>
+  <p class="sub">A full model persuasive essay on a sport topic that's close to yours but not yours: <b>tennis in rural Scotland</b>. Notes explain why each paragraph scores. SQA doesn't allow a model of your own folio piece, so read this one and work out which moves you could use.</p>
+  <div class="rule"><b>How to use this:</b> read it for the <i>qualities</i>: how it hooks the reader, builds the argument in steps, handles the other side fairly and ends. Don't copy its order, phrases or examples. Your evidence is different and needs its own shape, and your piece has to be in your own words.</div>
+
+  <h3>The marking grid in plain English</h3>
+  <div class="card">
+    <p class="hint">From the SQA Higher English course specification (broadly discursive writing). Each piece is marked out of 15, then doubled.</p>
+    ${GRID.map(g=>`<p class="q" style="margin-top:8px">${g.k}</p>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13.5px">
+      <tr><th style="text-align:left;padding:6px;background:var(--goodbg)">13–15 (A)</th><th style="text-align:left;padding:6px;background:#eef0f4">10–12 (B)</th><th style="text-align:left;padding:6px;background:var(--accent2)">7–9 (C)</th></tr>
+      ${g.a.map((x,i)=>`<tr><td style="padding:6px;border-top:1px solid var(--line);vertical-align:top"><b>${esc(x)}</b></td><td style="padding:6px;border-top:1px solid var(--line);vertical-align:top">${esc(g.b[i])}</td><td style="padding:6px;border-top:1px solid var(--line);vertical-align:top">${esc(g.c[i])}</td></tr>`).join("")}
+      </table></div>`).join("")}
+    <p class="hint" style="margin-top:10px">The jump from B to A is mostly in the words <b>strong</b>, <b>skilful</b>, <b>sustained</b> and <b>confident</b>. It isn't more techniques. It's evidence chosen and discussed, an argument that builds instead of listing, and the other side dealt with properly.</p>
+  </div>
+
+  <h3>The same point at three levels</h3>
+  ${LEVELS.map(l=>`<div class="card">
+    <span class="tag ${l.cls==='good'?'':'grey'}" ${l.cls==='good'?'style="background:var(--goodbg);color:var(--good)"':''}>${esc(l.band)}</span>
+    <div class="example" style="font-style:normal">${esc(l.t)}</div>
+    <ul class="tight">${l.n.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}
+
+  <h3>Full A-grade example <span class="hint" style="font-weight:400">· about ${words} words</span></h3>
+  <div class="row no-print" style="margin-bottom:10px">
+    <button class="btn ${exNotes?'':'gold'} small" onclick="exNotes=!exNotes;render()">${exNotes?'Hide marker notes':'Show marker notes'}</button>
+  </div>
+  <div class="card">
+    <p class="hint" style="margin:0 0 2px">${esc(EXAMPLE.topic)}</p>
+    <h3 style="margin:0 0 10px;font-size:19px">${esc(EXAMPLE.title)}</h3>
+    ${EXAMPLE.paras.map((p,i)=>`
+      <p style="margin:0 0 ${exNotes?'6':'12'}px">${esc(p.t)}</p>
+      ${exNotes?`<div class="fb good" style="margin:0 0 14px;font-size:13.5px"><div style="margin-bottom:4px">${p.tags.map(t=>`<span class="tag" style="background:#fff">${esc(t)}</span>`).join("")}</div>${esc(p.n)}</div>`:""}`).join("")}
+    <p class="q" style="margin-top:14px">References</p>
+    <ol style="padding-left:20px;margin:0;font-size:13px;color:var(--ink2)">${EXAMPLE.refs.map(r=>`<li style="margin:0 0 4px;word-break:break-word">${esc(r)}</li>`).join("")}</ol>
+  </div>
+
+  <h3>Test yourself on it</h3>
+  <div class="card">
+    <ul class="tight">
+      <li>Find the sentence where the writer makes their stance clear. How soon does it come?</li>
+      <li>Find two places where the writer admits a weakness or a fair point from the other side. Why does that make them more convincing?</li>
+      <li>Find three links between paragraphs that aren't 'also' or 'another'.</li>
+      <li>How does the ending connect to the opening?</li>
+      <li>This essay argues that a region is being overlooked by a sport's pathway. Which of its <i>moves</i> could work in your argument? Which wouldn't fit your evidence?</li>
+      <li>Find the 'vicious circle' paragraph. Is there a chain of cause and effect in your own topic? Work it out yourself on a Build card.</li>
+      <li>Then go back to your own Build cards: which of these <i>qualities</i> does your plan already have, and which is missing?</li>
+    </ul>
+  </div>`;
+}
+let exNotes = true;
+
+/* ============ STATE ============ */
+
+const KEY = "folioBuilder.v1";
+let S = {answers:{},notes:"",myFacts:[],starred:[],cards:[],practice:[],stats:{links:[0,0],spot:[0,0]},titles:[],titleFav:null,titleAns:{}};
+try{ const raw = localStorage.getItem(KEY); if(raw){ S = Object.assign(S, JSON.parse(raw)); } }catch(e){}
+let saveTimer=null;
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+  const el=document.getElementById("savedFlag");
+  if(el){ el.classList.add("show"); clearTimeout(saveTimer); saveTimer=setTimeout(()=>el.classList.remove("show"),1200); }
+}
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid = () => Math.random().toString(36).slice(2,9);
+const allFacts = () => FACTS.concat(S.myFacts.map(f=>({id:f.id,g:"mine",t:f.t,mine:true,src:f.src})));
+const factById = id => allFacts().find(f=>f.id===id);
+const techName = id => (TECHNIQUES.find(t=>t.id===id)||{}).n||id;
+
+/* ============ NAV ============ */
+
+const TABS = [
+  {id:"plan",ic:"🧭",n:"Ideas"},
+  {id:"facts",ic:"📚",n:"Evidence"},
+  {id:"build",ic:"🧱",n:"Build"},
+  {id:"skills",ic:"✍️",n:"Practise"},
+  {id:"example",ic:"⭐",n:"A-grade"},
+  {id:"pack",ic:"🖨️",n:"My pack"}
+];
+let tab = "plan", skillTab="openers", factFilter="all";
+function renderNav(){
+  document.getElementById("nav").innerHTML = TABS.map(t=>`<button class="${t.id===tab?'on':''}" onclick="go('${t.id}')"><span class="ic">${t.ic}</span>${t.n}</button>`).join("");
+}
+function go(t){ tab=t; render(); window.scrollTo(0,0); }
+
+/* ============ VIEWS ============ */
+
+function viewPlan(){
+  const done = BRAINSTORM.filter(b=>(S.answers[b.id]||"").trim()).length;
+  return `
+  <h2>Your ideas</h2>
+  <p class="sub">Answer these in your own words. Short notes are fine. This is thinking, not writing the essay.</p>
+  <div class="rule"><b>The rules:</b> the first draft has to be written in class, in your own words. This app never writes any of your essay. It asks questions, gives you sources, and lets you practise skills on <i>other</i> topics. Save the actual sentences for the day.</div>
+  <div class="card"><div class="row"><span class="score">${done} of ${BRAINSTORM.length} answered</span><span class="spacer"></span><span id="savedFlag" class="saved">Saved ✓</span></div>
+  <div class="meter"><i style="width:${Math.round(done/BRAINSTORM.length*100)}%"></i></div></div>
+  ${BRAINSTORM.map((b,i)=>`
+    <div class="card">
+      <p class="q">${i+1}. ${esc(b.q)}</p>
+      <p class="hint">${esc(b.h)}</p>
+      <textarea data-ans="${b.id}" placeholder="Your notes…">${esc(S.answers[b.id]||"")}</textarea>
+    </div>`).join("")}
+  <div class="card">
+    <p class="q">My own notes</p>
+    <p class="hint">Anything else you know from your own experience: what you've seen at games, who got picked up and who didn't, what coaches have said, late developers, players being dropped. Write it how you'd say it.</p>
+    <textarea data-notes style="min-height:140px" placeholder="Your notes…">${esc(S.notes)}</textarea>
+  </div>
+  <div class="row no-print"><button class="btn gold" onclick="go('facts')">Next: check your evidence →</button></div>`;
+}
+
+function viewFacts(){
+  const groups = [{id:"all",name:"All"},{id:"starred",name:"★ Starred"}].concat(FACT_GROUPS,[{id:"mine",name:"My own"}]);
+  let list = allFacts();
+  if(factFilter==="starred") list = list.filter(f=>S.starred.includes(f.id));
+  else if(factFilter!=="all") list = list.filter(f=>f.g===factFilter);
+  return `
+  <h2>Evidence bank</h2>
+  <p class="sub">Checked facts with sources. Tap ★ on the ones you might use. Read the original page for each before you rely on it, and put it in your own words.</p>
+  <div class="seg">${groups.map(g=>`<button class="${g.id===factFilter?'on':''}" onclick="factFilter='${g.id}';render()">${esc(g.name)}</button>`).join("")}</div>
+  ${list.length?list.map(f=>{
+    const src = f.mine ? (f.src?esc(f.src):"<i>No source added yet</i>") : `<a href="${SOURCES[f.s].u}" target="_blank" rel="noopener">${esc(SOURCES[f.s].t)}</a>`;
+    const grp = f.mine ? "My own" : FACT_GROUPS.find(g=>g.id===f.g).name;
+    return `<div class="card fact">
+      <button class="star ${S.starred.includes(f.id)?'on':''}" onclick="toggleStar('${f.id}')" aria-label="Star">★</button>
+      <div class="txt"><span class="tag grey">${esc(grp)}</span><div>${esc(f.t)}</div>
+      <div class="src">${src}</div>
+      ${f.flag?`<div class="flag">⚠ ${esc(f.flag)}</div>`:""}
+      ${f.mine?`<div class="row" style="margin-top:6px"><button class="btn ghost small" onclick="delFact('${f.id}')">Remove</button></div>`:""}
+      </div></div>`;}).join(""):`<div class="empty">Nothing here yet.</div>`}
+  <h3>Add your own fact</h3>
+  <div class="card">
+    <label for="nf">Fact or quote (from your own research or a person you asked)</label>
+    <textarea id="nf" placeholder="e.g. what your coach told you, a figure you found…"></textarea>
+    <label for="ns" style="margin-top:10px">Where it came from</label>
+    <input type="text" id="ns" placeholder="Website and link, or 'Conversation with my coach, Nov 2026'">
+    <div class="row" style="margin-top:10px"><button class="btn" onclick="addFact()">Add to my evidence</button></div>
+  </div>
+  <details><summary>Research only you can do</summary><div class="in"><ul class="tight">
+    <li>Ask your coach how often scouts come to games, and who from the area has been picked up.</li>
+    <li>Ask the Scottish FA South West development team how scouting covers the region: southwest@scottishfa.co.uk</li>
+    <li>Check on Google Maps how far it is from Lockerbie to Kilmarnock, Motherwell and Glasgow, by car and by bus or train.</li>
+  </ul><p class="hint">Write down who said what and when. Add it above with its source.</p></div></details>`;
+}
+
+function viewBuild(){
+  const cards = S.cards;
+  return `
+  <h2>Build your argument</h2>
+  <p class="sub">Make one card per idea, in your own words. Use the arrows to try different orders until it flows. Between each card, note how you'll get from one to the next.</p>
+  <div class="row" style="margin-bottom:12px"><span id="savedFlag" class="saved">Saved ✓</span><span class="spacer"></span><button class="btn gold" onclick="addCard()">＋ Add a card</button></div>
+  ${cards.length?cards.map((c,i)=>`
+    <div class="card pt">
+      <div class="row"><span class="num">CARD ${i+1}</span><span class="spacer"></span>
+        <button class="btn ghost small" onclick="moveCard(${i},-1)" ${i===0?'disabled':''} aria-label="Move up">↑</button>
+        <button class="btn ghost small" onclick="moveCard(${i},1)" ${i===cards.length-1?'disabled':''} aria-label="Move down">↓</button>
+        <button class="btn ghost small" onclick="delCard(${i})" aria-label="Delete">✕</button></div>
+      <label style="margin-top:8px">The idea, in one line</label>
+      <input type="text" data-card="${i}" data-f="point" value="${esc(c.point)}" placeholder="Your idea in a few words">
+      <label style="margin-top:10px">Why should the reader care?</label>
+      <textarea data-card="${i}" data-f="why" placeholder="Your notes…">${esc(c.why)}</textarea>
+      <label style="margin-top:10px">Evidence <span class="hint" style="font-weight:400">(from your starred facts)</span></label>
+      ${S.starred.length?`<div class="chips">${S.starred.map(fid=>{const f=factById(fid); if(!f) return ""; const on=c.evidence.includes(fid); return `<button class="chip ${on?'on':''}" onclick="toggleEv(${i},'${fid}')">${esc(f.t.slice(0,52))}${f.t.length>52?'…':''}</button>`;}).join("")}</div>`:`<p class="hint">Star some facts in Evidence first.</p>`}
+      <label style="margin-top:10px">Technique(s) you might use</label>
+      <div class="chips">${TECHNIQUES.map(t=>`<button class="chip ${c.tech.includes(t.id)?'on':''}" onclick="toggleTech(${i},'${t.id}')">${esc(t.n)}</button>`).join("")}</div>
+    </div>
+    ${i<cards.length-1?`<div class="linkbox"><label style="font-size:13.5px">↓ How does card ${i+1} lead into card ${i+2}?</label><textarea data-card="${i}" data-f="link" placeholder="e.g. adding a stronger point? turning to the other side? Note it in your words.">${esc(c.link)}</textarea></div>`:""}
+  `).join(""):`<div class="empty">No cards yet. Start with whatever idea feels strongest – you can reorder later.</div>`}
+  ${cards.length>=2?`
+  <h3>Check it like a marker</h3>
+  <div class="card">
+    <p class="hint">General questions for any persuasive essay. Answer them honestly – you decide what to change.</p>
+    <ul class="tight">
+      <li>Will the reader know which side you're on early?</li>
+      <li>Is there a card where you deal with what the other side would say?</li>
+      <li>Does each card move the argument on, or do two say the same thing?</li>
+      <li>Is your strongest evidence somewhere it will land hard?</li>
+      <li>Do the links show <i>why</i> one idea leads to the next, not just 'also'?</li>
+      <li>Does the end leave the reader with something to think or do?</li>
+    </ul>
+    <div class="row" style="margin-top:8px"><button class="btn" onclick="readThrough()">Read the flow out loud ▶</button></div>
+  </div>
+  <div id="flow"></div>`:""}
+  ${viewTitleWorkshop()}`;
+}
+
+function viewTitleWorkshop(){
+  return `
+  <h3 style="margin-top:26px">Your title</h3>
+  <p class="hint">A title isn't marked on its own, but it's the first thing the marker reads. It shows you're writing to persuade, not just to inform. Work through the questions, then try several titles and compare them. Many writers settle their title last, once a good phrase has turned up in the draft.</p>
+  <details><summary>Title styles (practice-topic examples)</summary><div class="in">
+    ${TITLE_TYPES.map(t=>`<p style="margin:0 0 6px"><b>${esc(t.n)}</b><br><span class="hint" style="font-style:italic">${esc(t.ex)}</span></p>`).join("")}
+  </div></details>
+  ${TITLE_QS.map((q,i)=>`<div class="card">
+    <p class="q">${i+1}. ${esc(q.q)}</p>
+    <p class="hint">${esc(q.h)}</p>
+    <textarea data-tans="${q.id}" style="min-height:52px" placeholder="Your thoughts…">${esc(S.titleAns[q.id]||"")}</textarea>
+  </div>`).join("")}
+  <div class="card">
+    <p class="q">Title ideas</p>
+    <p class="hint">Write as many as you can, including bad ones. Tap ★ on your favourite so far.</p>
+    ${S.titles.length?S.titles.map((t,i)=>`<div class="fact" style="margin:0 0 8px">
+      <button class="star ${S.titleFav===i?'on':''}" onclick="favTitle(${i})" aria-label="Favourite">★</button>
+      <div class="txt big" style="font-size:16px">${esc(t)}</div>
+      <button class="btn ghost small" onclick="delTitle(${i})" aria-label="Remove">✕</button></div>`).join(""):`<p class="hint">No titles yet.</p>`}
+    <div class="row" style="margin-top:8px"><input type="text" id="newTitle" placeholder="Try a title…" style="flex:1;min-width:180px" onkeydown="if(event.key==='Enter')addTitle()"><button class="btn" onclick="addTitle()">Add</button></div>
+    ${S.titles.length>=2?`<p class="hint" style="margin-top:10px">Compare your top two: which one would make your reader stop? Which one would your last line echo best?</p>`:""}
+  </div>`;
+}
+
+function viewSkills(){
+  const subs=[{id:"openers",n:"Openers"},{id:"links",n:"Moving on"},{id:"tech",n:"Persuasive techniques"},{id:"spot",n:"Spot it quiz"},{id:"timed",n:"Timed write"}];
+  let body="";
+  if(skillTab==="openers") body=viewOpeners();
+  if(skillTab==="links") body=viewLinks();
+  if(skillTab==="tech") body=viewTech();
+  if(skillTab==="spot") body=viewSpot();
+  if(skillTab==="timed") body=viewTimed();
+  return `<h2>Practise the skills</h2>
+  <p class="sub">Practice topics are close to yours: young people in rural Scotland missing out on sport. They use other sports and other areas, so the skills are yours on the day without pre-writing any of your folio.</p>
+  <div class="seg">${subs.map(s=>`<button class="${s.id===skillTab?'on':''}" onclick="skillTab='${s.id}';render()">${s.n}</button>`).join("")}</div>${body}`;
+}
+
+let opDrill=null, timerInt=null, timerLeft=0;
+function viewOpeners(){
+  return `
+  ${OPENERS.map(o=>`<details><summary>${esc(o.n)}</summary><div class="in">
+    <p style="margin:0 0 4px">${esc(o.d)}</p>
+    <div class="example">${esc(o.ex)}</div>
+    <p class="hint">Practice topic: ${esc(o.topic)}</p></div></details>`).join("")}
+  <h3>Opener drill</h3>
+  <div class="card">
+    ${opDrill?`
+      <span class="tag gold">${esc(opDrill.type.n)}</span>
+      <p class="big" style="margin:6px 0">${esc(opDrill.topic)}</p>
+      <p class="hint">Write an opening of 1–3 sentences in this style. You have 3 minutes.</p>
+      <div class="row"><span class="timer" id="tm">3:00</span><span class="spacer"></span><span class="hint" id="wc">0 words</span></div>
+      <textarea id="opText" style="min-height:110px" oninput="wc('opText','wc')" placeholder="Go…"></textarea>
+      <div id="opCheck" style="display:none">
+        <h3 style="margin-top:12px">Check your own opener</h3>
+        ${OPENER_CHECK.map((c,i)=>`<label style="font-weight:400;display:flex;gap:8px;align-items:flex-start"><input type="checkbox"> ${esc(c)}</label>`).join("")}
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" onclick="finishOpener()">Done – check it</button>
+        <button class="btn ghost" onclick="newOpener()">New one</button>
+      </div>`:`
+      <p style="margin:0 0 10px">You'll get a random topic and opener style, and 3 minutes to write it.</p>
+      <button class="btn gold" onclick="newOpener()">Start a drill</button>`}
+  </div>
+  ${S.practice.filter(p=>p.kind==="opener").length?`<details><summary>My practice openers (${S.practice.filter(p=>p.kind==="opener").length})</summary><div class="in">${S.practice.filter(p=>p.kind==="opener").slice().reverse().map(p=>`<div class="card"><span class="tag gold">${esc(p.type)}</span> <span class="hint">${esc(p.topic)}</span><div>${esc(p.text)}</div></div>`).join("")}</div></details>`:""}`;
+}
+function newOpener(){
+  stopTimer();
+  opDrill={type:OPENERS[Math.floor(Math.random()*OPENERS.length)],topic:PRACTICE_TOPICS[Math.floor(Math.random()*PRACTICE_TOPICS.length)]};
+  render(); startTimer(180,"tm",()=>finishOpener());
+  setTimeout(()=>{const t=document.getElementById("opText"); if(t) t.focus();},50);
+}
+function finishOpener(){
+  stopTimer();
+  const t=document.getElementById("opText"); if(!t) return;
+  if(t.value.trim()){ S.practice.push({kind:"opener",type:opDrill.type.n,topic:opDrill.topic,text:t.value.trim(),d:Date.now()}); save(); }
+  document.getElementById("opCheck").style.display="block";
+}
+
+let linkI=0, linkPicked=null;
+function viewLinks(){
+  const d=LINK_DRILL[linkI];
+  const [r,tot]=S.stats.links;
+  return `
+  <h3 style="margin-top:0">Linking phrases by job</h3>
+  <p class="hint">Pick the phrase for the job the sentence is doing. 'Also' and 'another point is' are the weakest links – a marker notices.</p>
+  ${LINKS.map(l=>`<details><summary>${esc(l.f)}</summary><div class="in"><div class="chips">${l.p.map(p=>`<span class="chip">${esc(p)}</span>`).join("")}</div></div></details>`).join("")}
+  <h3>Link drill <span class="hint" style="font-weight:400">${tot?`· ${r}/${tot} right so far`:""}</span></h3>
+  <div class="card">
+    <p class="hint">Which link joins these best?</p>
+    <p style="margin:0 0 6px"><b>1.</b> ${esc(d.a)}</p>
+    <p style="margin:0 0 12px"><b>2.</b> <span style="color:var(--muted)">[ ___ ]</span> ${esc(d.b.charAt(0).toLowerCase()+d.b.slice(1))}</p>
+    ${d.opts.map((o,i)=>{let cls=""; if(linkPicked!==null){ if(i===d.c) cls="right"; else if(i===linkPicked) cls="wrong"; } return `<button class="opt ${cls}" onclick="pickLink(${i})" ${linkPicked!==null?'disabled':''}>${esc(o)}</button>`;}).join("")}
+    ${linkPicked!==null?`<div class="fb ${linkPicked===d.c?'good':'bad'}">${linkPicked===d.c?'Right. ':'Not quite. '}${esc(d.why)}</div>
+      <div class="row" style="margin-top:10px"><button class="btn" onclick="nextLink()">Next →</button></div>`:""}
+  </div>`;
+}
+function pickLink(i){ linkPicked=i; S.stats.links[1]++; if(i===LINK_DRILL[linkI].c) S.stats.links[0]++; save(); render(); }
+function nextLink(){ linkI=(linkI+1)%LINK_DRILL.length; linkPicked=null; render(); }
+
+function viewTech(){
+  return `<p class="hint" style="margin-top:0">Examples use rural-sport practice topics. Facts in them are real. In your own piece, every figure must be real and sourced too – never make up evidence.</p>
+  ${TECHNIQUES.map(t=>`<details><summary>${esc(t.n)}</summary><div class="in"><p style="margin:0 0 4px">${esc(t.d)}</p><div class="example">${esc(t.ex)}</div></div></details>`).join("")}
+  <div class="card"><p class="q">Rule of thumb</p><p style="margin:0">One or two techniques per paragraph, chosen for a reason. A list of techniques bolted on sounds forced. The best persuasive writing uses evidence <i>and</i> feeling, and is fair to the other side before beating it.</p></div>`;
+}
+
+let spotOrder=null, spotI=0, spotPicked=null;
+function viewSpot(){
+  if(!spotOrder){ spotOrder=SPOT.map((_,i)=>i).sort(()=>Math.random()-.5); }
+  const item=SPOT[spotOrder[spotI]];
+  if(!item._opts){
+    const others=TECHNIQUES.filter(t=>t.id!==item.c).sort(()=>Math.random()-.5).slice(0,3).map(t=>t.id);
+    item._opts=[item.c].concat(others).sort(()=>Math.random()-.5);
+  }
+  const [r,tot]=S.stats.spot;
+  return `<div class="card">
+    <div class="row"><span class="hint">Question ${spotI+1} of ${SPOT.length}</span><span class="spacer"></span>${tot?`<span class="hint">${r}/${tot} right overall</span>`:""}</div>
+    <p class="big" style="margin:8px 0 12px">"${esc(item.s)}"</p>
+    <p class="hint">Which technique is this mainly using?</p>
+    ${item._opts.map(id=>{let cls=""; if(spotPicked!==null){ if(id===item.c) cls="right"; else if(id===spotPicked) cls="wrong"; } return `<button class="opt ${cls}" onclick="pickSpot('${id}')" ${spotPicked!==null?'disabled':''}>${esc(techName(id))}</button>`;}).join("")}
+    ${spotPicked!==null?`<div class="fb ${spotPicked===item.c?'good':'bad'}">${spotPicked===item.c?'Right.':'It\'s '+esc(techName(item.c))+'.'} ${esc(TECHNIQUES.find(t=>t.id===item.c).d)}</div>
+    <div class="row" style="margin-top:10px"><button class="btn" onclick="nextSpot()">Next →</button></div>`:""}
+  </div>`;
+}
+function pickSpot(id){ spotPicked=id; S.stats.spot[1]++; if(id===SPOT[spotOrder[spotI]].c) S.stats.spot[0]++; save(); render(); }
+function nextSpot(){ spotPicked=null; spotI++; if(spotI>=SPOT.length){ spotI=0; spotOrder=null; SPOT.forEach(s=>delete s._opts);} render(); }
+
+let timedTopic=null, timedMins=20;
+function viewTimed(){
+  return `<div class="card">
+    <p style="margin:0 0 8px">Practise getting words down at pace on a <b>practice topic</b>: opener, at least two linked paragraphs, one counter-argument. Use the Build habit – jot 3–4 card ideas first, then write.</p>
+    ${timedTopic?`
+      <p class="big" style="margin:6px 0">${esc(timedTopic)}</p>
+      <div class="row"><span class="timer" id="tt">${timedMins}:00</span><span class="spacer"></span><span class="hint" id="twc">0 words</span></div>
+      <textarea id="timedText" style="min-height:260px" oninput="wc('timedText','twc')" placeholder="Plan in 2 minutes, then write…"></textarea>
+      <div class="row" style="margin-top:10px"><button class="btn" onclick="finishTimed()">Stop and save</button><button class="btn ghost" onclick="timedTopic=null;stopTimer();render()">Cancel</button></div>
+      <div id="timedDone"></div>`:`
+      <label for="tmins">Time</label>
+      <select id="tmins" onchange="timedMins=+this.value"><option value="10">10 minutes</option><option value="20" selected>20 minutes</option><option value="40">40 minutes</option></select>
+      <div class="row" style="margin-top:10px"><button class="btn gold" onclick="startTimed()">Give me a topic</button></div>`}
+  </div>
+  <p class="hint">Your real folio limit is 1,300 words. More than 10% over brings a penalty.</p>`;
+}
+function startTimed(){ timedTopic=PRACTICE_TOPICS[Math.floor(Math.random()*PRACTICE_TOPICS.length)]; render(); startTimer(timedMins*60,"tt",()=>finishTimed()); }
+function finishTimed(){
+  stopTimer(); const t=document.getElementById("timedText"); if(!t) return;
+  const words=(t.value.trim().match(/\S+/g)||[]).length;
+  if(words){ S.practice.push({kind:"timed",topic:timedTopic,text:t.value.trim(),d:Date.now()}); save(); }
+  document.getElementById("timedDone").innerHTML=`<div class="fb good">Saved – ${words} words. Now reread it: is your side clear early? Did you use at least one counter-argument? Circle every 'also' and swap it for a stronger link.</div>`;
+}
+
+function viewPack(){
+  const ans=BRAINSTORM.filter(b=>(S.answers[b.id]||"").trim());
+  const starred=S.starred.map(factById).filter(Boolean);
+  const srcKeys=[...new Set(starred.filter(f=>!f.mine).map(f=>f.s))];
+  const mine=starred.filter(f=>f.mine);
+  return `
+  <div class="screen"><h2>My pack</h2>
+  <p class="sub">Everything you've written plus your starred facts and references, ready to print for the open-book session.</p>
+  <div class="rule"><b>Check first:</b> ask Mrs Tyler exactly what you can bring in – notes, a plan, a page limit. Print only what's allowed. Nothing here is pre-written essay text, and it shouldn't become that.</div>
+  <div class="row no-print" style="margin-bottom:14px"><button class="btn gold" onclick="window.print()">🖨️ Print / save as PDF</button><button class="btn ghost" onclick="exportData()">Back up my work</button><button class="btn ghost" onclick="importData()">Restore</button></div></div>
+  <div class="print-only"><h2>Folio notes</h2></div>
+
+  ${S.titles.length?`<div class="card"><h3 style="margin-top:0">Title ideas</h3>${S.titleFav!==null&&S.titles[S.titleFav]?`<p style="margin:0 0 6px"><b>★ ${esc(S.titles[S.titleFav])}</b></p>`:""}<p class="hint" style="margin:0">${S.titles.filter((_,i)=>i!==S.titleFav).map(esc).join(" · ")}</p></div>`:""}
+  <div class="card"><h3 style="margin-top:0">My idea cards (in order)</h3>
+  ${S.cards.length?S.cards.map((c,i)=>`<div style="margin:0 0 10px"><b>${i+1}. ${esc(c.point||"(no title)")}</b>
+    ${c.why?`<div>${esc(c.why)}</div>`:""}
+    ${c.evidence.length?`<div class="hint">Evidence: ${c.evidence.map(id=>{const f=factById(id); return f?esc(f.t.slice(0,70))+(f.t.length>70?"…":""):"";}).join(" · ")}</div>`:""}
+    ${c.tech.length?`<div class="hint">Techniques: ${c.tech.map(techName).join(", ")}</div>`:""}
+    ${c.link&&i<S.cards.length-1?`<div class="hint">↓ Link: ${esc(c.link)}</div>`:""}</div>`).join(""):`<p class="hint">No cards yet – use Build.</p>`}
+  </div>
+
+  <div class="card"><h3 style="margin-top:0">My thinking</h3>
+  ${ans.length?ans.map(b=>`<div style="margin:0 0 8px"><b>${esc(b.q)}</b><div>${esc(S.answers[b.id])}</div></div>`).join(""):`<p class="hint">Nothing yet – use Ideas.</p>`}
+  ${S.notes.trim()?`<div><b>My own notes</b><div style="white-space:pre-wrap">${esc(S.notes)}</div></div>`:""}
+  </div>
+
+  <div class="card"><h3 style="margin-top:0">Facts I might use</h3>
+  ${starred.length?`<ol style="padding-left:20px;margin:0">${starred.map(f=>`<li style="margin:0 0 6px">${esc(f.t)} <span class="hint">[${f.mine?esc(f.src||"own research"):esc(SOURCES[f.s].t.split(" (")[0].split(".")[0])}]</span></li>`).join("")}</ol>`:`<p class="hint">Star facts in Evidence.</p>`}
+  </div>
+
+  <div class="card"><h3 style="margin-top:0">References</h3>
+  ${srcKeys.length||mine.length?`<ol style="padding-left:20px;margin:0">${srcKeys.map(k=>`<li style="margin:0 0 6px">${esc(SOURCES[k].t)} ${esc(SOURCES[k].u)}</li>`).join("")}${mine.filter(f=>f.src).map(f=>`<li style="margin:0 0 6px">${esc(f.src)}</li>`).join("")}</ol>`:`<p class="hint">Your references appear here when you star facts.</p>`}
+  </div>
+
+  <div class="card"><h3 style="margin-top:0">Technique checklist</h3>
+  <p style="margin:0">${TECHNIQUES.map(t=>esc(t.n)).join(" · ")}</p></div>`;
+}
+
+/* ============ ACTIONS ============ */
+
+function toggleStar(id){ const i=S.starred.indexOf(id); if(i>-1) S.starred.splice(i,1); else S.starred.push(id); save(); render(); }
+function addFact(){
+  const t=document.getElementById("nf").value.trim(), s=document.getElementById("ns").value.trim();
+  if(!t) return;
+  const id="m"+uid(); S.myFacts.push({id,t,src:s}); S.starred.push(id); save(); factFilter="mine"; render();
+}
+function delFact(id){ if(!confirm("Remove this fact?")) return; S.myFacts=S.myFacts.filter(f=>f.id!==id); S.starred=S.starred.filter(x=>x!==id); S.cards.forEach(c=>c.evidence=c.evidence.filter(x=>x!==id)); save(); render(); }
+function addCard(){ S.cards.push({id:uid(),point:"",why:"",evidence:[],tech:[],link:""}); save(); render(); setTimeout(()=>{const els=document.querySelectorAll('input[data-f="point"]'); if(els.length) els[els.length-1].focus();},50); }
+function moveCard(i,d){ const j=i+d; if(j<0||j>=S.cards.length) return; [S.cards[i],S.cards[j]]=[S.cards[j],S.cards[i]]; save(); render(); }
+function delCard(i){ if(!confirm("Delete this card?")) return; S.cards.splice(i,1); save(); render(); }
+function toggleEv(i,fid){ const e=S.cards[i].evidence; const k=e.indexOf(fid); if(k>-1) e.splice(k,1); else e.push(fid); save(); render(); }
+function toggleTech(i,tid){ const e=S.cards[i].tech; const k=e.indexOf(tid); if(k>-1) e.splice(k,1); else e.push(tid); save(); render(); }
+function addTitle(){ const el=document.getElementById("newTitle"); const v=el.value.trim(); if(!v) return; S.titles.push(v); save(); render(); setTimeout(()=>{const n=document.getElementById("newTitle"); if(n){n.focus(); n.scrollIntoView({block:"center"});}},50); }
+function delTitle(i){ S.titles.splice(i,1); if(S.titleFav===i) S.titleFav=null; else if(S.titleFav>i) S.titleFav--; save(); render(); }
+function favTitle(i){ S.titleFav = S.titleFav===i?null:i; save(); render(); }
+function readThrough(){
+  const el=document.getElementById("flow");
+  el.innerHTML=`<div class="card"><p class="q">Your argument, start to finish</p>${S.cards.map((c,i)=>`<p style="margin:0 0 6px"><b>${i+1}.</b> ${esc(c.point||"(empty)")}</p>${c.link&&i<S.cards.length-1?`<p class="hint" style="margin:0 0 6px 16px">↓ ${esc(c.link)}</p>`:""}`).join("")}
+  <p class="hint" style="margin-top:10px">Say it out loud. Wherever you stumble or the link feels like 'and another thing', that's the join to rethink.</p></div>`;
+  el.scrollIntoView({behavior:"smooth"});
+}
+function wc(src,out){ const n=(document.getElementById(src).value.trim().match(/\S+/g)||[]).length; document.getElementById(out).textContent=n+" words"; }
+function startTimer(sec,elId,done){
+  stopTimer(); timerLeft=sec;
+  const tick=()=>{ const el=document.getElementById(elId); if(!el){stopTimer();return;} const m=Math.floor(timerLeft/60), s=timerLeft%60; el.textContent=m+":"+String(s).padStart(2,"0"); if(timerLeft<=0){ stopTimer(); el.textContent="Time!"; done&&done(); } timerLeft--; };
+  tick(); timerInt=setInterval(tick,1000);
+}
+function stopTimer(){ if(timerInt){clearInterval(timerInt); timerInt=null;} }
+function exportData(){
+  const blob=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="folio-builder-backup.json"; a.click();
+}
+function importData(){
+  const inp=document.createElement("input"); inp.type="file"; inp.accept=".json,application/json";
+  inp.onchange=()=>{ const f=inp.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(d&&typeof d==="object"&&d.answers){ S=Object.assign(S,d); save(); render(); alert("Restored."); } else alert("That file doesn't look like a Folio Builder backup."); }catch(e){ alert("Couldn't read that file."); } }; r.readAsText(f); };
+  inp.click();
+}
+
+/* ============ RENDER ============ */
+
+function render(){
+  if(tab!=="skills") stopTimer();
+  const v={plan:viewPlan,facts:viewFacts,build:viewBuild,skills:viewSkills,example:viewExample,pack:viewPack}[tab]();
+  document.getElementById("app").innerHTML=`<div id="view-${tab}">${v}</div>`;
+  renderNav();
+}
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.ans){ S.answers[t.dataset.ans]=t.value; save(); }
+  else if(t.hasAttribute("data-notes")){ S.notes=t.value; save(); }
+  else if(t.dataset.tans){ S.titleAns[t.dataset.tans]=t.value; save(); }
+  else if(t.dataset.card!==undefined && t.dataset.f){ const c=S.cards[+t.dataset.card]; if(c){ c[t.dataset.f]=t.value; save(); } }
+});
+render();
+</script>
+</body>
+</html>
